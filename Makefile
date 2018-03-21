@@ -1,5 +1,4 @@
 OUTPUT_NAME= ethereum-scalability
-LIST_NAME= listOfSections.tex
 PATH_OF_CONTENTS= res/sections
 MAIN_FILE= main
 CC= latexmk
