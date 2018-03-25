@@ -1,13 +1,36 @@
-
+\subsection{Overlay Network}
 The peer-to-peer network underlying Ethereum is maintained by means of the 
 RLPx and the devp2p-Wire protocols.
 The former is used for the exchange of packets between the peers and theirs
 discovery, while the latter makes it possible to participate to the 
 blockchain's consensus. Clearly, the former exploits the latter.
 
-\subsection{RLPx}
+\subsubsection{RLPx}
+According to its specification~\cite{}, the objective of RLPx is to
+provide ``protocol suite which 
+provides a general-purpose transport and interface for applications to
+communicate via a p2p network''.
+The RLPx node discovery is derived from the Kademlia protocol,
+a distributed hash table (DHT) based on the XOR-metric for 
+distance~\cite{bib:kademlia}.
+\todo{Describe kademlia with more details about xor...}
+% Description of the PROTOCOL functions
+This protocol is based on the four RPC functions \verb|PING|, \verb|FIND_NODE|,
+\verb|STORE| and \verb|FIND_VALUE| and their replies.
+In Kademlia \verb|STORE| and \verb|FIND_VALUE| are used to save a 
+$\langle key, value\rangle$ pair in the DHT and later retrieve it, respectively.
+Since these features are not needed for a pure node discovery, they
+are not implemented in RLPx.
+In RLPx there are only the \verb|PING| RPC, which is used to check whether a
+node is still on-line or not and the \verb|FIND_NODE(ID)| call that is used to
+retrieve the $k$ neighbors closest to the target \verb|ID|, known by the
+recipient of the message. In the RLPx specification we can find also 
+the \verb|PONG| and \verb|NEIGHBORS| instructions that are the reply messages
+for \verb|PING| and \verb|FIND_NODE|, respectively.
 
 
 
-\subsection{Devp2p-Wire}
+
+
+\subsubsection{Devp2p-Wire}
 
