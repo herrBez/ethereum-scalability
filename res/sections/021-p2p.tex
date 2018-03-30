@@ -13,11 +13,11 @@ communicate via a p2p network''.
 
 \paragraph{Node discovery}
 The RLPx node discovery is derived from the Kademlia protocol,
-a distributed hash table (DHT) system ~\cite{bib:kademlia} 
+a distributed hash table (DHT) system~\cite{bib:kademlia} 
 based on the XOR-metric for 
 distance, i.e. the distance between two keys $x$ and $y$ is given 
 by $x \otimes y$.
-In this system each node has an ID of 160-bit and maintains a
+In Kademlia each node has an ID of 160-bit and maintains a
 series of lists (one for each $i$ in $0 \leq i < 160$) of 
 $\langle \verb|IP-Address|, \verb|UDP-Port|, \verb|Node ID| \rangle$ triples.
 Each list contains contacts for nodes of distance between $2^i$ and $2^{i+1}$ 
@@ -27,7 +27,7 @@ Each list can contain at most $k$ elements and is therefore known as
 Each bucket is sorted by the time last
 seen: in the head we find the least-recently seen node and at the end the most
 recently ones.
-When a node $R$ receives a message from a sender $S$. $R$ checks if the
+When a node $R$ receives a message from a sender $S$, $R$ checks if the
 $k$-bucket corresponding to the sender's ID (SID) already contains SID.
 If it is the case SID is moved at the end of the list. Otherwise we should
 distinguish two cases depending on whether the k-bucket is full or not.
@@ -35,10 +35,13 @@ In the former case $R$ pings the head ($H$) of the $k$-bucket and if
 this responds, $S$ is discarded and $H$ is put at the end of the list,
 otherwise $H$ is evicted and SID is inserted at the end of the list.
 In the latter case the SID is simply inserted at the end of the list.
+The rationale to prefer already known contacts to the new ones discovered
+is due to the observation that the more a node has been on-line the more
+likely it is to remain up another hour~\cite{bib:kademlia}.
 
-\todo{Describe kademlia with more details about xor...}
 % Description of the PROTOCOL functions
-This protocol is based on the four RPC functions \verb|PING|, \verb|FIND_NODE|,
+The original Kademlia protocol is based on the four RPC functions 
+\verb|PING|, \verb|FIND_NODE|,
 \verb|STORE| and \verb|FIND_VALUE| and their replies.
 In Kademlia \verb|STORE| and \verb|FIND_VALUE| are used to save a 
 $\langle key, value\rangle$ pair in the DHT and later retrieve it, respectively.
@@ -51,8 +54,21 @@ recipient of the message. In the RLPx specification we can find also
 the \verb|PONG| and \verb|NEIGHBORS| instructions that are the reply messages
 for \verb|PING| and \verb|FIND_NODE|, respectively.
 
+In order to join the network a new node should generate a new key pair and
+know the address of at least one participant.
+In Ethereum this task is resolved by hard-coding the contact information
+of some \textit{bootstrap nodes} in the client's code.
+The aim of these nodes is to provide to new nodes, contact information to
+other regular nodes.
 
-
+RLPx uses its own URL scheme, \emph{enode}.
+In this scheme are specified the ID of the node encoded in hexadecimal format,
+the IP-Address and the TCP-Port of the node: 
+\begin{verbatim}
+enode://<hexadecimal-node-id>@<IP>:<TCP-Port>[?discport:<UDP-PORT>]
+\end{verbatim} 
+The \verb|discport| part is optional and is required only if the
+UDP port (discovery port) does not correspond to the TCP one.
 
 
 \subsubsection{Devp2p-Wire}
