@@ -76,7 +76,25 @@ enode://<hexadecimal-node-id>@<IP>:<TCP-Port>[?discport:<UDP-PORT>]
 \end{verbatim} 
 The \verb|discport| part is optional and is required only if the
 UDP port (discovery port) does not correspond to the TCP one.
-
+The default discovery UDP port is 30303.
 
 \subsubsection{Devp2p-Wire}
+This protocol exploits RLPx and have the four message types 
+\textbf{Hello}, \textbf{Disconnect}, \textbf{Ping} and \textbf{Pong}.
+The Hello message is used upon connection and upon receiving a hello message.
+The Hello message specifies the protocol version, the client's id,
+a string that uniquely identifies a client program, the capabilities and their
+version, the port on which the client listen and finally the ID of the node.
+The capabilities are the application level protocols supported by the sender
+of the Hello Message. At the moment of writing this essay only the protocols
+eth (Ethereum), bzz (Swarm) and shh (whisper) are used. In the following
+Section we will describe the Ethereum Wire Protocol, i.e. the application
+level protocol of Ethereum.
+The disconnect message notifies the receiver that the sender is going to
+disconnect itself. The disconnect message can specify optionally an
+integer that encodes a reason.
+For the complete reason codes we refer to the devp2p specification~\cite{}.
+The Ping and Pong message are used to check whether the counterpart is still
+on-line or not.
 
+\paragraph{Ethereum Wire Protocol}
