@@ -1,1 +1,19 @@
 \section{Architecture}
+
+Describing the Ethereum architecture, first we want to underly the component it
+is comprised of, and subsequently we want to outline the relations between them
+from a functional point of view.
+
+Ethereum is a peer-to-peer architecture, a decentralized architecture in which
+the nodes are logically equivalent and function as a \emph{servent} (i.e. a that
+node acts as a client and a sever at the same time). In this type of
+architecture, the nodes are formed by processes and the links represent the
+possible communication channels, that is, an \emph{overlay network}
+\cite{van2017distributed} which is discussed in \autoref{sec:overlay-network}.
+The peer-to-peer architectures support the \emph{horizontal distribution} for
+which each node operate on its own share of the complete data set, thus
+balancing the load. Ethereum implement it differently, infact each node read and
+write its own copy of the complete data set, but rather to achive consesus of
+the state instead of balancing the load.
+
+

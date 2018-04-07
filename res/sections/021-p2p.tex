@@ -1,8 +1,9 @@
 \subsection{Overlay Network}
-The peer-to-peer network underlying Ethereum is maintained by means of the 
+\label{sec:overlay-network}
+The peer-to-peer network underlying Ethereum is maintained by means of the
 RLPx and the devp2p-Wire protocols.
 The former is used for the exchange of packets between the peers and theirs
-discovery, while the latter makes it possible to participate to the 
+discovery, while the latter makes it possible to participate to the
 blockchain's consensus. Clearly, the former exploits the latter.
 
 \subsubsection{RLPx}
@@ -13,16 +14,16 @@ communicate via a p2p network''.
 
 \paragraph{Node discovery}
 The RLPx node discovery is derived from the Kademlia protocol,
-a distributed hash table (DHT) system~\cite{bib:kademlia} 
-based on the XOR-metric for 
-distance, i.e. the distance between two keys $x$ and $y$ is given 
+a distributed hash table (DHT) system~\cite{bib:kademlia}
+based on the XOR-metric for
+distance, i.e. the distance between two keys $x$ and $y$ is given
 by $x \otimes y$.
 In Kademlia each node has an ID of 160-bit and maintains a
-series of lists (one for each $i$ in $0 \leq i < 160$) of 
+series of lists (one for each $i$ in $0 \leq i < 160$) of
 $\langle \verb|IP-Address|, \verb|UDP-Port|, \verb|Node ID| \rangle$ triples.
-Each list contains contacts for nodes of distance between $2^i$ and $2^{i+1}$ 
+Each list contains contacts for nodes of distance between $2^i$ and $2^{i+1}$
 from the node's ID.
-Each list can contain at most $k$ elements and is therefore known as 
+Each list can contain at most $k$ elements and is therefore known as
 \textit{$k$-bucket}.
 Each bucket is sorted by the time last
 seen: in the head we find the least-recently seen node and at the end the most
@@ -40,26 +41,26 @@ is due to the observation that the more a node has been on-line the more
 likely it is to remain up another hour~\cite{bib:kademlia}.
 
 % Description of the PROTOCOL's functions
-The original Kademlia protocol is based on the four RPC functions 
+The original Kademlia protocol is based on the four RPC functions
 \verb|PING|, \verb|FIND_NODE|,
 \verb|STORE| and \verb|FIND_VALUE| and their replies.
-In Kademlia \verb|STORE| and \verb|FIND_VALUE| are used to save a 
+In Kademlia \verb|STORE| and \verb|FIND_VALUE| are used to save a
 $\langle key, value\rangle$ pair in the DHT and later retrieve it, respectively.
 Since these features are not needed for a pure node discovery, they
 are not implemented in RLPx.
 In RLPx there are only the \verb|PING| RPC, which is used to check whether a
 node is still on-line or not and the \verb|FIND_NODE(ID)| call that is used to
 retrieve the $k$ neighbors closest to the target \verb|ID|, known by the
-recipient of the message. In the RLPx specification we can find also 
+recipient of the message. In the RLPx specification we can find also
 the \verb|PONG| and \verb|NEIGHBORS| instructions that are the reply messages
 for \verb|PING| and \verb|FIND_NODE|, respectively.
 Apart from the missing functions RLPx has other important differences
 from Kademlia:
-the IDs are $512$ bit long, the XOR distance metric is done on the sha3 
-(Keccak-256) of the IDs (that is $256$ bit long) and not on the IDs and 
+the IDs are $512$ bit long, the XOR distance metric is done on the sha3
+(Keccak-256) of the IDs (that is $256$ bit long) and not on the IDs and
 finally the packets are signed.
 
-In order to join the network for the first time a new node should 
+In order to join the network for the first time a new node should
 generate a new key pair
 \footnote{The public key is the ID and the private key is used to sign the packets}, and
 know the address of at least one participant.
@@ -70,16 +71,16 @@ other regular nodes that are already participating in the network.
 
 RLPx uses its own URL scheme, \emph{enode}.
 In this scheme are specified the ID of the node encoded in hexadecimal format,
-the IP-Address and the TCP-Port of the node: 
+the IP-Address and the TCP-Port of the node:
 \begin{verbatim}
 enode://<hexadecimal-node-id>@<IP>:<TCP-Port>[?discport:<UDP-PORT>]
-\end{verbatim} 
+\end{verbatim}
 The \verb|discport| part is optional and is required only if the
 UDP port (discovery port) does not correspond to the TCP one.
 The default discovery UDP port is 30303.
 
 \subsubsection{Devp2p-Wire}
-This protocol exploits RLPx and have the four message types 
+This protocol exploits RLPx and have the four message types
 \textbf{Hello}, \textbf{Disconnect}, \textbf{Ping} and \textbf{Pong}.
 The Hello message is used upon connection and upon receiving a hello message.
 The Hello message specifies the protocol version, the client's id,
