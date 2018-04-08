@@ -1,0 +1,29 @@
+\subsection{State}
+
+We can distinguish two different states in the Ethereum system:
+
+\begin{itemize}
+  \item the \textbf{World State}, referred simply as the \emph{state}, which is
+  a mapping between account addresses and account states (i.e. the blockchain)
+  \item the \textbf{Machine State}, the state of an Ethereum Virtual Machine
+  (EVM) (see ??)
+\end{itemize}
+
+\subsubsection{Accounts}
+
+There are two types of accounts:
+
+\begin{itemize}
+  \item the \textbf{non-contract account}
+  \item the \textbf{contract account}, which has EVM Code associated with it and
+  is controlled by its contract code
+\end{itemize}
+
+A \emph{non-contract account} has no EVM Code associated with it and is
+controlled by a private key. This type of account can send a message to another
+non-contract account, that is a value transfer, or to a contract account in
+order to trigger the execution of code.
+
+A \emph{contract account} has EVM Code associated with it and is controlled by
+it. This type of account cannot send messages on its own, but can only create
+transactions as a response to a trigger.
