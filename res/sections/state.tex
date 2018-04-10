@@ -11,19 +11,27 @@ We can distinguish two different states in the Ethereum system:
 
 \subsubsection{Accounts}
 
+The accounts are also called the \emph{state objects} and are essential for the
+user to interact with the Ethereum blockchain via transactions.
+
 There are two types of accounts:
 
 \begin{itemize}
-  \item the \textbf{non-contract account}
-  \item the \textbf{contract account}, which has EVM Code associated with it and
-  is controlled by its contract code
+  \item the \textbf{non-contract account} (referred to as \emph{account})
+  \item the \textbf{contract account} (referred to as \emph{contract}), which
+  has EVM Code associated with it and is controlled by its contract code
 \end{itemize}
 
 A \emph{non-contract account} has no EVM Code associated with it and is
 controlled by a private key. This type of account can send a message to another
 non-contract account, that is a value transfer, or to a contract account in
-order to trigger the execution of code.
+order to trigger the execution of code. The state of an account is its balance.
 
 A \emph{contract account} has EVM Code associated with it and is controlled by
-it. This type of account cannot send messages on its own, but can only create
-transactions as a response to a trigger.
+it. This type of account cannot send messages on its own, but can only initiate
+transactions as a response to a trigger. The state of a contract is its balance
+and its contract storage. A contract code is executed by the EVM, can manipulate
+its own persistent storage and can send internal transactions (i.e. call
+message) to other contracts.
+
+
