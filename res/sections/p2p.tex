@@ -1,16 +1,19 @@
 \subsection{Overlay Network}
 \label{sec:overlay-network}
-The peer-to-peer network underlying Ethereum is maintained by means of the
-RLPx and the devp2p-Wire protocols.
-The former is used for the exchange of packets between the peers and theirs
-discovery, while the latter makes it possible to participate to the
-blockchain's consensus. Clearly, the former exploits the latter.
+The peer-to-peer network underlying Ethereum is maintained by means of an
+overlay network known as devp2p. The devp2p network is based on the
+RLPx node discovery protocol and the devp2p-Wire protocols.
+The former is used to keep up-to-date contacts about
+the nodes of the network and at the same time to guarantee logarithmic time
+spread of the blockchain information,
+while the latter makes it possible to participate to the
+blockchain's consensus.
 
 \subsubsection{RLPx}
-According to its specification~\cite{}, the objective of RLPx is to
-provide ``protocol suite which
-provides a general-purpose transport and interface for applications to
-communicate via a p2p network''.
+According to its specification~\cite{bib:rlpx:spec}, the objective of RLPx is to
+provide general-purpose encrypted p2p protocol, that enables multiple
+application-level protocols over a single connection.
+The main objective of RLPx is the node discovery.
 
 \paragraph{Node discovery}
 The RLPx node discovery is derived from the Kademlia protocol,
@@ -18,7 +21,7 @@ a distributed hash table (DHT) system~\cite{bib:kademlia}
 based on the XOR-metric for
 distance, i.e. the distance between two keys $x$ and $y$ is given
 by $x \otimes y$.
-In Kademlia each node has an ID of 160-bit and maintains a
+In Kademlia each node has a (unique) ID of 160-bit and maintains a
 series of lists (one for each $i$ in $0 \leq i < 160$) of
 $\langle \verb|IP-Address|, \verb|UDP-Port|, \verb|Node ID| \rangle$ triples.
 Each list contains contacts for nodes of distance between $2^i$ and $2^{i+1}$
@@ -58,7 +61,7 @@ Apart from the missing functions RLPx has other important differences
 from Kademlia:
 the IDs are $512$ bit long, the XOR distance metric is done on the sha3
 (Keccak-256) of the IDs (that is $256$ bit long) and not on the IDs and
-finally the packets are signed.
+finally the packets are signed and the public key corresponds to the ID.
 
 In order to join the network for the first time a new node should
 generate a new key pair
@@ -79,7 +82,12 @@ The \verb|discport| part is optional and is required only if the
 UDP port (discovery port) does not correspond to the TCP one.
 The default discovery UDP port is 30303.
 
+
+
+
+
 \subsubsection{Devp2p-Wire}
+
 This protocol exploits RLPx and have the four message types
 \textbf{Hello}, \textbf{Disconnect}, \textbf{Ping} and \textbf{Pong}.
 The Hello message is used upon connection and upon receiving a hello message.
