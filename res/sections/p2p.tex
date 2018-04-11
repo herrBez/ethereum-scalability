@@ -13,7 +13,9 @@ blockchain's consensus.
 According to its specification~\cite{bib:rlpx:spec}, the objective of RLPx is to
 provide general-purpose encrypted p2p protocol, that enables multiple
 application-level protocols over a single connection.
-The main objective of RLPx is the node discovery.
+The main objective of RLPx is the UDP node discovery and the maintenance of a 
+routing table for each peer. Secondly this protocol provides also the primitives
+for the devp2p protocol.
 
 \paragraph{Node discovery}
 The RLPx node discovery is derived from the Kademlia protocol,
@@ -83,10 +85,19 @@ UDP port (discovery port) does not correspond to the TCP one.
 The default discovery UDP port is 30303.
 
 
+\paragraph{Handshake}
+Before establishing a connections the peers should perform a two-phase
+handshake: in the first phase the peers exchange a cryptographic
+secret, i.e. a set of tokens and codes used to authenticate and encrypt
+the messages between them~\footnote{It is beyond the scope of this report to
+describe the exact procedure. For further details we refer to the official
+documentation~\cite{} and to the go ethereum implementation~\path{}.}.
+This secret is valid until no subsequent connection between them fails. 
+In the second phase the two peers exchange their capabilities, i.e. which
+devp2p-wire subprotocols they support.
 
 
-
-\subsubsection{Devp2p-Wire}
+\subsubsection{Devp2p-Wire Protocol}
 
 This protocol exploits RLPx and have the four message types
 \textbf{Hello}, \textbf{Disconnect}, \textbf{Ping} and \textbf{Pong}.
@@ -107,3 +118,19 @@ The Ping and Pong message are used to check whether the counterpart is still
 on-line or not.
 
 \paragraph{Ethereum Wire Protocol}
+The Ethereum wire protocol (\textit{eth}) is used to spread the information
+about the blockchain and for the synchronization. 
+This protocol comprises a series of message types. 
+
+\subparagraph{Ethereum Wire Protocol Handshake}
+
+On this layer the first message that must be exchanged between two peers
+is the \textbf{Status Message}. This kind of message is used to exchange
+the protocol version, the network IDs, the total difficulty of the
+heaviest chain known, the Best hash, the hash of the best known block and the
+finally the genesis block's hash. 
+If the network id and/or the genesis id are different
+it means that the peers are considering two different blockchains and
+should drop the connection. The handshake does not succeed also if the
+protocol versions differs.
+
