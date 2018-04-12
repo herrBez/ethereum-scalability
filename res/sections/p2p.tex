@@ -161,6 +161,26 @@ replies with the bodies (i.e. the transactions and the uncles) of
 the required block(s).
 Finally the \textbf{NewBlock} spreads a single new block.
 
-\subparagraph{Version 63}
+\subparagraph{Version 63 - Fast synchronization}
+From version v. x of geth it is possible to perform a fast synchronization.
+This synchronization type does not require that a node performs \emph{all} the
+computations happened during the history (i.e. the whole EVM instructions).
+Indeed the synchronizer downloads along the blockchain the transaction receipts,
+i.e. useful information about the execution of the transaction.
+This allows the synchronizer to deal only with the verification of the
+proof-of-work. At least in geth this synchronization is possible only by the
+first synchronization for security 
+reasons~\footnote{\url{https://github.com/ethereum/go-ethereum/pull/1889}}.
+After the synchronizer reaches a \textit{pivot point} ($head - 1024$) it
+retrieves the whole current state and afterwards processes the blockchain
+normally.
+To perform this synchronization the clients dispose have available 
+the \textbf{GetReceipts} and \textbf{Receipts} messages, which are the
+request for the receipts given the hash and the replies, respectively.
+Besides these there are also the \textbf{GetNodeData} and
+\textbf{NodeData} message types which provides the mean to exchange
+\todo{Add what is a node data. It is not clear in the specification}.
+
+
 
 
