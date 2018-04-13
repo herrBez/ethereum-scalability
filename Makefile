@@ -13,6 +13,5 @@ compile:
 	$(CC) $(CCFLAGS) $(JOB_NAME); \
 
 clean:
-	git clean -Xfd
 	$(CC) -C $(JOB_NAME)
 	if [[ -a "$(OUTPUT_NAME)" ]]; then rm -rv $(OUTPUT_NAME)/; fi;
