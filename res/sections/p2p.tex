@@ -15,7 +15,9 @@ provide general-purpose encrypted p2p protocol, that enables multiple
 application-level protocols over a single connection.
 The main objective of RLPx is the UDP node discovery and the maintenance of a
 routing table for each peer. Secondly this protocol provides also the primitives
-for the devp2p protocol.
+for the devp2p protocol. The payload of the packets is encoded with the
+Recursive Length Prefix Protocol
+(\textbf{RLP})~\cite{wood2018ethereum,bib:ethereumrlpspec}.
 
 \paragraph{Node discovery}
 The RLPx node discovery is derived from the Kademlia protocol,
