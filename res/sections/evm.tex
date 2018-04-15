@@ -1,0 +1,20 @@
+\subsection{Ethereum Virtual Machine}
+The Ethereum Virtual Machine (\textbf{EVM}) is an abstract computing machine
+that enables the nodes of the Ethereum network to execute smart-contract
+codes.
+The EVM's specification and the description of all the byte-code instructions
+are contained in the yellow paper~\cite{wood2018ethereum}. 
+Like the JVM, the EVM is a stack-based machine. 
+The word size and the stack item size are $256$--bit\footnote{The motivation
+for this choice is to facilitate the Keccak-256 hash scheme and elliptic
+curve computation that are pervasive in Ethereum.},
+and the stack capacity is $1024$.
+The EVM memory consists of a simple byte array and exists only during the
+execution. The storage is a key value hash table that is persistent and is
+part of the state of the contract account. The program is stored on the
+blockchain and can therefore not be modified\footnote{There exists
+techniques to provide new version updates as explained
+here:
+\url{https://ethereum.stackexchange.com/questions/2404/upgradeable-smart-contracts}}.
+
+
