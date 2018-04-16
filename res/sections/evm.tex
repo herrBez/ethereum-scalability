@@ -3,18 +3,54 @@ The Ethereum Virtual Machine (\textbf{EVM}) is an abstract computing machine
 that enables the nodes of the Ethereum network to execute smart-contract
 codes.
 The EVM's specification and the description of all the byte-code instructions
-are contained in the yellow paper~\cite{wood2018ethereum}. 
-Like the JVM, the EVM is a stack-based machine. 
+are contained in the yellow paper~\cite{wood2018ethereum}.
+Like the JVM, the EVM is a stack-based machine.
 The word size and the stack item size are $256$--bit\footnote{The motivation
 for this choice is to facilitate the Keccak-256 hash scheme and elliptic
 curve computation that are pervasive in Ethereum.},
 and the stack capacity is $1024$.
 The EVM memory consists of a simple byte array and exists only during the
-execution. The storage is a key value hash table that is persistent and is
+execution. The size of this array is allocated using an on-demand logic.
+The storage is a key value hash table that is persistent and is
 part of the state of the contract account. The program is stored on the
-blockchain and can therefore not be modified\footnote{There exists
+blockchain and can therefore not be modified\footnote{There exist
 techniques to provide new version updates as explained
 here:
 \url{https://ethereum.stackexchange.com/questions/2404/upgradeable-smart-contracts}}.
+In addition to the aforementioned structures the EVM has at its
+disposal an input field, which is provided by the initiator of the execution
+(e.g. the transaction that starts the execution). The EVM is depicted
+in Figure \ref{fig:evm}.
+
+Unlike the bitcoin \textit{Script} language~\cite{bib:masteringbitcoin} the
+Ethereum Virtual Machine can express and supports the execution of loops.
+To avoid the abuse of the resources (CPU and storage) of the full nodes
+forming the network, Ethereum introduces the concept of
+\textbf{gas}~\cite{wood2018ethereum}. In this
+execution model each instruction and increase in the size of the memory or
+storage are bound to a cost expressed in gas. The price of a gas unit
+is known as \textbf{gas price} and is bound to a particular execution.
+Indeed this price is specified in the transaction or in the message call
+which originates the execution. The higher this price the higher the
+possibility that the  transaction will be included in the blockchain.
+Usually the miners advertise the minimum gas price they are willing to accept.
+Another important concept specified in the transaction is the
+\textbf{gas limit}, i.e. the maximum gas amount the executor is willing to
+consume for this particular execution.
+
+Thanks to this brief introduction we can already understand some crucial
+mechanisms involved in Ethereum and their motivation:
+\begin{itemize}
+	\item A transaction is not valid if the originator of a transaction have
+	a balance lower than \verb|gas_price * gas_limit| \verb|+|
+	\verb|transaction_value|:
+	it means that it cannot afford the execution. In fact this value is
+	deducted upfront and later the remaining gas are refund.
+	\item If during the execution the gas limit is exceeded an Exception
+	(\textbf{Out of gas exception}) is raised, and the funds are not returned,
+	because the execution already took place.
+\end{itemize}
+
+
 
 
