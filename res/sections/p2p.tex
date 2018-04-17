@@ -15,16 +15,19 @@ The RLPx protocol suite's objectives are manifold.
 On the one hand it allows the maintenance of the peer to peer network
 and a routing table for each peer through an UDP\footnote{All communications
 except those for the node discovery use TCP messages.} node discovery
-protocol. For security reasons the messages between the peers should be
+protocol.
+On the other hand it provides a transport layer for the devp2p wire protocols
+(Section \ref{sec:devp2p-wire-protocol}) to send their messages.
+For security reasons the messages between the peers should be
 authenticated and encrypted. Therefore RLPx provides a first handshake,
 in which the peers exchange a cryptographic
 secret, i.e. a set of tokens used to authenticate and encrypt the messages
-between them~\footnote{It is beyond the scope of this report to
-describe the exact procedure. For further details we refer to the official
-documentation~\cite{} and to the go ethereum implementation~\path{}.}.
+between them\footnote{It is beyond the scope of this report to
+	describe the exact procedure. For further details we refer to the official
+	documentation~\cite{} and to the go ethereum implementation~\path{}.}.
 This secret is valid until no subsequent connection between them fails.
-On the other hand it is exploited by devp2p wire protocols (section
-\ref{sec:devp2p-wire-protocol}) to send their messages.
+
+
 
 
 \paragraph{Node discovery}
