@@ -2,25 +2,39 @@
 The Ethereum Virtual Machine (\textbf{EVM}) is an abstract computing machine
 that enables the nodes of the Ethereum network to execute smart-contract
 codes.
-The EVM's specification and the description of all the byte-code instructions
-are contained in the yellow paper~\cite{wood2018ethereum}.
-Like the JVM, the EVM is a stack-based machine.
-The word size and the stack item size are $256$--bit\footnote{The motivation
+
+Figure~\ref{fig:evm} shows the components of the Ethereum Virtual Machine
+and some representative instructions that permits the transfer of data
+from one component to another.
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=\textwidth]
+        {./res/img/architecture/evm/EVM.png}
+	\end{center}
+	\caption{Overview of the Ethereum Virtual Machine}
+	\label{fig:evm}
+\end{figure}
+Like the JVM, the EVM is a stack-based machine. In this system the word size
+and the stack item size are both $256$--bit\footnote{The motivation
 for this choice is to facilitate the Keccak-256 hash scheme and elliptic
 curve computation that are pervasive in Ethereum.},
 and the stack capacity is $1024$.
 The EVM memory consists of a simple byte array and exists only during the
 execution. The size of this array is allocated using an on-demand logic.
-The storage is a key value hash table that is persistent and is
-part of the state of the contract account. The program is stored on the
-blockchain and can therefore not be modified\footnote{There exist
-techniques to provide new version updates as explained
+The storage is a key value hash table (stored as a merkle trie) that is
+persistent and is part of the state of the contract account.
+The program is stored on the blockchain and can therefore not
+be modified\footnote{There exist
+techniques to provide new smart-contract version updates as explained
 here:
 \url{https://ethereum.stackexchange.com/questions/2404/upgradeable-smart-contracts}}.
-In addition to the aforementioned structures the EVM has at its
-disposal an input field, which is provided by the initiator of the execution
-(e.g. the transaction that starts the execution). The EVM is depicted
-in Figure \ref{fig:evm}.
+In addition to the aforementioned structures the EVM can read the information
+provided in the transaction/message that initiated the execution. In particular
+the EVM can access the input field, which contains the arguments for a peculiar
+execution.
+For a full instruction list and specification of the EVM
+we refer to the official specification~\cite{wood2018ethereum}.
+
 
 Unlike the bitcoin \textit{Script} language~\cite{bib:masteringbitcoin} the
 Ethereum Virtual Machine can express and supports the execution of loops.
@@ -52,5 +66,7 @@ mechanisms involved in Ethereum and their motivation:
 \end{itemize}
 
 
-
-
+The \textbf{machine state} represent the current configuration of the
+Ethereum Virtual Machine interpreter.
+It consists of the remaining gas, the program counter, the memory and the
+stack.
