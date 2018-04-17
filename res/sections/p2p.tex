@@ -18,14 +18,21 @@ except those for the node discovery use TCP messages.} node discovery
 protocol.
 On the other hand it provides a transport layer for the devp2p wire protocols
 (Section \ref{sec:devp2p-wire-protocol}) to send their messages.
-For security reasons the messages between the peers should be
+For security reasons these messages between the peers should be
 authenticated and encrypted. Therefore RLPx provides a first handshake,
 in which the peers exchange a cryptographic
-secret, i.e. a set of tokens used to authenticate and encrypt the messages
+secret, i.e. a set of tokens used to encrypt the messages
 between them\footnote{It is beyond the scope of this report to
 	describe the exact procedure. For further details we refer to the official
 	documentation~\cite{} and to the go ethereum implementation~\path{}.}.
 This secret is valid until no subsequent connection between them fails.
+The RLPx protocol suite takes its name by the union of \textbf{RLP} and
+\textbf{extended}. The Recursive Length
+Protocol~\cite{wood2018ethereum,bib:ethereumrlpspec} is
+the serialization algorithm used in Ethereum to both marshal the content of
+the RLPx messages to send over the wire and to store information locally.
+Details about how does it work are reported in appendix~\ref{sec:appendix:RLP}. 
+
 
 
 
