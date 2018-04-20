@@ -1,0 +1,35 @@
+\subsection{Transaction Execution}
+The transaction execution is the mechanism through which the world state is
+updated. It represents a transition from one
+valid state to another valid state. Before executing a transaction it
+has to pass some simple validity checks, e.g.\ the transaction should be a
+well-formed RLP encoded string and should have a balance big enough to afford
+the transaction.
+Moreover, since a transaction should be included in a block and the block
+has in turn its own gas limit, it should be also true that the sum 
+of the accumulated gas used by the already included transactions and the gas
+limit of this transaction are smaller than the block's gas limit.
+
+Before performing any operation the nonce of the 
+account that starts the execution is incremented by one and its balance is
+reduced by the product of the gas limit and the gas price. This modification
+is irreversible.
+After this first state modification we should  make a distinction between
+contract creations and message calls, depending on whether the receiver is
+empty or not.
+During the execution of the transaction the executor keeps track of the
+\textbf{transaction substate}, i.e.\ some important information that
+are later used to complete the transaction execution.
+The transaction substate includes the \textbf{touched accounts}, the set of
+accounts that will be discarded following the completion (\textbf{self-destruct
+set}) and more notably the
+\textbf{refund balance}, that corresponds
+to the difference between the allocated gas amount and the effectively used
+gas augmented with the gas returned for removing elements from the world
+state. After the completion of the transaction this amount is returned to the
+initiator of the transaction at the transaction's gas price.
+The gas used is given to the beneficiary address (i.e. the miner), who builds 
+and finalize the block.
+
+To reach the final state it is necessary to delete the self destruct state and
+the touch state that becomes empty or dead.
