@@ -110,9 +110,9 @@ The default discovery UDP port is 30303.
 \label{sec:devp2p-wire-protocol}
 This protocol exploits RLPx and have the four message types
 \textbf{Hello}, \textbf{Disconnect}, \textbf{Ping} and \textbf{Pong}.
-The Hello (Handshake)message is used upon connection and upon receiving a
-Hello message.
-The Hello message specifies the protocol version, the client's id,
+The Hello (Handshake) message is used upon connection and upon receiving a
+message of this kind.
+This message specifies the protocol version, the client's id,
 a string that uniquely identifies a client program, the capabilities and their
 version, the port on which the client listen and finally the ID of the node.
 The capabilities are the application level protocols supported by the sender
@@ -170,7 +170,7 @@ peers have the \textbf{GetBlockBodies} and \textbf{Blockbodies} messages.
 The requester specifies the hashes of the blocks it wants and the recipient
 replies with the bodies (i.e. the transactions and the uncles) of
 the required block(s).
-Finally the \textbf{NewBlock} spreads a single new block.
+Finally, the \textbf{NewBlock} message spreads a single new block.
 
 \subparagraph{Version 63 - Fast synchronization}
 From version v. x of geth it is possible to perform a fast synchronization.
