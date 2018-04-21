@@ -26,7 +26,7 @@ store the mapping between account state and account address
 
 A Merkle Patricia tree is a data structure which derives from a radix tree
 reducing the space complexity \cite{patriciatree}. It has a single root, each
-node is the hash of its children and the leafs are the actual data, that is the
+node is the hash of its children and the leaves are the actual data, that is the
 accounts states, which in turn include the \verb+storageRoot+, a hash of another
 Merkle Patricia tree representing the storage contents of the account state.
 
