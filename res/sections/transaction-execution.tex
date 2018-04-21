@@ -15,11 +15,11 @@ account that starts the execution is incremented by one and its balance is
 reduced by the product of the gas limit and the gas price. This modification
 is irreversible.
 After this first state modification we should  make a distinction between
-contract creations and message calls, depending on whether the receiver is
-empty or not.
+contract creations and message calls, depending on whether the receiver
+address is given or not.
 During the execution of the transaction the executor keeps track of the
 \textbf{transaction substate}, i.e.\ some important information that
-are later used to complete the transaction execution.
+are later used to complete the state transition.
 The transaction substate includes the \textbf{touched accounts}, the set of
 accounts that will be discarded following the completion (\textbf{self-destruct
 set}) and more notably the
@@ -32,4 +32,4 @@ The gas used is given to the beneficiary address (i.e. the miner), who builds
 and finalize the block.
 
 To reach the final state it is necessary to delete the self destruct state and
-the touch state that becomes empty or dead.
+the touched accounts that becomes empty or dead after the transaction.
