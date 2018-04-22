@@ -1,35 +1,51 @@
 \subsection{Transaction Execution}
 The transaction execution is the mechanism through which the world state is
 updated. It represents a transition from one
-valid state to another valid state. Before executing a transaction it
-has to pass some simple validity checks, e.g.\ the transaction should be a
-well-formed RLP encoded string and should have a balance big enough to afford
-the transaction.
-Moreover, since a transaction should be included in a block and the block
-has in turn its own gas limit, it should be also true that the sum 
-of the accumulated gas used by the already included transactions and the gas
-limit of this transaction are smaller than the block's gas limit.
+valid state to another valid state.
 
-Before performing any operation the nonce of the 
-account that starts the execution is incremented by one and its balance is
-reduced by the product of the gas limit and the gas price. This modification
-is irreversible.
-After this first state modification we should  make a distinction between
-contract creations and message calls, depending on whether the receiver is
-empty or not.
-During the execution of the transaction the executor keeps track of the
-\textbf{transaction substate}, i.e.\ some important information that
-are later used to complete the transaction execution.
-The transaction substate includes the \textbf{touched accounts}, the set of
-accounts that will be discarded following the completion (\textbf{self-destruct
-set}) and more notably the
-\textbf{refund balance}, that corresponds
-to the difference between the allocated gas amount and the effectively used
-gas augmented with the gas returned for removing elements from the world
-state. After the completion of the transaction this amount is returned to the
-initiator of the transaction at the transaction's gas price.
-The gas used is given to the beneficiary address (i.e. the miner), who builds 
-and finalize the block.
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.5]{./res/img/tx-execution-algorithm.png}
+	\end{center}
+	\caption{The steps of the transaction execution algorithm.}
+	\label{fig:tx:execution}
+\end{figure}
 
-To reach the final state it is necessary to delete the self destruct state and
-the touch state that becomes empty or dead.
+\autoref{fig:tx:execution} summarizes the steps of the algorithm for the 
+transaction execution:
+\begin{enumerate}
+	\item The transaction has to pass some simple validity checks, e.g.\ the
+	transaction should be a well-formed RLP encoded string and the initiator
+	of the transaction should have a balance big enough to afford the 
+	transaction.
+	Moreover, since a transaction should be included in a block and the block
+	has in turn its own gas limit, it should be also true that the sum 
+	of the accumulated gas used by the already included transactions and the gas
+	limit of this transaction are smaller than the block's gas limit.
+	\item The nonce of the initiator of the transaction is incremented by one and its balance is reduced by the product of the gas limit and the gas price. This modification to the state is irreversible.
+	\item Now, depending on whether the receiver address is given or not
+	we should make a distinction between:
+	\begin{enumerate}[label=\alph*.]
+		\item Message Calls (\autoref{subsec:msgcalls:exec}) and;
+		\item Contract Creation (\autoref{subsec:contract:creation}).
+	\end{enumerate}
+	During the execution of the message call or contract creation the system
+	keeps track of the \textbf{transaction substate}, i.e.\ some important
+	information that are later used to complete the state transition.
+	The transaction substate includes the \textbf{touched accounts}, the set of
+	accounts that will be discarded following the completion 
+	(\textbf{self-destruct set}) and more notably the
+	\textbf{refund balance}, that corresponds
+	to the difference between the allocated gas amount and the effectively used
+	gas augmented with the gas returned for removing elements from the world
+	state.
+	\item Once the message call or the contract creation are concluded
+	the refund balance is returned to the initiator of the transaction at the
+	transaction's gas price.
+	The gas used is given to the beneficiary address (i.e. the miner), who
+	built and finalized the block. Finally, the self-destruct set and the
+	touched accounts that became empty or dead after the transaction should
+	be deleted. 
+\end{enumerate}
+ 
+
