@@ -3,8 +3,8 @@ The transaction execution is the mechanism through which the world state is
 updated. It represents a transition from one
 valid state to another valid state. Before executing a transaction it
 has to pass some simple validity checks, e.g.\ the transaction should be a
-well-formed RLP encoded string and should have a balance big enough to afford
-the transaction.
+well-formed RLP encoded string and the initiator should have a balance big
+enough to afford the transaction.
 Moreover, since a transaction should be included in a block and the block
 has in turn its own gas limit, it should be also true that the sum 
 of the accumulated gas used by the already included transactions and the gas
