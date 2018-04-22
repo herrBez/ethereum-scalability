@@ -1,13 +1,7 @@
 \subsection{State}
 
-We can distinguish two different states in the Ethereum system:
-
-\begin{itemize}
-  \item the \textbf{World State}, referred simply as the \emph{state}, which is
-  a mapping between account addresses and account states
-  \item the \textbf{Machine State}, the state of an Ethereum Virtual Machine
-  (EVM) (see \autoref{sec:evm})
-\end{itemize}
+The \textbf{World State}, referred as the \emph{state}, in its simplest
+definition, is a mapping between account addresses and account states.
 
 \begin{figure}[h]
   \centering
@@ -16,13 +10,13 @@ We can distinguish two different states in the Ethereum system:
 \label{fig:world-state}
 \end{figure}
 
-\autoref{fig:world-state} represents the Ethereum World State. The block header
-contains 15 fields, among which the \verb+stateRoot+, that is the
-hash\footnote{Here we intend the Keccak 256-bit.} of the root node of the state
-tree, after all transactions are executed and finalisations applied (for a
-complete specification of the fields, refer to \cite{wood2018ethereum}). This
-corresponds to the root hash of a Merkle Patricia tree data structure which
-store the mapping between account state and account address
+\autoref{fig:world-state} represents it. The block header contains 15 fields,
+among which the \verb+stateRoot+, that is the hash\footnote{Here we intend the
+Keccak 256-bit.} of the root node of the state tree, after all transactions are
+executed and finalisations applied (for a complete specification of the fields,
+refer to \cite{wood2018ethereum}). This corresponds to the root hash of a Merkle
+Patricia tree data structure which store the mapping between account state and
+account address
 
 A Merkle Patricia tree is a data structure which derives from a radix tree
 reducing the space complexity \cite{patriciatree}. It has a single root, each
