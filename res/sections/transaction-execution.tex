@@ -3,7 +3,16 @@ The transaction execution is the mechanism through which the world state is
 updated. It represents a transition from one
 valid state to another valid state.
 
-The transaction execution algorithm follows these steps:
+\begin{figure}
+	\begin{center}
+		\includegraphics[scale=0.5]{./res/img/tx-execution-algorithm.png}
+	\end{center}
+	\caption{The steps of the transaction execution algorithm.}
+	\label{fig:tx:execution}
+\end{figure}
+
+\autoref{fig:tx:execution} summarizes the steps of the algorithm for the 
+transaction execution:
 \begin{enumerate}
 	\item The transaction has to pass some simple validity checks, e.g.\ the
 	transaction should be a well-formed RLP encoded string and the initiator
