@@ -5,6 +5,16 @@ execution of an existing contract. In the remainder of this section we refer
 to \textit{sender} as the entity who creates the account, that does not 
 necessarily correspond to the author of the transaction.
 
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=0.67\textwidth]{./res/img/contract-creation.pdf}
+	\end{center}
+	\caption{The steps of the contract creation algorithm.}
+	\label{fig:contract-creation}
+\end{figure}
+
+The steps of the algorithm and the state transition are depicted in
+\autoref{fig:contract-creation}. The circles represent the different states.
 Firstly, the 160-bit identifier for the contract account is determined as
 function of the sender and its nonce. The value specified in the contract
 creation is transferred from the sender to the brand new contract account.
