@@ -5,7 +5,7 @@ valid state to another valid state.
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[scale=0.5]{./res/img/tx-execution-algorithm.png}
+		\includegraphics[width=\textwidth]{./res/img/transaction-execution.pdf}
 	\end{center}
 	\caption{The steps of the transaction execution algorithm.}
 	\label{fig:tx:execution}
@@ -29,8 +29,8 @@ transaction execution:
 	\item Now, depending on whether the receiver address is given or not
 	we should make a distinction between:
 	\begin{enumerate}[label=\alph*.]
-		\item Message Calls (\autoref{subsec:msgcalls:exec}) and;
-		\item Contract Creation (\autoref{subsec:contract:creation}).
+		\item Message Calls (\autoref{sec:message-call}) and;
+		\item Contract Creation (\autoref{sec:contract-creation}).
 	\end{enumerate}
 	During the execution of the message call or contract creation the system
 	keeps track of the \textbf{transaction substate}, i.e.\ some important

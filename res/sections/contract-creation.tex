@@ -1,13 +1,17 @@
 \subsubsection{Contract Creation}
+\label{sec:contract-creation}
 The contract creation is the act with which a new contract is deployed
 on the system. It can be triggered either by a transaction or during the 
 execution of an existing contract. In the remainder of this section we refer
-to \textit{sender} as the entity who creates the account, that does not 
-necessarily correspond to the author of the transaction.
+to \textit{sender} as the entity who starts the contract creation.
+This can be either started by a transaction or by the
+execution of a contract. In the former case the sender corresponds to the
+transaction initiator and in the latter case it corresponds to the address
+of the contract that is executing.
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=0.67\textwidth]{./res/img/contract-creation.pdf}
+		\includegraphics[width=\textwidth]{./res/img/contract-creation.pdf}
 	\end{center}
 	\caption{The steps of the contract creation algorithm.}
 	\label{fig:contract-creation}
@@ -29,6 +33,6 @@ stored by all the full nodes. If the gas remained after the execution are not
 enough to afford this cost or the body of the contract code is too big the
 state is reverted~\cite{wood2018ethereum}.
 If all the whole procedure succeed the hash of the body is saved on the
-contract account state. Clearly the full nodes use this hash as a key for the 
+contract account state. Clearly, the full nodes use this hash as a key for the 
 contract code, as showed in \autoref{fig:world-state}.
  
