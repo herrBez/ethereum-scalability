@@ -4,13 +4,14 @@ The Ethereum Virtual Machine (\textbf{EVM}) is an abstract computing machine
 that enables the nodes of the Ethereum network to execute smart-contract
 codes.
 
-Figure~\ref{fig:evm} shows the components of the Ethereum Virtual Machine
-and some representative instructions that permits the transfer of data
-from one component to another.
+
+\autoref{fig:evm} shows the components of the Ethereum Virtual Machine.
+The dashed lines represents the fact that there exists an EVM instruction
+that allows the transfer of data from one component to another.
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=\textwidth]
-        {./res/img/architecture/evm/EVM.png}
+        {./res/img/architecture/evm/EVM2.png}
 	\end{center}
 	\caption{Overview of the Ethereum Virtual Machine}
 	\label{fig:evm}
@@ -67,7 +68,7 @@ mechanisms involved in Ethereum and their motivation:
 \end{itemize}
 
 
-The \textbf{machine state} represent the current configuration of the
+The \textbf{machine state} represents the current configuration of the
 Ethereum Virtual Machine interpreter.
 It consists of the remaining gas, the program counter, the memory and the
 stack.
