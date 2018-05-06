@@ -1,7 +1,65 @@
 \section{Scalability}
 \label{sec:scalability}
+The aim of this section is to study the scalability of Ethereum.
+Although the scalability of blockchain, and of Ethereum in particular, is a
+well-known problem and a major concern in the respective communities, in the
+literature there are a limited number of \emph{scientific papers} that
+addresses this problem.
+We give a little survey in \autoref{sec:background}.
 
-In this Section we analyze the scalability of Ethereum by keeping into
-consideration the 3 axes of the cube of the
+In the remainder of the Section we will analyze the scalability of Ethereum by
+keeping into consideration the 3 axes of the cube of the
 scalability~\cite{bib:art-of-scalability}.
+
+
+\subsection{Background}
+
+In this section firstly, we point out the usual concerns about blockchain
+technology and in particular Bitcoin and finally we analyze the related works
+regarding Ethereum.
+
+\paragraph{Bitcoin} 
+
+When considering Bitcoin
+the  usual scalability issues individuated in the literature are the following:
+each peer needs to \textbf{store} the blockchain that becomes always 
+bigger~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}, 
+the \textbf{transaction throughput} and 
+the \textbf{block size} are limited (in bitcoin only $1$
+MB)~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}, and
+the \textbf{block interval} is high, about $10$ minutes per block.
+Therefore only the more profitable transactions are included in the distributed 
+ledger by the
+miners~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
+
+On the one hand increasing the size of blocks increase the propagation time
+and the possibility of new
+branches~\cite{bib:blockchain-challenges-opportunites-survey} and on the other
+hand decreasing the block interval augments the possibilities of concurrently
+existing forks of the blockchain.
+
+
+Finally, a number of confirmation blocks are
+needed to be sure that the transactions are really 
+confirmed~\cite{bib:taxonomy}, i.e. it is unlikely that the block in which
+they are included can be discarded.
+In Bitcoin the 
+confirmation number is 6 blocks that corresponds roughly to an hour~\cite{}.
+ 
+\paragraph{Ethereum} Vukoli\'c~\cite{bib:the-quest} states that the introduction of
+smart-contracts 
+in Ethereum make the problem very similar to database replication and in 
+particular \emph{state machine replication}. Also Wood~\cite{wood2018ethereum}
+argue that it is very difficult to reach a high degree of scalability by
+parallelizing transactions in this system because it is essentially a state
+transaction machine.
+Indeed the state in Ethereum influence the smart contract execution and
+therefore the majority of transactions are dependent from previous ones, thus
+making Ethereum \textbf{stateful}.
+
+
+%*** et al. \cite{bib:sok:ethereum} individuate that scalability of blockchain
+%is concerned with two major objectives: on the one hand increasing the
+%transaction throughput and on the other hand
+%decreasing the storage and bandwidth usage.
 
