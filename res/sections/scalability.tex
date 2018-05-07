@@ -19,25 +19,19 @@ technology and in particular Bitcoin and finally we analyze the related works
 regarding Ethereum.
 
 \paragraph{Bitcoin} 
-
-When considering Bitcoin
-the  usual scalability issues individuated in the literature are the following:
-each peer needs to \textbf{store} the blockchain that becomes always 
-bigger~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}, 
-the \textbf{transaction throughput} and 
-the \textbf{block size} are limited (in bitcoin only $1$
-MB)~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}, and
-the \textbf{block interval} is high, about $10$ minutes per block.
+One major concern about Bitcoin is the limited \textbf{transaction
+throughput}~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}.
 Therefore only the more profitable transactions are included in the distributed 
 ledger by the
 miners~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
-
-On the one hand increasing the size of blocks increase the propagation time
-and the possibility of new
-branches~\cite{bib:blockchain-challenges-opportunites-survey} and on the other
-hand decreasing the block interval augments the possibilities of concurrently
-existing forks of the blockchain.
-
+This limit is due on the one hand to the $1$ MB \textbf{block
+	size}~\cite{bib:masteringbitcoin} and on the other
+hand to the \textbf{block interval} that is about $10$ minutes.
+Unfortunately, increasing the former increase the propagation time and
+the possibility of new branches and decreasing the latter augment the
+bandwidth usage and storage needed.
+Indeed the \textbf{storage} space required by the blockchain is continuously
+increasing.
 
 Finally, a number of confirmation blocks are
 needed to be sure that the transactions are really 
