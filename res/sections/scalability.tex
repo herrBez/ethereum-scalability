@@ -33,24 +33,28 @@ ledger~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
 
 The limited transaction throughput is due on the one hand to the
 $1$ MB \textbf{maximal block size}~\cite{bib:masteringbitcoin} and on the other
-hand to the \textbf{block interval} that is about $10$ minutes.
+hand to the $10$ minutes \textbf{block interval}.
 
 Increasing the former would certainly augment the transaction throughput and
 decrease the transaction fees, but it would also slow down the propagation
-time, increase the possibility of forks and increase the disk space required
-to store the entire blockchain.
+time, thus increasing the possibility of forks.
 Decreasing the latter would increase the transaction throughput and augment
 the storage needed for the blockchain.
+To address these bottlenecks Bitcoin cash and Litecoin
+took place. The first is a hard fork of Bitcoin in which 
+the blocks have a maximum size limit of $8$ MB and the
+latter uses a block interval of $2.5$ minutes.
 
 Moreover, a number of confirmation blocks are
 needed to be sure that the transactions are really 
 confirmed~\cite{bib:taxonomy}, i.e. it is unlikely that the block in which
-they are included can be discarded in favour of other blocks.
+they are included can be discarded in favor of other blocks.
 This uncertainty in the acceptance of a block is also known as
-\textbf{lack of Consensus Finality}~\cite{bib:the-quest} due to the
-PoW consensus algorithm.
+\textbf{lack of Consensus Finality}~\cite{bib:the-quest} and is due to the
+probabilistic nature of the PoW consensus algorithm.
 In Bitcoin the 
-confirmation number is 6 blocks~\cite that corresponds roughly to an hour~\cite{}.
+confirmation number is 6 blocks~\cite{bib:masteringbitcoin} that corresponds 
+roughly to an hour.
 
 Finally, another concern with this technology is the need to \textbf{store} an
 increasingly large amount of data to keep the desired security guarantees.
