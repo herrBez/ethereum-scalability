@@ -14,34 +14,49 @@ scalability~\cite{bib:art-of-scalability}.
 
 \subsection{Background}
 
-In this section firstly, we point out the usual concerns about blockchain
+In this Section firstly, we point out the usual concerns about blockchain
 technology and in particular Bitcoin and finally we analyze the related works
 regarding Ethereum.
 
 \paragraph{Bitcoin} 
-One major concern about Bitcoin is the limited \textbf{transaction
+One major concern about Bitcoin and all permissionless cryptocurrencies
+in general is the limited \textbf{transaction
 throughput}~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}.
-Therefore only the more profitable transactions are included in the distributed 
-ledger by the
-miners~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
-This limit is due on the one hand to the $1$ MB \textbf{block
-	size}~\cite{bib:masteringbitcoin} and on the other
-hand to the \textbf{block interval} that is about $10$ minutes.
-Unfortunately, increasing the former increase the propagation time and
-the possibility of new branches and decreasing the latter augment the
-bandwidth usage and storage needed.
-Indeed the \textbf{storage} space required by the blockchain is continuously
-increasing.
+Thus, not all transactions emitted can be processed in a
+predictable and bounded
+time\footnote{\url{https://blockchain.info/charts/mempool-size}}.
+Indeed, since the choice of the transactions
+to include in the blockchain depends on the will of the miners,
+it is more likely that the more profitable transactions are included
+in the distributed
+ledger~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
 
-Finally, a number of confirmation blocks are
+The limited transaction throughput is due on the one hand to the
+$1$ MB \textbf{maximal block size}~\cite{bib:masteringbitcoin} and on the other
+hand to the \textbf{block interval} that is about $10$ minutes.
+
+Increasing the former would certainly augment the transaction throughput and
+decrease the transaction fees, but it would also slow down the propagation
+time, increase the possibility of forks and increase the disk space required
+to store the entire blockchain.
+Decreasing the latter would increase the transaction throughput and augment
+the storage needed for the blockchain.
+
+Moreover, a number of confirmation blocks are
 needed to be sure that the transactions are really 
 confirmed~\cite{bib:taxonomy}, i.e. it is unlikely that the block in which
-they are included can be discarded.
+they are included can be discarded in favour of other blocks.
+This uncertainty in the acceptance of a block is also known as
+\textbf{lack of Consensus Finality}~\cite{bib:the-quest} due to the
+PoW consensus algorithm.
 In Bitcoin the 
-confirmation number is 6 blocks that corresponds roughly to an hour~\cite{}.
+confirmation number is 6 blocks~\cite that corresponds roughly to an hour~\cite{}.
+
+Finally, another concern with this technology is the need to \textbf{store} an
+increasingly large amount of data to keep the desired security guarantees.
  
-\paragraph{Ethereum} Vukoli\'c~\cite{bib:the-quest} states that the introduction of
-smart-contracts 
+\paragraph{Ethereum} Vukoli\'c~\cite{bib:the-quest} states that the introduction
+of smart-contracts 
 in Ethereum make the problem very similar to database replication and in 
 particular \emph{state machine replication}. Also Wood~\cite{wood2018ethereum}
 argue that it is very difficult to reach a high degree of scalability by
