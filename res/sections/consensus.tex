@@ -37,13 +37,23 @@ probability~\cite{bib:bitcoin} the issuer of
 new blocks should prove that they invested resources in its creation by
 solving a computational heavy task.
 This mechanism is known as \textbf{Proof-of-Work} (PoW).
-In the case of bitcoin this task consists in finding a number (\emph{nonce})
-such that the hash of the block along with the nonce itself begins with a
-number of leading zeros. The difficulty of the task increase exponentially
-with the number of leading zeros.
-Since the output of the hash function is not predictable, the creator of 
-a new block should try each possible nonce in a brute-force manner.
-Once a valid nonce is found the block is spread and the receiver should
-only perform a single hash to check that the result is valid.
-In bitcoin the selection rule consists simply in accepting the longest
-blockchain.
+In bitcoin the selection rule consists in accepting the longest chain
+that corresponds roughly to the one with more work invested on it.
+In Ethereum, instead, the selection rule is a simplified version 
+of the Greedy Heaviest-Observed Sub-Tree (GHOST) selection
+rule~\cite{wood2018ethereum}.
+The main idea of this rule is to take into consideration also the
+blocks that are not included in the chain to obtain a more secure and
+scalable system~\cite{bib:ghost}.
+
+
+
+
+%In the case of bitcoin this task consists in finding a number (\emph{nonce})
+%such that the hash of the block along with the nonce itself begins with a
+%number of leading zeros. The difficulty of the task increase exponentially
+%with the number of leading zeros.
+%Since the output of the hash function is not predictable, the creator of 
+%a new block should try each possible nonce in a brute-force manner.
+%Once a valid nonce is found the block is spread and the receiver should
+%only perform a single hash to check that the result is valid.
