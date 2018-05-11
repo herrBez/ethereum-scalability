@@ -1,0 +1,59 @@
+\subsection{Consensus Algorithm}
+\label{sec:consensus}
+
+The ultimate aim of the blockchain technology is to provide a \textbf{total
+order to transactions} in a distributed ledger~\cite{bib:the-quest} without
+relying on a trusted third party. This permits to solve the double spending
+problem~\cite{bib:bitcoin}. Moreover, in Ethereum the order of transactions can
+also affect the execution of smart contracts by altering the content of the
+storage.
+
+Finding an agreement on the order of transaction (i.e. the actual blockchain)
+and the world status is crucial, thus multiple consensus algorithms were
+proposed~\cite{}. Ethereum follows an idea very close to the consensus algorithm
+of Bitcoin, which is also known in the literature as \textbf{Nakamoto
+consensus}~\cite{}.
+
+The basic idea of this algorithm consists in:
+% enumerate* means in-line enumeration
+\begin{enumerate*}[label=(\arabic*)]
+	\item accepting only valid blocks with regards to some validation criterion,
+	and
+	\item relying on a \textbf{selection rule} to choose between two different
+	valid forks, depending on the amount of work performed in each fork.
+\end{enumerate*}
+
+The \emph{validation criterion} used to determine whether a block is valid or
+not consists in
+\begin{enumerate}
+	\item checking that the blocks and transactions are well-formed
+	\item re-performing all the transactions
+	\item re-executing \emph{all}	the EVM computations to verify whether the
+	transaction receipts and the state root contained in the propagated block
+	(\autoref{fig:world-state}) are valid.
+\end{enumerate}
+
+The \emph{selection rule} is required to avoid the infamous double spending
+problem. Indeed, in Bitcoin (and as well in Ethereum) the assumption is that the
+majority of computing power belongs to good players who will follow the
+rules\todo{add the exact proportion}. Therefore, in order to prevent bad agents
+to rewrite the transactions history with a high probability~\cite{bib:bitcoin}
+the issuer of new block should prove that he invested resources in its creation
+by solving a computational heavy task. This mechanism is known as
+\textbf{Proof-of-Work} (PoW). In Bitcoin the selection rule consists in
+accepting the longest chain that corresponds roughly to the one with more work
+invested on it. In Ethereum, instead, the selection rule is a simplified version
+of the Greedy Heaviest-Observed Sub-Tree (GHOST) selection
+rule~\cite{wood2018ethereum}. The main idea of this rule is to take into
+consideration not only the longest chain, but also the blocks that are not
+included in the chain (i.e. the ommers) to obtain a more secure and scalable
+system~\cite{bib:ghost}\todo{Add explanation}.
+
+%In the case of bitcoin this task consists in finding a number (\emph{nonce})
+%such that the hash of the block along with the nonce itself begins with a
+%number of leading zeros. The difficulty of the task increase exponentially with
+%the number of leading zeros. Since the output of the hash function is not
+%predictable, the creator of a new block should try each possible nonce in a
+%brute-force manner. Once a valid nonce is found the block is spread and the
+%receiver should only perform a single hash to check that the result is valid.
+
