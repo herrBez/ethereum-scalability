@@ -35,37 +35,47 @@ provided in the transaction/message that initiated the execution. In particular
 the EVM can access the input field, which contains the arguments for a peculiar
 execution.
 For a full instruction list and specification of the EVM
-we refer to the official specification~\cite{wood2018ethereum}.
+we refer to the official specification~\cite[Appendix H]{wood2018ethereum}.
 
 
 Unlike the bitcoin \textit{Script} language~\cite{bib:masteringbitcoin} the
 Ethereum Virtual Machine can express and supports the execution of loops.
 To avoid the abuse of the resources (CPU and storage) of the full nodes
 forming the network, Ethereum introduces the concept of
-\textbf{gas}~\cite{wood2018ethereum}. In this
+\textbf{gas}~\cite{wood2018ethereum}, which was described
+in~\autoref{sec:tx-execution}. In this
 execution model each instruction and increase in the size of the memory or
-storage are bound to a cost expressed in gas. The price of a gas unit
-is known as \textbf{gas price} and is bound to a particular execution.
-Indeed this price is specified in the transaction or in the message call
-which originates the execution. The higher this price the higher the
-possibility that the  transaction will be included in the blockchain.
-Usually the miners advertise the minimum gas price they are willing to accept.
-Another important concept specified in the transaction is the
-\textbf{gas limit}, i.e. the maximum gas amount the executor is willing to
-consume for this particular execution.
+storage are bound to a cost expressed in gas.
 
-Thanks to this brief introduction we can already understand some crucial
-mechanisms involved in Ethereum and their motivation:
-\begin{itemize}
-	\item A transaction is not valid if the originator of a transaction have
-	a balance lower than \verb|gas_price * gas_limit| \verb|+|
-	\verb|transaction_value|:
-	it means that it cannot afford the execution. In fact this value is
-	deducted upfront and later the remaining gas are refund.
-	\item If during the execution the gas limit is exceeded an Exception
-	(\textbf{Out of gas exception}) is raised, and the funds are not returned,
-	because the execution already took place.
-\end{itemize}
+%~ The price of a gas unit
+%~ is known as \textbf{gas price} and is bound to a particular execution.
+%~ Indeed this price is specified in the transaction or in the message call
+%~ which originates the execution. The higher this price the higher the
+%~ possibility that the  transaction will be included in the blockchain.
+%~ Usually the miners advertise the minimum gas price they are willing to accept.
+%~ Another important concept specified in the transaction is the
+%~ \textbf{gas limit}, i.e. the maximum gas amount the executor is willing to
+%~ consume for this particular execution.
+
+Before executing a \emph{smart contract}, i.e. a program on the EVM, the
+initiator of the transaction allocates a certain amount of gas that it is
+willing to spend for this execution.
+If during the execution all the gas is consumed an \textbf{Out of gas exception}
+is raised.
+
+
+%~ Thanks to this brief introduction we can already understand some crucial
+%~ mechanisms involved in Ethereum and their motivation:
+%~ \begin{itemize}
+	%~ \item A transaction is not valid if the originator of a transaction have
+	%~ a balance lower than \verb|gas_price * gas_limit| \verb|+|
+	%~ \verb|transaction_value|:
+	%~ it means that it cannot afford the execution. In fact this value is
+	%~ deducted upfront and later the remaining gas are refund.
+	%~ \item If during the execution the gas limit is exceeded an Exception
+	%~ (\textbf{Out of gas exception}) is raised, and the funds are not returned,
+	%~ because the execution already took place.
+%~ \end{itemize}
 
 
 The \textbf{machine state} represents the current configuration of the
