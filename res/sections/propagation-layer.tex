@@ -5,40 +5,33 @@ The propagation layer objective is to spread the information regarding the
 blockchain among all the peers. It exploits the contact information obtained
 in the Network Layer.
 
-At this layer we can distinguish basically two protocols: the RLPx protocol
-(\autoref{sec:rlpx}) and the Devp2p wire
-protocols(\autoref{sec:devp2p-wire-protocol}).
-The former plays a role very similar to the OSI transportation layer and
-the latter exploits the former to spread the blockchain information.
+At this layer we can distinguish two main protocols: the RLPx protocol
+(\autoref{sec:rlpx}), which plays a role very similar to the OSI transport
+layer, and the Devp2p wire protocols (\autoref{sec:devp2p-wire-protocol}),
+useful to spread the blockchain information.
 
 
 \subsubsection{RLPx}
 \label{sec:rlpx}
 
 The aim of this protocol is to provide a transport layer for the devp2p
-messages.
-In essence it is an encrypted and authenticated TCP with payload
-encoded with the Recursive Length Prefix (\textbf{RLP})
-marshaling algorithm~\cite{rlpx}.
-Two peers that wants to communicate with each other with RLPx should as a first
-step perform a handshake, in which they exchange 
-a cryptographic secret\footnote{It is beyond the scope of 
-this report to describe the exact procedure. For further details we refer to
-the official
-documentation~\cite{} and to the go ethereum implementation~\path{}.}, 
+messages. In essence, it is an encrypted and authenticated TCP with payload
+encoded with the Recursive Length Prefix (\textbf{RLP}) marshaling algorithm
+(see \autoref{sec:marshaling} for further details). Two peers who wants to
+communicate with each other with RLPx should as a first step perform a
+handshake, in which they exchange a cryptographic secret\footnote{It is beyond
+the scope of this report to describe the exact procedure. For further details we
+refer to the official documentation \cite{rlpx} and to the go ethereum
+implementation \path{}.}\todo{Add reference to implementation (see footnote)},
 that is used to encrypt and authenticate the subsequent RLPx messages between
 them.
-
-
-
-
 
 
 \subsubsection{Devp2p-Wire Protocol}
 \label{sec:devp2p-wire-protocol}
 
-This protocol exploits RLPx and have four message types
-Hello, Disconnect, Ping and Pong.
+This protocol exploits RLPx and have four message types: Hello, Disconnect, Ping
+and Pong.
 
 The \textbf{Hello} (Handshake) message is used upon connection and upon
 receiving a
@@ -55,7 +48,7 @@ shh (Whisper) are used. In the remainder of this
 Section we will describe the Ethereum Wire Protocol, i.e. the application
 level protocol of Ethereum, with which the information about the blockchain
 are shared.
-The \textbf{Disconnect} message notifies the receiver that the sender is going 
+The \textbf{Disconnect} message notifies the receiver that the sender is going
 to disconnect itself. The disconnect message can specify optionally an
 integer that encodes a reason.
 For the complete reason codes we refer to the devp2p specification~\cite{}.
