@@ -12,8 +12,12 @@ layer is constituted by a slight modification of the Kademlia protocol
 \cite{bib:kademlia}. In the Ethereum jargon, this protocol is known as
 \textbf{RLPx Node Discovery Protocol}.
 
+Before we continue describing in more details this protocol, we want to point
+out that with (simply) RLPx, it is intended a protocol suite which has different
+features. For the purpose of the this layer, it is able to form the underlying
+network on which Ethereum works.
 
-\subparagraph{Kademlia protocol}
+\paragraph{Kademlia protocol}
 The Kademlia protocol is a distributed hash table (DHT) system based on the
 XOR-metric for distance \cite{bib:kademlia}, that is the distance between two
 keys $x$ and $y$ is given by $x \otimes y$. In Kademlia, each node has a unique
