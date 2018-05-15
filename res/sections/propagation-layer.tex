@@ -5,20 +5,25 @@ The propagation layer objective is to spread the information regarding the
 blockchain among all the peers. It exploits the contact information obtained
 in the Network Layer.
 
-At this layer we can distinguish two main protocols: the RLPx protocol
-(\autoref{sec:rlpx}), which plays a role very similar to the OSI transport
-layer, and the Devp2p wire protocols (\autoref{sec:devp2p-wire-protocol}),
-useful to spread the blockchain information.
+In this layer, two main protocols are used to achieve the objective:
+\begin{itemize}
+  \item \emph{RLP}, the main encoding method used to serialize objects in Ethereum. In
+  this layer, it is used as a marshaling algorithm
+  \item the RLPx protocol, intended as the transport
+  protocol\footnote{\url{https://github.com/ethereum/devp2p/blob/master/rlpx.md\#transport}},
+  which plays a role very similar to the OSI transport layer. For the sake of
+  disambiguation, we refer to it as \emph{RLPx Transport Protocol}
+  \item the \emph{Ethereum Wire Protocol}, useful to spread the blockchain information.
+\end{itemize}
 
 
-\subsubsection{RLPx}
-\label{sec:rlpx}
+\subsubsection{RLPx Transport Protocol}
+\label{sec:rlpx-transport-protocol}
 
-The aim of this protocol is to provide a transport layer for the devp2p
-messages. In essence, it is an encrypted and authenticated TCP with payload
-encoded with the Recursive Length Prefix (\textbf{RLP}) marshaling algorithm
-(see \autoref{sec:marshaling} for further details). Two peers who wants to
-communicate with each other with RLPx should as a first step perform a
+The aim of this protocol is to provide a transport layer for the messages. In
+essence, it is an encrypted and authenticated TCP with payload encoded with the
+Recursive Length Prefix (\textbf{RLP}) marshaling algorithm. Two peers who wants
+to communicate with each other with RLPx should as a first step perform a
 handshake, in which they exchange a cryptographic secret\footnote{It is beyond
 the scope of this report to describe the exact procedure. For further details we
 refer to the official documentation \cite{rlpx} and to the go ethereum
@@ -27,41 +32,37 @@ that is used to encrypt and authenticate the subsequent RLPx messages between
 them.
 
 
-\subsubsection{Devp2p-Wire Protocol}
-\label{sec:devp2p-wire-protocol}
+\subsubsection{Ethereum Wire Protocol}
+\label{sec:ethereum-wire-protocol}
 
-This protocol exploits RLPx and have four message types: Hello, Disconnect, Ping
-and Pong.
+The Ethereum Wire Protocol is an application level sub-protocol of the DEVp2p
+Wire Protocol. With the term sub-protocol, it is intended an extension of the
+base protocol defining more messages which are added to the base ones.
 
-The \textbf{Hello} (Handshake) message is used upon connection and upon
-receiving a
-message of this kind.
-This message specifies, among others, the protocol version
-%,the client's ID,
-%a string that uniquely identifies a client program,
-the \textbf{capabilities} and their
-version, the port on which the client listens and finally the ID of the node.
-The capabilities are the application level protocols supported by the sender
-of the Hello Message. At the moment of writing this essay only the protocols
-eth (Ethereum), les (Light Ethereum Subprotocol), bzz (Swarm) and
-shh (Whisper) are used. In the remainder of this
-Section we will describe the Ethereum Wire Protocol, i.e. the application
-level protocol of Ethereum, with which the information about the blockchain
-are shared.
-The \textbf{Disconnect} message notifies the receiver that the sender is going
-to disconnect itself. The disconnect message can specify optionally an
-integer that encodes a reason.
-For the complete reason codes we refer to the devp2p specification~\cite{}.
-The \textbf{Ping} and \textbf{Pong} message are used to check whether the
-counterpart is still on-line or not.
+The base DEVp2p Wire Protocol exploits RLPx Transport Protocol and have four
+message types: Hello, Disconnect, Ping and Pong.
+
+The \verb+Hello+ (Handshake) message is used upon connection and upon receiving
+a message of this kind. This message specifies, among others, the protocol
+version, the \textbf{capabilities} and their version, the port on which the
+client listens and the node ID. The capabilities are the application level
+protocols supported by the sender of the Hello Message. At the moment of
+writing, only the \emph{eth} (Ethereum), \emph{les} (Light Ethereum
+Subprotocol), \emph{bzz} (Swarm) and \emph{shh} (Whisper) protocols are used.
+The \verb+Disconnect+ message notifies the receiver that the sender is going to
+disconnect itself. The disconnect message can specify optionally an integer that
+encodes a reason. For the complete reason codes, we refer to the DEVp2p
+specification~\cite{devp2pwire}. The \verb+Ping+ and \verb+Pong+ message are
+used to check whether the counterpart is still on-line or not.
+
+% TODO fix onwards
 
 \paragraph{Ethereum Wire Protocol}
-The Ethereum wire protocol
-(\textit{eth})~\cite{bib:ethereumwireprotocol} is used to spread the information
-about the blockchain and for the synchronization. There are several versions
-of this protocol. Throughout this section we will consider only the versions
-$62$ and $63$ (which are compatible) that are currently supported by the go
-Ethereum client (v. 1.8.3).
+The Ethereum wire protocol (\emph{eth})~\cite{bib:ethereumwireprotocol} is used
+to spread the information about the blockchain and for the synchronization.
+There are several versions of this protocol. Throughout this section we will
+consider only the versions $62$ and $63$ (which are compatible) that are
+currently supported by the go Ethereum client (v. 1.8.3).
 
 The first message that must be exchanged between two peers
 is the \textbf{Status} message. This kind of message is used to exchange,
