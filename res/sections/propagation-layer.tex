@@ -5,7 +5,8 @@ The propagation layer objective is to spread the information regarding the
 blockchain among all the peers. It exploits the contact information obtained
 in the Network Layer.
 
-In this layer, two main protocols are used to achieve the objective:
+In this layer, we can identify three main components used to achieve the
+objective:
 \begin{itemize}
   \item \emph{RLP}, the main encoding method used to serialize objects in Ethereum. In
   this layer, it is used as a marshaling algorithm
@@ -13,7 +14,8 @@ In this layer, two main protocols are used to achieve the objective:
   protocol\footnote{\url{https://github.com/ethereum/devp2p/blob/master/rlpx.md\#transport}},
   which plays a role very similar to the OSI transport layer. For the sake of
   disambiguation, we refer to it as \emph{RLPx Transport Protocol}
-  \item the \emph{Ethereum Wire Protocol}, useful to spread the blockchain information.
+  \item the \emph{Ethereum Wire Protocol}, useful to spread the blockchain
+  information.
 \end{itemize}
 
 
@@ -35,12 +37,14 @@ them.
 \subsubsection{Ethereum Wire Protocol}
 \label{sec:ethereum-wire-protocol}
 
-The Ethereum Wire Protocol is an application level sub-protocol of the DEVp2p
+The Ethereum Wire Protocol is an application level sub-protocol of the \devpp{}
 Wire Protocol. With the term sub-protocol, it is intended an extension of the
 base protocol defining more messages which are added to the base ones.
 
-The base DEVp2p Wire Protocol exploits RLPx Transport Protocol and have four
-message types: Hello, Disconnect, Ping and Pong.
+The base \devpp{} Wire Protocol exploits RLPx Transport Protocol, that is, the
+\devpp{} Wire Protocol's messages are sent through the RLPx Protocol in its
+payload. \devpp{} Wire Protocol has four message types: \verb+Hello+,
+\verb+Disconnect+, \verb+Ping+ and \verb+Pong+.
 
 The \verb+Hello+ (Handshake) message is used upon connection and upon receiving
 a message of this kind. This message specifies, among others, the protocol
@@ -51,7 +55,7 @@ writing, only the \emph{eth} (Ethereum), \emph{les} (Light Ethereum
 Subprotocol), \emph{bzz} (Swarm) and \emph{shh} (Whisper) protocols are used.
 The \verb+Disconnect+ message notifies the receiver that the sender is going to
 disconnect itself. The disconnect message can specify optionally an integer that
-encodes a reason. For the complete reason codes, we refer to the DEVp2p
+encodes a reason. For the complete reason codes, we refer to the \devpp{}
 specification~\cite{devp2pwire}. The \verb+Ping+ and \verb+Pong+ message are
 used to check whether the counterpart is still on-line or not.
 
