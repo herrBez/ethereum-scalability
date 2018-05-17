@@ -12,11 +12,33 @@ layer is constituted by a slight modification of the Kademlia protocol
 \cite{bib:kademlia}. In the Ethereum jargon, this protocol is known as
 \textbf{RLPx Node Discovery Protocol}.
 
-Before we continue describing in more details this protocol, we want to point
-out that with (simply) RLPx, it is intended a protocol suite which has different
-features. For the purpose of the this layer, it is able to form the underlying
-network on which Ethereum works
-\footnote{\url{https://github.com/ethereum/devp2p/blob/master/rlpx.md\#network-formation}}.
+\begin{algorithm}
+\begin{algorithmic}
+
+	\State distance $\gets$ SID $\otimes$ RID
+	\State bucket $\gets$ bucket containing nodes at the given distance
+	\If {SID $\in$ bucket}
+	\State move SID to the end of bucket
+	\Else
+	\If {bucket not full}
+	\State insert SID at the end of the list
+	\Else
+	\State $H \gets head(bucket)$
+	\State ping $H$
+	\If {$H$ replies}
+	\State Move $H$ to the end of the list and discard S
+	\Else 
+	\State Evict H and put SID at the end of the list
+	\EndIf
+	\EndIf
+	\EndIf
+\end{algorithmic}
+\caption{Pseudo-code algorithm to update a bucket upon receiving a message from
+a node. The sender and the receiver are denoted by the letters $S$ and $R$,
+respectively.}
+\label{alg:kademlia:update}
+\end{algorithm}
+
 
 \paragraph{Kademlia protocol}
 The Kademlia protocol is a distributed hash table (DHT) system based on the
@@ -35,33 +57,25 @@ information regarding nodes at distance between $2^i$ and $2^{i+1}$ from
 it's ID.
 The maximal capacity of these lists, $k$, is chosen to minimize the
 probability that all the nodes in the lists fail at the same 
-time and memory requirements.
+time and to minimize memory requirements.
 This parameter is  known as \emph{system-wide replication parameter}.
 Because of their maximal capacity the lists are denoted by the term
 \emph{k-bucket}.
 Each bucket is kept sorted: at the head we find the least-recently seen node
-and at the tail the most recently ones.
-When a node $R$ receives a message from a sender $S$, $R$
-checks if the $k$-bucket corresponding to the sender's ID (SID) already contains
-it. If it is the case, SID is moved at the end of the list. Otherwise we should
-distinguish two cases:
-\begin{enumerate*}[label=(\arabic*)]
-  \item if the $k$-bucket is full, then $R$ pings the head ($H$) of the
-  $k$-bucket and, if this responds, $S$ is discarded and $H$ is put at the end
-  of the list, otherwise $H$ is evicted and SID is inserted at the end of the
-  list,
-  \item otherwise (i.e. the is still space in the $k$-bucket), the SID is simply
-  inserted at the end of the list
-\end{enumerate*}.
-The rationale to prefer already known contacts to the new ones discovered is due
-to the observation that the more a node has been on-line, the more likely it is
-to remain up another hour \cite{bib:kademlia}.
-
+and at the tail the most recently one.
+When a node receives a message from a sender, it uses
+the Algorithm \autoref{alg:kademlia:update} to update the contact table.
+One important feature of this Algorithm is that, when the node discover
+a new node, the latter is added only if one of the already known at the same 
+distance nodes are no more on-line. The rationale for this choice is due
+to the observation that the more a node has been on-line, the more likely it is,
+that it remains up another hour~\cite{bib:kademlia}.
 % Description of the PROTOCOL's functions
 The original Kademlia protocol is based on four RPC functions: \verb|PING|,
 \verb|FIND_NODE|, \verb|STORE| and \verb|FIND_VALUE|, and their replies. In
 Kademlia, \verb|STORE| and \verb|FIND_VALUE| are used, respectively, to save a
-$\langle key, value\rangle$ pair in the DHT and later retrieve it. Since these
+$\langle key, value\rangle$ pair in the DHT and later retrieve it.
+Since these
 features are not needed for a pure node discovery, they are not implemented in
 the Ethereum variant. Indeed, there are only the \verb|PING| function, which is
 used to check whether a node is still on-line or not, and the
