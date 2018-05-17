@@ -13,19 +13,32 @@ layer is constituted by a slight modification of the Kademlia protocol
 \textbf{RLPx Node Discovery Protocol}.
 
 
-\subparagraph{Kademlia protocol}
+\paragraph{Kademlia protocol}
 The Kademlia protocol is a distributed hash table (DHT) system based on the
 XOR-metric for distance \cite{bib:kademlia}, that is the distance between two
-keys $x$ and $y$ is given by $x \otimes y$. In Kademlia, each node has a unique
-ID of 160-bit and maintains a series of lists (one for each $i$ in $0 \leq i <
-160$) of $\langle \verb|IP Address|, \verb|UDP Port|, \verb|Node ID| \rangle$
-triples. Each list contains contacts for nodes of distance between $2^i$ and
-$2^{i+1}$ from the node's ID. Each list can contain at most $k$ elements and it
-is therefore known as \textit{$k$-bucket}. Each bucket is sorted by the "last
-seen" time: in the head we find the least-recently seen node and at the end the
-most recently ones. When a node $R$ receives a message from a sender $S$, $R$
+keys $x$ and $y$ is given by $x \otimes y$. 
+The nodes have a unique $m$-bit (e.g., $160$) identifier (ID) and are 
+\emph{logically} the leaves of a binary tree of size $2^m$. 
+The identifier of a node corresponds
+to the path from the root of this tree to the position of the node.
+
+Each node in the network maintains a series of $m$
+lists, which contain the contact information of some nodes at a given
+XOR-distance from them.
+In particular, the $i$-th list of a given node contains
+information regarding nodes at distance between $2^i$ and $2^{i+1}$ from 
+it's ID.
+The maximal capacity of these lists, $k$, is chosen to minimize the
+probability that all the nodes in the lists fail at the same 
+time and memory requirements.
+This parameter is  known as \emph{system-wide replication parameter}.
+Because of their maximal capacity the lists are denoted by the term
+\emph{k-bucket}.
+Each bucket is kept sorted: at the head we find the least-recently seen node
+and at the tail the most recently ones.
+When a node $R$ receives a message from a sender $S$, $R$
 checks if the $k$-bucket corresponding to the sender's ID (SID) already contains
-SID. If it is the case, SID is moved at the end of the list. Otherwise we should
+it. If it is the case, SID is moved at the end of the list. Otherwise we should
 distinguish two cases:
 \begin{enumerate*}[label=(\arabic*)]
   \item if the $k$-bucket is full, then $R$ pings the head ($H$) of the
