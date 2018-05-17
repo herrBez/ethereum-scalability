@@ -6,12 +6,12 @@ addons:
   apt:
     packages:
     - texlive-latex-extra
+    - texlive-science
     - texlive-luatex
     - cm-super
     - latexmk
     - tex4ht
     - texlive-fonts-recommended
-    - texlive-lang-italian
     - latex-xcolor
     - pgf
     - lmodern
