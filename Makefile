@@ -10,8 +10,9 @@ all: compile
 
 compile:
 	$(CC) -C $(JOB_NAME); \
-	$(CC) $(CCFLAGS) $(JOB_NAME); \
+	$(CC) $(CCFLAGS) $(JOB_NAME);
 
 clean:
 	$(CC) -C $(JOB_NAME)
 	if [[ -a "$(OUTPUT_NAME)" ]]; then rm -rv $(OUTPUT_NAME)/; fi;
+	git clean -Xfd

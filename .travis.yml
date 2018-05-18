@@ -17,6 +17,7 @@ addons:
     - pgf
     - lmodern
     - sshpass
+    - texlive-bibtex-extra
 script:
 - make
 before_deploy:
