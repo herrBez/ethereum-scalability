@@ -7,6 +7,7 @@ addons:
     packages:
     - texlive-latex-extra
     - texlive-science
+    - texlive-lang-greek # used for devp2p
     - texlive-luatex
     - cm-super
     - latexmk
