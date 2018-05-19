@@ -35,26 +35,26 @@ The maximal capacity of these lists, $k$, is chosen to minimize the
 probability that all the nodes in the lists fail at the same 
 time and to minimize memory requirements.
 This parameter is  known as \emph{system-wide replication parameter}.
-Because of their maximal capacity the lists are denoted by the term
+Because of their maximal capacity the lists are usually denoted by the term
 \emph{k-bucket}.
 
 
 \begin{algorithm}[t]
 	\begin{algorithmic}
-		\State distance $\gets$ SID $\otimes$ RID
+		\State distance $\gets$ $S_{ID}$ $\otimes$ $R_{ID}$
 		\State bucket $\gets$ bucket containing nodes at the given distance
-		\If {SID $\in$ bucket}
-		\State move SID to the end of bucket
+		\If {$S_{ID} \in$ bucket}
+		\State move $S_{ID}$ to the end of bucket
 		\Else
 		\If {bucket not full}
-		\State insert SID at the end of the list
+		\State insert $S_{ID}$ at the end of the list
 		\Else
 		\State $H \gets head(bucket)$
 		\State ping $H$
 		\If {$H$ replies}
-		\State Move $H$ to the end of the list and discard S
+		\State Move $H$ to the end of the list and discard $S$
 		\Else
-		\State Evict H and put SID at the end of the list
+		\State Evict $H$ and put $S_{ID}$ at the end of the list
 		\EndIf
 		\EndIf
 		\EndIf
@@ -74,7 +74,7 @@ to the observation that the more a node has been on-line, the more likely it is,
 that it remains up another hour~\cite{bib:kademlia}.
 
 The basic operation of this system is the \emph{key lookup}.
-It is implemented by asking recursively for closer nodes.
+It is implemented by asking recursively for closer and closer nodes.
 A node selects the $\alpha$ known nodes
 closest to the searched key. This operation is efficient because
 it restricts the selection to the nodes contained in the bucket in which the
@@ -86,7 +86,7 @@ Afterward the node sends \emph{asynchronous} requests to these peers, that
 should reply with the contact information of their known $k$ closest nodes.
 From the replied values the node take the closest $\alpha$ ones.
 The algorithm performs this step recursively.
-If in one of the phase no closest nodes are discovered, the node retry with
+If in one of the phases no closest nodes are discovered, the node retry with
 the $k$ closest discovered nodes.
 
 The lookup is fundamental to perform the task of storing a $\langle key,
@@ -95,15 +95,15 @@ the contact information of a searched peer.
 To perform the lookup and manage the DHT the Kademlia protocol relies on only 
 four RPC functions:
 \begin{itemize}
-	\item \verb|PING|: function used to check whether a node is still on-line
+	\item \verb|PING| is used to check whether a node is still on-line
 	or not;
-	\item \verb|FIND_NODE|: requests the replier to respond with the $k$ closest
+	\item \verb|FIND_NODE| requests the replier to respond with the $k$ closest
 	nodes to the target known by it;
-	\item \verb|STORE|: requests the receiver to store the given
+	\item \verb|STORE| requests the receiver to store the given
 	key-value pair;
-	\item \verb|FIND_VALUE|: requests the replier to respond with the $k$
-	nodes closest to the source. If the receiver has stored the key-value
-	pair it is returned.
+	\item \verb|FIND_VALUE| requests the receiver to reply with the $k$
+	nodes closest to the source. If the receiver has previously stored the
+	key-value pair, it is returned.
 \end{itemize}
 
 \paragraph{Difference between RLPx node discovery and Kademlia}
@@ -117,8 +117,8 @@ on the Keccak-256-hash of the IDs and therefore
 	optimizations we refer to ~\cite{bib:kademlia}.}.
 The replication parameter, $k$, is set to $16$ and concurrency parameter, $\alpha$ is set to $3$~\cite{bib:rlpx-discovery-protocol}.
 Moreover, for security reasons, the packets exchanged at this level are signed
-by the sender. The receiver can verify the signature by using the ID of the 
-sender, that is used as a public key.
+by the sender. The receiver can verify the signature by using the sender's ID, 
+that is used as a public key.
 The content of the packets is encoded with the RLP marshalling algorithm.
 We refer to~\cite{bib:rlpx-discovery-protocol} for the exact content exchanged 
 with the different UDP packets.
