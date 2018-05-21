@@ -16,13 +16,13 @@ among which the \verb+stateRoot+, the \verb+transactionsRoot+ and the
 the Keccak 256-bit.} of the root of a Merkle Patricia tree data structure:
 
 \begin{itemize}
-  \item the \verb+stateRoot+ is the state tree, after all transactions
+  \item the \verb+stateRoot+ represents the state tree, after all transactions
   are executed and finalisations applied (for a complete specification of the
   fields, refer to \cite{wood2018ethereum}), storing the mapping between account
   state and account address
-  \item the \verb+transactionsRoot+ is the list of the transactions included in
+  \item the \verb+transactionsRoot+ represents the list of the transactions included in
   the block
-  \item the \verb+receiptsRoot+ is the receipts list of the transactions
+  \item the \verb+receiptsRoot+ represents the receipts list of the transactions
   included in the block, which shows the \emph{effect} of each transaction. In
   \cite{merklingethereum}, Vitalik Buterin\footnote{The Ethereum's founder.}
   writes that with the receipt information, someone can answer queries like
