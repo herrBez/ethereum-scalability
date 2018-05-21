@@ -48,6 +48,11 @@ consideration not only the longest chain, but also the blocks that are not
 included in the chain (i.e. the ommers) to obtain a more secure and scalable
 system~\cite{bib:ghost}\todo{Add explanation}.
 
+Since the nodes need to agree on the validity of the state, they need also to
+agree on how to move to a new valid state, that is, how to execute a
+transaction, as well as how to create a new contract and to execute a message
+call. We briefly describe them below.
+
 %In the case of bitcoin this task consists in finding a number (\emph{nonce})
 %such that the hash of the block along with the nonce itself begins with a
 %number of leading zeros. The difficulty of the task increase exponentially with
