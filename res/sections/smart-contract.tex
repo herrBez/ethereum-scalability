@@ -3,14 +3,18 @@
 
 The smart contracts in Ethereum are part of the application layer. They can be
 referred to as implementing the business logic of the applications that runs on
-the Ethereum system.
+the Ethereum system. A smart contract implements functions and has a state which
+can be persisted and accessed in a subsequent execution. They can implement
+\emph{almost} any function which can be implemented in any Turing-complete
+machine. The difference is due to the gas needed for a transaction to be
+executed: since the gas it can not be infinite, there will be always an upper
+bound on the possible total amount of computation~\cite{wood2018ethereum}.
 
-% They present four properties:
+Usually, a smart contract is written in a high-level language (e.g.
+Solidity\footnote{\url{https://github.com/ethereum/solidity}} or
+Vyper\footnote{\url{https://github.com/ethereum/vyper}}), then compiled in its
+bytecode. The contracts communicate with each other and with external actors
+through their Application Binary Interface (ABI).
 
-% \begin{itemize}
-%   \item \emph{quasi}-Turing-completeness,
-%   \item value-awareness
-%   \item blockchain-awareness
-%   \item state
-% \end{itemize}
-
+% TODO specify better these ABI. Maybe add a nice diagram about two contracts in
+% their evm communicating through the ABI (with an external actor as well)
