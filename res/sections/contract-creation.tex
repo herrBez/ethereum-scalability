@@ -2,10 +2,9 @@
 \label{sec:contract-creation}
 The contract creation is the act with which a new contract is deployed
 on the system. It can be triggered either by a transaction or during the 
-execution of an existing contract. In the remainder of this section we refer
-to \textit{sender} as the entity who starts the contract creation.
-This can be either started by a transaction or by the
-execution of a contract. In the former case the sender corresponds to the
+execution of an existing contract. In the remainder of this section we 
+use the neutral term \textit{sender} to refer to the entity who starts
+the contract creation. In the former case the sender corresponds to the
 transaction initiator and in the latter case it corresponds to the address
 of the contract that is executing.
 
@@ -20,7 +19,7 @@ of the contract that is executing.
 The steps of the algorithm and the state transition are depicted in
 \autoref{fig:contract-creation}. The circles represent the different states.
 Firstly, the 160-bit identifier for the contract account is determined as
-function of the sender and its nonce. The value specified in the contract
+function of the sender's and its nonce. The value specified in the contract
 creation is transferred from the sender to the brand new contract account.
 Afterward the \textbf{init} code is executed on the Ethereum Virtual Machine.
 This  piece of code initiate the storage of the contract account and returns the
