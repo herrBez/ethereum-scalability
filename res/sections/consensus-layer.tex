@@ -5,7 +5,7 @@ The ultimate aim of the blockchain technology is to provide a \textbf{total
 order to transactions} in a distributed ledger~\cite{bib:the-quest} without
 relying on a trusted third party. This permits to solve the double spending
 problem~\cite{bib:bitcoin}. Moreover, in Ethereum the order of transactions can
-also affect the execution of smart contracts by altering the content of the
+also affect the execution of smart contracts by altering the content of its
 storage.
 
 Finding an agreement on the order of transaction (i.e. the actual blockchain)
@@ -38,16 +38,34 @@ problem. Indeed, in Bitcoin (and as well in Ethereum) the assumption is that the
 majority of computing power belongs to good players who will follow the
 rules\todo{add the exact proportion}. Therefore, in order to prevent bad agents
 to rewrite the transactions history with a high probability~\cite{bib:bitcoin}
-the issuer of new block should prove that he invested resources in its creation
+the issuer of new blocks should prove that she invested resources in its
+creation
 by solving a computational heavy task. This mechanism is known as
 \textbf{Proof-of-Work} (PoW). In Bitcoin the selection rule consists in
 accepting the longest chain that corresponds roughly to the one with more work
-invested on it. In Ethereum, instead, the selection rule is a simplified version
-of the Greedy Heaviest-Observed Sub-Tree (GHOST) selection
-rule~\cite{wood2018ethereum}. The main idea of this rule is to take into
-consideration not only the longest chain, but also the blocks that are not
-included in the chain (i.e. the ommers) to obtain a more secure and scalable
-system~\cite{bib:ghost}\todo{Add explanation}.
+invested on it.
+Although the Ethereum community claims to implement a simplified version of
+the Greedy Heaviest-Observed Sub-Tree (GHOST) selection
+rule~\cite{wood2018ethereum}, actually it is not the
+case~\cite{bib:securityAndScalabilityPoW}.
+Indeed, currently the selection rule consists in choosing the fork with the
+highest accumulated difficulty~\cite{wood2018ethereum}. Each block in the
+chain has an associated difficulty that determines how much effort is needed to
+mine a new block. This parameter depends \emph{solely} on the difficulty of
+the previous block and the time that elapsed between the previous block's 
+timestamp and the new block's timestamp, corrected with some bounds to avoid 
+sudden decreases or increases in this value. The claim to use the GHOST rule
+are motivated by the fact that the headers of stale blocks up to six blocks
+before 
+(\emph{ommers}) can be included in the blockchain and rewarded, 
+but they do neither contribute
+to the difficulty of the blocks nor are verified to be 
+valid~\cite{bib:securityAndScalabilityPoW}.
+Thus, this rule do not permit to keep the same
+level of security while augmenting the transaction throughput by diminishing
+the block interval, that was the primary aim of GHOST selection
+rule~\cite{bib:ghost}.
+
 
 Since the nodes need to agree on the validity of the state, they need also to
 agree on how to move to a new valid state, that is, how to execute a
