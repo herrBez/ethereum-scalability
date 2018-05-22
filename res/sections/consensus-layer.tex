@@ -53,7 +53,7 @@ not consists in
 The \emph{selection rule} is required to avoid the infamous double spending
 problem. Indeed, in Bitcoin (and as well in Ethereum) the assumption is that the
 majority of computing power belongs to good players who will follow the
-rules\todo{add the exact proportion}. Therefore, in order to prevent bad agents
+rules. Therefore, in order to prevent bad agents
 to rewrite the transactions history with a high probability~\cite{bib:bitcoin}
 the issuer of new blocks should prove that she invested resources in its
 creation
@@ -78,11 +78,10 @@ before
 but they do neither contribute
 to the difficulty of the blocks nor are verified to be 
 valid~\cite{bib:securityAndScalabilityPoW}.
-Thus, this rule do not permit to keep the same
-level of security while augmenting the transaction throughput by diminishing
-the block interval, that was the primary aim of GHOST selection
-rule~\cite{bib:ghost}.
-
+Thus, this rule does not permit to keep the same
+level of security while diminishing the block interval and consequently
+augment the transaction throughput, that was the main goal of the GHOST
+selection rule~\cite{bib:ghost}.
 
 
 %In the case of bitcoin this task consists in finding a number (\emph{nonce})
