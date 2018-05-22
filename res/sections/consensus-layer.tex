@@ -5,14 +5,31 @@ The ultimate aim of the blockchain technology is to provide a \textbf{total
 order to transactions} in a distributed ledger~\cite{bib:the-quest} without
 relying on a trusted third party. This permits to solve the double spending
 problem~\cite{bib:bitcoin}. Moreover, in Ethereum the order of transactions can
-also affect the execution of smart contracts by altering the content of its
+also affect the execution of smart contracts by altering the content of their
 storage.
+
+In order to describe how the nodes reaches the consensus, we briefly describe
+the algorithm to agree on the transaction order
+\autoref{sec:consensus:algorithm} and
+thereafter we describe the common state transition 
+procedure,
+that describe how to move to a new valid state given a
+transaction~\autoref{sec:tx-execution}, that can be either
+a contract creation (\autoref{sec:contract-creation}) or a message
+call (\autoref{sec:message-call}).
+
+
+
+
+
+\subsubsection{Consensus Algorithm}
+\label{sec:consensus:algorithm}
 
 Finding an agreement on the order of transaction (i.e. the actual blockchain)
 and the world status is crucial, thus multiple consensus algorithms were
-proposed~\cite{}. Ethereum follows an idea very close to the consensus algorithm
+proposed~\cite{bib:the-quest}. Ethereum follows an idea very close to the consensus algorithm
 of Bitcoin, which is also known in the literature as \textbf{Nakamoto
-consensus}~\cite{}.
+consensus}~\cite{bib:bitcoin-ng}.
 
 The basic idea of this algorithm consists in:
 % enumerate* means in-line enumeration
@@ -67,10 +84,6 @@ the block interval, that was the primary aim of GHOST selection
 rule~\cite{bib:ghost}.
 
 
-Since the nodes need to agree on the validity of the state, they need also to
-agree on how to move to a new valid state, that is, how to execute a
-transaction, as well as how to create a new contract and to execute a message
-call. We briefly describe them below.
 
 %In the case of bitcoin this task consists in finding a number (\emph{nonce})
 %such that the hash of the block along with the nonce itself begins with a
