@@ -14,7 +14,14 @@ Usually, a smart contract is written in a high-level language (e.g.
 Solidity\footnote{\url{https://github.com/ethereum/solidity}} or
 Vyper\footnote{\url{https://github.com/ethereum/vyper}}), then compiled in its
 bytecode. The contracts communicate with each other and with external actors
-through their Application Binary Interface (ABI).
+through their Application Binary Interface (ABI). This interface serves as a
+declaration of the functions implemented by the contract and their arguments,
+thus another actor can trigger the execution of them and get its result. The
+execution takes place in the EVM.
+
+Although there is a common agreement on the ABI format, this abstraction is not
+part of the core Ethereum protocol meaning that anyone can define and expose its
+own ABI, but the caller have to comply to the format used by the callee.
 
 % TODO specify better these ABI. Maybe add a nice diagram about two contracts in
 % their evm communicating through the ABI (with an external actor as well)
