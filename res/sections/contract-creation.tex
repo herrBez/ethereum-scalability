@@ -19,7 +19,8 @@ of the contract that is executing.
 The steps of the algorithm and the state transition are depicted in
 \autoref{fig:contract-creation}. The circles represent the different states.
 Firstly, the 160-bit identifier for the contract account is determined as
-function of the sender's and its nonce. The value specified in the contract
+function of the sender's address and its nonce. The value specified in the
+contract
 creation is transferred from the sender to the brand new contract account.
 Afterward the \textbf{init} code is executed on the Ethereum Virtual Machine.
 This  piece of code initiate the storage of the contract account and returns the
