@@ -12,7 +12,7 @@ layer is constituted by a slight modification of the Kademlia protocol
 \cite{bib:kademlia}. In the Ethereum jargon, this protocol is known as
 \textbf{RLPx Node Discovery Protocol}.
 In the remainder of this Section we firstly describe Kademlia and afterward
-the Ethereum Variant.
+the Ethereum variant.
 
 
 \subsubsection{Kademlia protocol}
@@ -41,12 +41,12 @@ Because of their maximal capacity the lists are usually denoted by the term
 
 \begin{algorithm}[t]
 	\begin{algorithmic}
-		\State distance $\gets$ $S_{ID}$ $\otimes$ $R_{ID}$
-		\State bucket $\gets$ bucket containing nodes at the given distance
-		\If {$S_{ID} \in$ bucket}
-		\State move $S_{ID}$ to the end of bucket
+		\State $distance$ $\gets$ $S_{ID}$ $\otimes$ $R_{ID}$
+		\State $bucket$ $\gets$ bucket containing nodes at the given distance
+		\If {$S_{ID} \in bucket$}
+		\State move $S_{ID}$ to the end of $bucket$
 		\Else
-		\If {bucket not full}
+		\If {$bucket$ not full}
 		\State insert $S_{ID}$ at the end of the list
 		\Else
 		\State $H \gets head(bucket)$
@@ -132,7 +132,7 @@ with the different UDP packets.
 \subparagraph{Joining the network}
 In order to join the network for the first time, a new node should generate a
 new public-private key pair\footnote{The public key is the ID and the private
-key is used to sign the packets.} and know the address of at least one
+key is used to sign the packets.} and know the contact of at least one
 participant. In Ethereum this task is accomplished by hard-coding the contact
 information of some \textit{bootstrap nodes} in the client's code. The aim of
 these nodes is to provide new nodes with contact information to other regular
