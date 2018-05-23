@@ -4,15 +4,17 @@ The aim of this section is to study the scalability of Ethereum.
 Although the scalability of blockchain, and of Ethereum in particular, is a
 well-known problem and a major concern in the respective communities, in the
 literature there are a limited number of \emph{scientific papers} that
-addresses this problem.
+address this problem.
 We give a little survey in \autoref{sec:background}.
 
-In the remainder of the Section we will analyze the scalability of Ethereum by
+In the remainder of this section we will analyze the
+scalability of Ethereum by
 keeping into consideration the 3 axes of the cube of the
 scalability~\cite{bib:art-of-scalability}.
 
 
 \subsection{Background}
+\label{sec:background}
 
 In this Section firstly, we point out the usual concerns about blockchain
 technology and in particular Bitcoin and finally we analyze the related works
@@ -20,19 +22,22 @@ regarding Ethereum.
 
 \paragraph{Bitcoin} 
 One major concern about Bitcoin and all permissionless cryptocurrencies
-in general is the limited \textbf{transaction
-throughput}~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy}.
-Thus, not all transactions emitted can be processed in a
-predictable and bounded
+in general is the limited \textbf{maximum transaction
+throughput}~\cite{bib:blockchain-challenges-opportunites-survey, bib:taxonomy,
+bib:scaling-croman}.
+Thus, if the usage of this payment system augments,
+not all transactions emitted can be processed
+in a predictable and bounded
 time\footnote{\url{https://blockchain.info/charts/mempool-size}}.
-Indeed, since the choice of the transactions
-to include in the blockchain depends on the will of the miners,
-it is more likely that the more profitable transactions are included
+Moreover, the choice of the transactions
+to include in the blockchain depends on the will of the miners.
+Therefore it is more likely that the more profitable transactions are included
 in the distributed
 ledger~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
 
-The limited transaction throughput is due~\cite{bib:ghost} on the one hand to
-the $1$ MB \textbf{maximal block size} and on the other
+The maximum limited transaction throughput is
+due~\cite{bib:ghost, bib:scaling-croman} on the one
+hand to the $1$ MB \textbf{maximal block size} and on the other
 hand to the $10$ minutes \textbf{block interval}.
 
 Increasing the former would certainly augment the transaction throughput and
@@ -40,27 +45,43 @@ decrease the transaction fees, but it would also slow down the propagation
 time, thus increasing the possibility of forks. 
 Decreasing the latter would increase the transaction throughput and increase
 also the possibility of forks.
-To address these bottlenecks Bitcoin cash and Litecoin
-took place. The first is a hard fork of Bitcoin in which 
-the blocks have a maximum size limit of $8$ MB and the
-latter uses a block interval of $2.5$ minutes.
-The increase in the number of forks reduce the security of the whole 
+The increase in the number of forks reduces the security of the whole 
 system~\cite{bib:ghost}.
+To address these bottlenecks multiple solutions were
+proposed. The blockchain system Bitcoin Cash and Litecoin try to agument
+the maximal transaction throughput by modifying the bitcoin client to
+have a maximum block size of $8$ MB and to have a block interval of $2.5$
+minutes, respectively. The GHOST~\cite{bib:ghost} protocol consider also
+the stale blocks to permit to diminish the block interval while preserving
+the same security guarantees of the original proof of work, as we already
+described in \autoref{sec:consensus:algorithm}.
 
 
-Moreover, a number of confirmation blocks are
+In addition to these considerations a number of confirmation blocks are
 needed to be sure that the transactions are really 
 confirmed~\cite{bib:taxonomy}, i.e. it is unlikely that the block in which
 they are included can be discarded in favor of other blocks.
 This uncertainty in the acceptance of a block is also known as
 \textbf{lack of Consensus Finality}~\cite{bib:the-quest} and is due to the
 probabilistic nature of the PoW consensus algorithm.
-In Bitcoin the 
-confirmation number is 6 blocks~\cite{bib:masteringbitcoin} that corresponds 
-roughly to an hour.
+Currently, in Bitcoin, to be sure that a block cannot be replaced by another
+one, the confirmation of 6 blocks are needed~\cite{bib:masteringbitcoin}.
+This corresponds roughly to an hour.
 
-Finally, another concern with this technology is the need to \textbf{store} an
+
+Another concern with this technology is the need to \textbf{store} an
 increasingly large amount of data to keep the desired security guarantees.
+
+Other major concerns are related to the \textbf{cost} of the system, especially
+the cost per confirmed transaction~\cite{bib:scaling-croman} that is due
+to the mining cost, the transactionm validation, the bandwidth and the
+storage.
+
+Finally, the bootstrap time~\cite{bib:scaling-croman}, that is, the time
+needed for a new node to download and process the whole transaction history
+is another key factor that can contribute to the scalability of the
+system~\cite{bib:scaling-croman}.
+
  
 \paragraph{Ethereum} Vukoli\'c~\cite{bib:the-quest} states that the introduction
 of smart-contracts 
