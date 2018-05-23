@@ -1,4 +1,4 @@
-\subsection{Messages and transactions}
+\subsubsection{Messages and transactions}
 
 As we said in \autoref{sec:accounts}, the accounts can send messages or
 transactions to other accounts depending on the account's type.
@@ -9,13 +9,21 @@ blockchain. It can be used to transfer ether\footnote{The currency used within
 Ethereum} or to trigger contract code. A transaction represents a message call
 or the creation of a new account with associated EVM Code.
 
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.9\textwidth]{./res/img/messages-transactions.pdf}
+\caption{Representation of the relation between message and transaction.}
+\label{fig:messages-transactions}
+\end{figure}
+
 A message is a virtual object that is not serialized and exists only in the
 Ethereum execution environment. A message between two contract accounts is also
 called \emph{internal transaction}, because of its dual nature of being
 structured as a transaction and of being managed internally of the Ethereum
 execution environment.
 
-The structure of transactions and messages differs on two fields:
+The structure of transactions and messages (whose data relation is represented
+in \autoref{fig:messages-transactions}) differs on two fields:
 
 \begin{itemize}
   \item \verb+init+, an unlimited size byte array specifying the EVM Code in a
@@ -23,13 +31,6 @@ The structure of transactions and messages differs on two fields:
   \item \verb+data+, an unlimited size byte array specifying input data for the
   message call
 \end{itemize}
-
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.9\textwidth]{./res/img/messages-transactions.pdf}
-\caption{Representation of the relation between message and transaction.}
-\label{fig:messages-transactions}
-\end{figure}
 
 \autoref{fig:messages-to-from-contract} shows the message call with regard to a
 contract account. If the destination account is a contract, the message triggers

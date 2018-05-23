@@ -1,4 +1,4 @@
-\subsection{State}
+\subsubsection{State}
 
 The \textbf{World State}, referred as the \emph{state}, in its simplest
 definition, is a mapping between account addresses and account states.
@@ -16,29 +16,30 @@ among which the \verb+stateRoot+, the \verb+transactionsRoot+ and the
 the Keccak 256-bit.} of the root of a Merkle Patricia tree data structure:
 
 \begin{itemize}
-  \item the \verb+stateRoot+ is the state tree, after all transactions
+  \item the \verb+stateRoot+ represents the state tree, after all transactions
   are executed and finalisations applied (for a complete specification of the
   fields, refer to \cite{wood2018ethereum}), storing the mapping between account
   state and account address
-  \item the \verb+transactionsRoot+ is the list of the transactions included in
+  \item the \verb+transactionsRoot+ represents the list of the transactions included in
   the block
-  \item the \verb+receiptsRoot+ is the receipts list of the transactions
+  \item the \verb+receiptsRoot+ represents the receipts list of the transactions
   included in the block, which shows the \emph{effect} of each transaction. In
   \cite{merklingethereum}, Vitalik Buterin\footnote{The Ethereum's founder.}
-  writes that with the receipt information, someone can answer queries like "Tell
-  me all instances of an event of type X (eg. a crowdfunding contract reaching
-  its goal) emitted by this address in the past 30 days"
+  writes that with the receipt information, someone can answer queries like
+  ``Tell me all instances of an event of type X (e.g. a crowdfunding contract
+  reaching its goal) emitted by this address in the past 30 days''
 \end{itemize}
 
-A Merkle Patricia tree is a data structure which derives from a radix tree
-reducing the space complexity \cite{patriciatree}. It has a single root, each
-node is the hash of its children and the leaves are the actual data, that is,
-for the case of the \verb+stateRoot+, the accounts states, which in turn include
-the \verb+storageRoot+, a hash of another Merkle Patricia tree representing the
+\paragraph{Merkle Patricia tree} A Merkle Patricia tree is a data structure
+which derives from a radix tree reducing the space complexity
+\cite{patriciatree}. It has a single root, each node is the hash of its children
+and the leaves are the actual data, that is, for the case of the
+\verb+stateRoot+, the accounts states, which in turn include the
+\verb+storageRoot+, a hash of another Merkle Patricia tree representing the
 storage contents of the account state.
 
 Since each node is the hash of its children, if any data in the tree change,
-recursively and correspondingly have to change all the ancestors nodes from the
+recursively and correspondingly all the ancestors nodes have to change from the
 changed node to the root node. This property allows us to identify uniquely a
 tree having just the root node. This is worth notice because it influences
 the system scalability. Briefly, we can distinguish between \emph{light nodes}

@@ -5,17 +5,20 @@ sudo: true
 addons:
   apt:
     packages:
+    - texlive-latex-base
     - texlive-latex-extra
+    - texlive-science
+    - texlive-lang-greek # used for devp2p
     - texlive-luatex
     - cm-super
     - latexmk
     - tex4ht
     - texlive-fonts-recommended
-    - texlive-lang-italian
     - latex-xcolor
     - pgf
     - lmodern
     - sshpass
+    - texlive-bibtex-extra
 script:
 - make
 before_deploy:
