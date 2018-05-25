@@ -5,5 +5,5 @@ Report about the architecture and the scalability of ethereum for the
 Sistemi Concorrenti e Distribuiti (Concurrent and distributed system) master course
 at the University of Padua.
 
-[Here](https://goo.gl/SyzLMN) you can retrieve the compiled pdf versions.
+At this link ftp://163.172.131.152/ you can retrieve the compiled pdf versions.
 
