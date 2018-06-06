@@ -38,7 +38,7 @@ For a full instruction list and specification of the EVM
 we refer to the official specification~\cite[Appendix H]{wood2018ethereum}.
 
 
-Unlike the bitcoin \textit{Script} language~\cite{bib:masteringbitcoin} the
+Unlike the Bitcoin's \textit{Script} language~\cite{bib:masteringbitcoin} the
 Ethereum Virtual Machine can express and supports the execution of loops.
 To avoid the abuse of the resources (CPU and storage) of the full nodes
 forming the network, Ethereum introduces the concept of
@@ -82,3 +82,28 @@ The \textbf{machine state} represents the current configuration of the
 Ethereum Virtual Machine interpreter.
 It consists of the remaining gas, the program counter, the memory and the
 stack.
+
+As already explained in~\autoref{sec:tx-execution}, a transaction can trigger
+the execution of contract creations and message
+calls. These can on their turn invoke the execution of other contract
+creations and other message calls.
+To deal with this eventuality the EVM has at its disposal a \textbf{call stack}:
+when a new contract call or message call is executed the current machine state
+is stored on the call stack and a brand new machine state with the invoked 
+code is created. When the invoked code terminates its activation record
+is popped from the call stack and a return status flag is put on the activation
+record of the invoker: $1$ indicates that the code threw an exception and $0$
+indicates that the code terminated successfully.
+The call stack's depth is limited to $1024$~\cite{wood2018ethereum}.
+Although the yellow paper does not define explicitly the call stack,
+more details can be found in the literature~\cite{grishchenko2018semantic} 
+and the in the go ethereum implementation~\footnote{An example of use of the call stack is the function \texttt{opCallCode} in the file
+	\path{core/vm/instructions.go}: it is clear that the implementation
+	exploits the usual function call stack of the language to implement the
+	EVM call stack.
+}
+
+
+
+
+
