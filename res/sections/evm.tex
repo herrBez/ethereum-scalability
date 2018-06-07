@@ -97,11 +97,12 @@ indicates that the code terminated successfully.
 The call stack's depth is limited to $1024$~\cite{wood2018ethereum}.
 Although the yellow paper does not define explicitly the call stack,
 more details can be found in the literature~\cite{grishchenko2018semantic} 
-and the in the go ethereum implementation~\footnote{An example of use of the call stack is the function \texttt{opCallCode} in the file
+and the in the go ethereum implementation\footnote{An example of use of the 
+	call stack is the function \texttt{opCallCode} in the file
 	\path{core/vm/instructions.go}: it is clear that the implementation
 	exploits the usual function call stack of the language to implement the
 	EVM call stack.
-}
+}.
 
 
 
