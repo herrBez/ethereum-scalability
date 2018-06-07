@@ -5,18 +5,27 @@ a description of \emph{how} a user or an external application can interact with
 the system, e.g. how transactions are sent by users or how can an application
 read the balance of a given address.
 
-To this extent the JSON RPC API has been 
-developed.
-It allows external actors to call the exposed API methods by performing a
-POST requests (e.g. with \texttt{curl}). These requests should specify the
-API version, the api method and the parameters encoded as a list and a nonce
-that bind a request to a reply.
+To this extent the Ethereum community has developed a JSON RPC
+API~\cite{bib:json-rpc} that is compliant with the
+JSON RPC 2.0 specification~\cite{bib:json2012json}.
+JSON RPC is stateless and can be used on top of diverse protocols (e.g. http).
+It allows external actors to invoke the exposed API methods by sending
+JSON encoded requests. These should specify the
+API version, the API method, the parameters encoded as a list and a nonce
+that binds a request to a reply.
+For the sake of clarity we show an example that calls the method 
+\verb|eth_blockNumber|, that returns the number of blocks:
 
-%\begin{lstlisting}[language=bash]
-%	curl -X POST -H "Content-Type: application/json" --data
-%	'{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":1}'
-%	http://localhost:8545
-%\end{lstlisting} 
+\begin{lstlisting}[language=bash]
+curl -X POST -H "Content-Type: application/json" --data \
+'{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
+http://localhost:8545
+\end{lstlisting} 
+The server replies with a JSON string that contains the result and the same
+nonce as the request.
+
+
+
 
 In addition to the JSON RPC API, a Javascript API was developed. It is provided
 as a Javascript library, 
