@@ -60,7 +60,7 @@ transaction execution:
 	transaction at the transaction's gas price\footnote{This sum cannot exceed the
 	initial allocated price~\cite{wood2018ethereum}, in other words the refund
 	balance can be used to mitigate the transaction cost, but not to profit.}. If
-	the message call or contract creation did not completed successfully, their
+	the message call or contract creation did not complete successfully, the
 	state is reverted and the refund balance is zeroed, since its modifications to
 	the state are not considered. The gas used is given to the beneficiary address
 	(i.e. the miner) who built and finalized the block. Finally, the self-destruct
