@@ -28,3 +28,5 @@ bytecode
 ABI
 timestamp
 init
+stateful
+cryptocurrencies
