@@ -1,0 +1,30 @@
+\subsection{External Interaction}
+
+So far we described how Ethereum \emph{internally} works but did not provide
+a description of \emph{how} a user or an external application can interact with 
+the system, e.g. how transactions are sent by users or how can an application
+read the balance of a given address.
+
+To this extent the JSON RPC API has been 
+developed.
+It allows external actors to call the exposed API methods by performing a
+POST requests (e.g. with \texttt{curl}). These requests should specify the
+API version, the api method and the parameters encoded as a list and a nonce
+that bind a request to a reply.
+
+%\begin{lstlisting}[language=bash]
+%	curl -X POST -H "Content-Type: application/json" --data
+%	'{"jsonrpc":"2.0","method":"net_peerCount","params":[],"id":1}'
+%	http://localhost:8545
+%\end{lstlisting} 
+
+In addition to the JSON RPC API, a Javascript API was developed. It is provided
+as a Javascript library, 
+\texttt{web3}\footnote{\url{https://github.com/ethereum/web3.js}}, that allows
+Javascript code to
+communicate with a running Ethereum client. It is simply a convenient
+Javascript wrapper for the JSON RPC calls~\cite{bib:javascript-api}.
+
+For a complete list of the methods supported by the two APIs we refer to the
+respective documentations~\cite{bib:json-rpc, bib:javascript-api}. 
+
