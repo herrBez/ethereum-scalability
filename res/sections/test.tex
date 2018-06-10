@@ -1,0 +1,45 @@
+\subsection{Tests}
+
+To measure the scalability of Ethereum we prepared some tests to study
+the maximal throughput and the size of the blockchain with different
+configurations.
+To study the scalability of one permission-less blockchain system such as
+Ethereum one should prepare some tests using thousand of nodes~\cite{}.
+Since we do not dispose of so many resources we take inspiration from
+Blockbench~\cite{blockbench}, which compares the performance and scalability
+of Hyperledger~\cite{} and Ethereum in a \emph{private} scenario, that is when 
+we take into consideration a limited number of authenticated nodes.
+
+We tried to use the public available Blockbench 
+repository\footnote{\url{https://github.com/ooibc88/blockbench}}
+but we did not manage to configure it, because of a lot of hard-coded
+configuration variables and the lack of a well-written documentation.
+Therefore we desisted and wrote our own system.
+
+
+
+\paragraph{Genesis file}
+
+The genesis file contains useful information to create (deterministically)
+the genesis block. It contains several parameters, such as the maximum
+gas limit for the files, the difficulty and an initial allocation of Ether
+for some accounts\footnote{This possibility has been used for the so-called
+ICOs (Initial Coin Offering) used to obtain fiat currency to finance
+the project.}. Each node of the network should be initialized with
+the same genesis file. The main network and the official Ethereum test
+networks use hard-coded values.
+
+\subparagraph{Difficulty}
+As already described in \autoref{}, the difficulty is an adaptive parameter 
+that determines how much effort should be invested in the creation of a new
+block.
+In our test we use the same hardware and same operating system in all nodes
+and for all miners.
+Therefore to find a suitable start value for the difficulty we ran five times 
+a single machine in mining mode for 30 minutes and took the average difficulty
+of the last mined block as the value for the test.
+
+
+\subsubsection{Test Configuration}
+
+
