@@ -15,4 +15,7 @@ compile:
 clean:
 	$(CC) -C $(JOB_NAME)
 	if [[ -a "$(OUTPUT_NAME)" ]]; then rm -rv $(OUTPUT_NAME)/; fi;
-	git clean -Xfd
+	rm -f *.aux *.lof *.log *.lot *.fls *.out *.toc *.fmt *.fot *.cb *.cb2 *.lb;
+	rm -f *.bbl *.bcf *.blg *-blx.aux *-blx.bib *.run.xml;
+	rm -f *.fdb_latexmk *.synctex *.synctex.gz;
+	rm -f *.pdfsync *.lol;
