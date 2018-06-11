@@ -17,6 +17,28 @@ configuration variables and the lack of a well-written documentation.
 Therefore we desisted and wrote our own system.
 
 
+\subsubsection{Test Configuration}
+
+To keep the configuration easy we opted for a classic master-slave logic.
+The master, i.e. the initiator of the test, uses the ssh protocol
+to run commands on the remote machines.
+Similarly to~\cite{blockbench} we distinguish the roles \emph{miner} and
+\emph{client}. The former is accountable to generate new blocks while the
+latter creates and propagates transactions and both roles verify the 
+blocks\footnote{To reduce the number of test variables we consider only 
+	full nodes}.
+We can assign multiple roles to a machine. In this case we run
+\emph{one geth instance} for each role.
+
+
+
+In each test we distinguish at least two phases:
+\begin{enumerate*}
+	\item the setup, and
+	\item the test itself.
+\end{enumerate*}
+The former is used to initialize the local machine with the right genesis
+file and the data structures to mine and validate the blocks.
 
 \paragraph{Genesis file}
 
@@ -24,22 +46,29 @@ The genesis file contains useful information to create (deterministically)
 the genesis block. It contains several parameters, such as the maximum
 gas limit for the files, the difficulty and an initial allocation of Ether
 for some accounts\footnote{This possibility has been used for the so-called
-ICOs (Initial Coin Offering) used to obtain fiat currency to finance
-the project.}. Each node of the network should be initialized with
-the same genesis file. The main network and the official Ethereum test
+ICOs (Initial Coin Offering) used by the Ethereum Foundation to obtain fiat
+currency to finance the project.}. Each node of the network should be 
+initialized with the same genesis file. 
+The main network and the official Ethereum test
 networks use hard-coded values.
+
 
 \subparagraph{Difficulty}
 As already described in \autoref{}, the difficulty is an adaptive parameter 
 that determines how much effort should be invested in the creation of a new
 block.
 In our test we use the same hardware and same operating system in all nodes
-and for all miners.
-Therefore to find a suitable start value for the difficulty we ran five times 
-a single machine in mining mode for 30 minutes and took the average difficulty
-of the last mined block as the value for the test.
+and for all miners (we deliberately used only one thread for mining).
+Therefore to find a suitable start value for the difficulty we ran a single
+machine in mining mode 
 
 
-\subsubsection{Test Configuration}
+\subparagraph{Timestamp}
+The timestamp of the genesis file, that corresponds to the one of the genesis,
+block influences the difficulty of the first blocks.
+Since, for time constraints, we want to run each test for few minutes and
+at the same time keep the difficulty found with the initial tests,
+during the setup phase the initiator reads its timestamp and gives it
+as parameter to the peers.
 
 
