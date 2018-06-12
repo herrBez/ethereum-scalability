@@ -1,6 +1,16 @@
 \subsubsection{Y-Axis: Functional Decomposition}
 
-The y-axis scaling focuses on the separation based on the resposibility for an
+The y-axis scaling focuses on the separation based on the responsibility for an
 action which can be determined by the type of data or the type of work performed
 for a transaction. While scaling on the x-axis could means "everyone does
-everything", scaling on the y-axis specializes the workers.
+everything", scaling on the y-axis specializes the workers splitting the whole
+service in small services and assigning each service to a single worker. If we
+combine the x-axis with the y-axis, we could have cluster of specialized workers
+such that each cluster cover a different service, but workers in the same
+cluster do the same job.
+
+With regards to the data, differently from what happens in the x-axis, each
+service should have its own non-shared data, thus segmenting it based on what
+each service needs to have access to. This allows to size and optimize the
+resources based on the transactions demand for each service, and ultimately
+to reduce the operational costs.
