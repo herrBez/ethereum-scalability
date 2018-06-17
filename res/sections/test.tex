@@ -31,19 +31,21 @@ blocks\footnote{To reduce the number of test variables we consider only
 	full nodes}.
 We can assign multiple roles to a machine. In this case we run
 \emph{one geth instance} for each role.
+The coordinator copies the right genesis block in the test machines. 
 
 
 
-In each test we distinguish at least two phases:
+In each run of test we distinguish at least two phases:
 \begin{enumerate*}
 	\item the setup, and
 	\item the test itself.
 \end{enumerate*}
 
-%The former is used to initialize the local machine with the right genesis
-%file and the data structures to mine and validate the blocks.
 
-\paragraph{Setup}
+\subsubsection{The Setup}
+The setup is used to initialize the different machines with the right genesis
+file and the data structures to mine and validate the blocks,  i.e.
+the ethash DAG and the ethash cache
 
 \paragraph{Genesis file}
 
@@ -57,10 +59,7 @@ initialized with the same genesis file.
 The main network and the official Ethereum test
 networks use hard-coded values.
 
-
-
-\subparagraph{Timestamp}
-The timestamp of the genesis file, that corresponds to the one of the genesis
+The \textbf{timestamp} of the genesis file, that corresponds to the one of the genesis
 block, influences the difficulty of the first blocks, and transitively
 of all the blocks.
 Since, for time constraints, we want to run each test for few minutes and
@@ -70,17 +69,14 @@ as parameter to the peers\footnote{Before starting the test all the
 peers should be configured, therefore using the timestamp of the coordinator
 does not assume fine-grained coordinated clocks.}
 
-
-\subparagraph{Difficulty}
-As already described in \autoref{}, the difficulty is an adaptive parameter 
-that determines how much effort should be invested in the creation of a new
-block.
-In our test we use the same hardware and same operating system in all nodes
-and for all miners (we deliberately used only one thread for mining).
-Therefore to find a suitable start value for the difficulty we ran a
+As already described in \autoref{}, the \textbf{difficulty} is an adaptive
+parameter  that determines how much effort should be invested in the creation
+of a new block. In our test we use the same hardware and same operating system 
+in all nodes and for all miners (we deliberately used only one thread for 
+mining). Therefore to find a suitable start value for the difficulty we ran a
 single machine in mining mode for 18 hours. \autoref{fig:start_difficulty_raw}
-shows how the difficulty changes in function of time.
-We notice that around timestamp $1528760000$ the value is pretty stable.
+shows how the difficulty changes in function of time. We notice that around
+timestamp $1528760000$ the value is pretty stable.
 The details of the graph starting from this point of time are reported
 in \autoref{fig:start_difficulty_details}.
 So we take as initial difficulty the median $325263.5$ rounded down
@@ -90,7 +86,7 @@ to $325263$.
 	\begin{subfigure}{.48\textwidth}
 		\includegraphics[width=\textwidth]{./res/img/start_difficulty.png}
 	
-		\caption{}
+		\caption{The growth of the difficulty in the 18 hour run.}
 		\label{fig:start_difficulty_raw}
 		
 	\end{subfigure}
@@ -107,6 +103,32 @@ to $325263$.
 	
 	\end{center}
 \end{figure}
+
+\paragraph{Ethash Datastructures} Ethereum uses an improved version of the
+Dagger-Hashimoto algorithm, known as 
+Ethash~\cite[Appendix J]{wood2018ethereum} as Proof of Work algorithm.
+The rationale to use of this memory intensive algorithm is its 
+ASIC-resistance. ASIC are specialized hardware used massively in the Bitcoin
+ecosystem. These kind of Hardware is a risk for centralization, 
+because to begin mining new blocks a big initial investment is needed.
+
+Essentially to create a valid block the miner should find a mixHash and
+a nonce (\autoref{fig:world-state}) for the block.
+The PoW algorithm takes as input the block without header, the candidate
+nonce and a big dataset, known as \textbf{DAG}, and
+returns the mixHash and a number $n$. The puzzle is resolved if
+$n$ is smaller than $2^{256}$ divided by the difficulty of the block. Clearly,
+the higher the difficulty the higher the number of nonce to try to find the
+right values. The DAG can be precalcolated and is fixed for each epoch, i.e.
+$30000$ blocks, that corresponds roughly to $100$ hours. To verify
+that the mixHash and the nonce are correct values only a cache for the
+DAG is needed. Actually, the cache is required to generate the DAG itself.
+At each epoch the DAG and the cache change and their size increase of
+$80$ mebibytes and $128$ kibibytes, respectively.
+We refer to the yellow paper~\cite[Appendix J]{wood2018ethereum} to get more
+more details on how these data structures are computed.
+During the setup phase the nodes with the roles miner generate the 
+DAG and the cache for the first two epochs~\footnote{}.
 
 
 
