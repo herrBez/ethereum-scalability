@@ -73,34 +73,21 @@ As already described in \autoref{}, the \textbf{difficulty} is an adaptive
 parameter  that determines how much effort should be invested in the creation
 of a new block. In our test we use the same hardware and same operating system 
 in all nodes and for all miners (we deliberately used only one thread for 
-mining). Therefore to find a suitable start value for the difficulty we ran a
-single machine in mining mode for 18 hours. \autoref{fig:start_difficulty_raw}
-shows how the difficulty changes in function of time. We notice that around
-timestamp $1528760000$ the value is pretty stable.
-The details of the graph starting from this point of time are reported
-in \autoref{fig:start_difficulty_details}.
-So we take as initial difficulty the median $325263.5$ rounded down
-to $325263$.
+mining). Therefore to find a suitable start value for the difficulty for the
+different configurations we ran a simulation with one, two, four and 8 miners
+for 24 hours.
+\autoref{fig:start_difficulty_raw} shows how the difficulty changed with
+the different number of miners. We can notice that in our homogeneous system
+the final values of difficulties have a quasi linear dependency with the number
+of miners. For the test we took as initial value the median of the last 100
+blocks.
 \begin{figure}
 	\begin{center}
-	\begin{subfigure}{.48\textwidth}
-		\includegraphics[width=\textwidth]{./res/img/start_difficulty.png}
-	
-		\caption{The growth of the difficulty in the 18 hour run.}
+
+		\includegraphics[width=0.8\textwidth]{./res/img/start_difficulty_all.png}
+		\caption{The growth of the difficulty in the 24 hour run.}
 		\label{fig:start_difficulty_raw}
 		
-	\end{subfigure}
-	\begin{subfigure}{.48\textwidth}
-		\includegraphics[width=\textwidth]{./res/img/start_difficulty_details.png}
-		\caption{Details from timestamp $15287600$. The red and the
-			yellow lines show the median and the average, respectively.}
-		\label{fig:start_difficulty_details}
-	\end{subfigure}
-	
-	\caption{The changes of the difficulty in function of time on 
-	a single machine without transactions.}
-	\label{fig:start_difficulty}
-	
 	\end{center}
 \end{figure}
 
@@ -110,7 +97,8 @@ Ethash~\cite[Appendix J]{wood2018ethereum} as Proof of Work algorithm.
 The rationale to use of this memory intensive algorithm is its 
 ASIC-resistance. ASIC are specialized hardware used massively in the Bitcoin
 ecosystem. These kind of Hardware is a risk for centralization, 
-because to begin mining new blocks a big initial investment is needed.
+because to begin mining new blocks a big initial investment is needed and
+only few entities can afford this cost.
 
 Essentially to create a valid block the miner should find a mixHash and
 a nonce (\autoref{fig:world-state}) for the block.
