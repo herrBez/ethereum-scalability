@@ -75,3 +75,20 @@ only as a response to a trigger. The state of a contract is its balance and its
 contract storage. A contract code is executed by the EVM, can manipulate its own
 persistent storage and can send internal transactions (i.e. message calls) to
 other contracts.
+
+Both the types of account have an associated \emph{nonce}. In the case of an
+externally owned account this value corresponds to the number of transactions
+sent by the account while in the case of a contract account it corresponds to 
+the number of contract creations performed by the account. Obviously, this
+value is always positive and can only be increased.
+
+When creating a transaction the externally owned account should specify its 
+nonce. This guarantees that  the order of transactions of a single account are
+processed in the order specified by the sender. Without this expedient
+something unforeseen can happen, e.g., the balance of the account can get under
+a certain threshold and so other transactions cannot be performed.
+Since contracts cannot perform transactions but can still create other contracts
+once invoked, the nonce is used to guarantee that each different created
+account have a different contract address. Indeed the contract address is 
+obtained as function of the address of the creator and its nonce.
+
