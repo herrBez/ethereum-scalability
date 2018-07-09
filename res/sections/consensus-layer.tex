@@ -67,9 +67,11 @@ returns the mixHash and a number $n$. The puzzle is resolved if
 $n$ is smaller than $2^{256}$ divided by the difficulty of the block. Clearly,
 the higher the difficulty the higher the number of nonce to try to find the
 right values. The DAG can be precalcolated and is fixed for each epoch, i.e.
-$30000$ blocks, that corresponds roughly to $100-150$ hours. To verify
-that the mixHash and the nonce are valid only a cache for the
-DAG is needed. Actually, the cache is required also to generate the DAG itself.
+$30000$ blocks, that corresponds roughly to $100-141$ hours\footnote{
+These values are obtained by considering a new valid block each $12$
+seconds~\cite{bib:} and $17$ seconds~\cite{bib:solidity}, respectively.}. To
+verify that the mixHash and the nonce are valid only a cache for the DAG is
+needed. Actually, the cache is required also to generate the DAG itself.
 At each epoch the DAG and the cache change and their size increase of
 $80$ mebibytes and $128$ kibibytes, respectively.
 We refer to the yellow paper~\cite[Appendix J]{wood2018ethereum} to get more
