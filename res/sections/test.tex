@@ -78,15 +78,16 @@ networkid and nonce, so that the packets of different networks are simply
 dropped as described in~\autoref{sec:ethereum-wire-protocol}.
 In \autoref{} we show an extract of the genesis block we used.
 Apart from the arbitrary values, that is the id and the nonce, other parameters
-used in the tests require some justification, that we provide in the remainder of
-this paragraph.
+used in the tests require some justification, that we provide in the remainder
+of this paragraph.
 
 The \textbf{timestamp} of the genesis file, that corresponds to the one of the
 genesis block, influences the difficulty of the first blocks, and transitively
 of all the blocks.
-Since, for time constraints, we want to run each test for few minutes and
-at the same time keep the difficulty found with the initial tests,
-during the setup phase the initiator reads its timestamp and gives it
+Since, for time constraints, we want to run each test for few minutes we want
+to avoid sudden decreases in the difficulty due to a too old timestamp.
+Therefore, to prevent these unwanted changes in the difficulty value, during the
+second loop of the setup phase, the initiator reads its timestamp and gives it
 as parameter to the peers\footnote{Before starting the test all the
 peers should be configured, therefore using the timestamp of the coordinator
 does not assume fine-grained coordinated clocks.}
@@ -111,7 +112,14 @@ blocks.
     \end{center}
 \end{figure}
 
-
+The \textbf{gas limit} in the genesis block determines the gas limit of the
+first block. The gas limit of the subsequent blocks can be determined freely by
+the miners but must be contained in a range obtained by summing and subtracting
+to the gas limit a portion of itself. Thus, in a relative brief simulation the
+initial value is foundamental. Due to the considerations of
+\autoref{sec:background}, we decided to use a large value for the gas limit,
+i.e. $500 \cdot 21000$, that corresponds to the gas to execute $500$
+transactions without execution of code.
 
 
 
