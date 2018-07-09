@@ -24,7 +24,7 @@ Therefore we desisted and wrote our own system.
 To keep the configuration easy we opted for a classic master-slave logic.
 The master, i.e. the initiator and coordinator of the tests, uses the ssh
 protocol to run commands on the remote machines.
-Similarly to~\cite{blockbench} we distinguish the roles \emph{miner} and
+Similarly to~\cite{blockbench} we distinguish between the roles \emph{miner} and
 \emph{client}. The former is accountable to generate new blocks while the
 latter creates and propagates transactions and both roles verify the
 blocks\footnote{To reduce the number of test variables we consider only
@@ -37,6 +37,7 @@ The coordinator copies the right genesis block in the test machines.
 
 In each run of test we distinguish at least two phases:
 \begin{enumerate*}
+    \item the creation of the ethash structures
     \item the setup, and
     \item the test itself.
 \end{enumerate*}
