@@ -61,13 +61,13 @@ parties can afford this cost.
 
 Essentially to create a valid block the miner should find a mixHash and
 a nonce (\autoref{fig:world-state}) for the block.
-The PoW algorithm takes as input the block header without nonce and mixhash,
-the candidate nonce and a big dataset, known as \textbf{DAG}, and
+The PoW algorithm takes as input the block header without nonce,
+the candidate nonce and a big dataset, known as \textbf{DAG} and
 returns the mixHash and a number $n$. The puzzle is resolved if
 $n$ is smaller than $2^{256}$ divided by the difficulty of the block. Clearly,
 the higher the difficulty the higher the number of nonce to try to find the
 right values. The DAG can be precalcolated and is fixed for each epoch, i.e.
-$30000$ blocks, that corresponds roughly to $100-141$ hours\footnote{
+$30000$ blocks, that corresponds roughly to $100$ or $141$ hours\footnote{
 These values are obtained by considering a new valid block each $12$
 seconds~\cite{bib:} and $17$ seconds~\cite{bib:solidity}, respectively.}. To
 verify that the mixHash and the nonce are valid only a cache for the DAG is
