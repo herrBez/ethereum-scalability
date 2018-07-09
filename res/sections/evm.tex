@@ -34,8 +34,13 @@ In addition to the aforementioned structures the EVM can read the information
 provided in the transaction/message that initiated the execution. In particular
 the EVM can access the input field, which contains the arguments for a peculiar
 execution.
-For a full instruction list and specification of the EVM
-we refer to the official specification~\cite[Appendix H]{wood2018ethereum}.
+Moreover the EVM can access to the balance of all addresses and write to the
+logs, that are stored in the blockchain. The logs are used both as a cheap
+output and also to notify external applications that something worth mentioning
+has happened. We provide more details about events in \autoref{sec:dapp} 
+and \autoref{sec:solidity}.
+For a full instruction list and specification of the EVM we refer to the 
+official specification~\cite[Appendix H]{wood2018ethereum}.
 
 
 Unlike the Bitcoin's \textit{Script} language~\cite{bib:masteringbitcoin} the
