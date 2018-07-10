@@ -65,8 +65,8 @@ The PoW algorithm takes as input the block header without nonce,
 the candidate nonce and a big dataset, known as \textbf{DAG} and
 returns the mixHash and a number $n$. The puzzle is resolved if
 $n$ is smaller than $2^{256}$ divided by the difficulty of the block. Clearly,
-the higher the difficulty the higher the number of tries to find the
-right nonce. The DAG can be precalcolated and is fixed for each epoch, i.e.
+the higher the difficulty the higher the number of tries to find a suitable
+nonce. The DAG can be precalcolated and is fixed for each epoch, i.e.
 $30000$ blocks, that corresponds roughly to $100$ or $141$ hours\footnote{
 These values are obtained by considering a new valid block each $12$
 seconds~\cite{bib:} and $17$ seconds~\cite{bib:solidity}, respectively.}. To
