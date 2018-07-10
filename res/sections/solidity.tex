@@ -84,10 +84,10 @@ we distinguish between \texttt{pure}, \texttt{view} and \texttt{payable}.
 The first indicates that the function will not access the state, the second
 promises to access the state in a read-only fashion while the latter indicates 
 that the function is capable of receiving money.
-Pure and view functions can be invoked also externally, i.e. without executing
-the EVM and spending gas, indeed in that case they are either returning a
-constant or are reading the storage, but if they are invoked during the
-execution of a transaction it spends gas.
+Pure and view functions can be invoked also from outside the EVM, i.e. without
+executing the EVM and spending gas, indeed in that case they are either
+returning a constant or are reading the storage, but if they are invoked during
+the execution of a transaction it spends gas.
 
 
 
