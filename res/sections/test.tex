@@ -122,32 +122,6 @@ initial value is foundamental. Due to the considerations of
 i.e. $500 \cdot 21000$, that corresponds to the gas to execute $500$
 transactions without execution of code.
 
-\paragraph{Ethash Datastructures} Ethereum uses an improved version of the
-Dagger-Hashimoto algorithm, known as 
-Ethash~\cite[Appendix J]{wood2018ethereum} as Proof of Work algorithm.
-The rationale to use of this memory intensive algorithm is its 
-ASIC-resistance. ASIC are specialized hardware used massively in the Bitcoin
-ecosystem. These kind of hardware is a risk for centralization, 
-because to begin mining new blocks a big initial investment is needed and
-only few entities can afford this cost.
-
-Essentially to create a valid block the miner should find a mixHash and
-a nonce (\autoref{fig:world-state}) for the block.
-The PoW algorithm takes as input the block without header, the candidate
-nonce and a big dataset, known as \textbf{DAG}, and
-returns the mixHash and a number $n$. The puzzle is resolved if
-$n$ is smaller than $2^{256}$ divided by the difficulty of the block. Clearly,
-the higher the difficulty the higher the number of nonce to try to find the
-right values. The DAG can be precalcolated and is fixed for each epoch, i.e.
-$30000$ blocks, that corresponds roughly to $100$ hours. To verify
-that the mixHash and the nonce are correct values only a cache for the
-DAG is needed. Actually, the cache is required to generate the DAG itself.
-At each epoch the DAG and the cache change and their size increase of
-$80$ mebibytes and $128$ kibibytes, respectively.
-We refer to the yellow paper~\cite[Appendix J]{wood2018ethereum} to get more
-more details on how these data structures are computed.
-During the setup phase the nodes with the roles miner generate the 
-DAG and the cache for the first two epochs~\footnote{}.
 
 
 \paragraph{Maximal Throughput Test}
