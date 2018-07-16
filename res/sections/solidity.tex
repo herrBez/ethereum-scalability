@@ -73,11 +73,10 @@ that does not take parameters. Since the signature depends on the number and
 the type of arguments, function overloading is easily implemented by using
 the new obtained selector.
 
-Apart from the aforementioned visibilities (external and internal)
-we distinguish also between public and private functions. The former can be
-called either externally or internally, while the latter can be called only 
-internally and are not visible to contracts that are below in the inheritance
-hierarchy.
+Moreover, we distinguish also between \texttt{public} and \texttt{private}
+functions. The formers can be called either externally or internally, while the
+latters can be called only internally and are not visible to the contracts that
+are below in the inheritance hierarchy.
 
 In addition to the visibility the function header may contain a state mutability
 flag: we distinguish between \texttt{pure}, \texttt{view} and \texttt{payable}. 
