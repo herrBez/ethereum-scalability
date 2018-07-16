@@ -45,27 +45,27 @@ applications, that can listen to them to perform some application-specific
 operations. Logs are visible from the outside because they are stored
 in the blockchain as part of the transaction receipt which emitted them.
 
-After the definition of the events, a the \textbf{modifier} \verb|onlyOwner| is
+After the definition of the events, the \textbf{modifier} \verb|onlyOwner| is
 defined. A modifier is a piece of code that is executed before or after a 
-function decorated with it is called. Modifiers can be used to implement final
-state machines~\cite{bib:solidity-docs} and conditions that should be fulfilled 
-to execute or after execution of a particular category of functions, e.g. 
-pre-conditions and or post-conditions on state.
+function decorated with it is called. They can be used to implement final
+state machines~\cite{bib:solidity-docs} and pre- and post-conditions for the
+execution of the decorated functions.
 
 The \textbf{functions} are an abstraction of the language. They can be invoked 
-either  \texttt{internally}, that is inside the same call stack activation 
-record with a JUMP instruction or \texttt{externally}, that is by creating a
-new message  call. In the former case the machine state is the same of the
-invoker, while in the latter the code is executed in a new machine state, that is by creating a new activation record on the call stack, as discussed in
+either \texttt{internally}, that is inside the same call stack activation record
+with a JUMP or JUMPI instruction or \texttt{externally}, that is by creating a
+new message call. In the former case the machine state is the same of the
+invoker, while in the latter the code is executed in a new machine state, that
+is by creating a new activation record on the call stack, as discussed in
 \autoref{sec:evm}.
 The first 4 bytes of the keccak256 hash of the signature of external function
-(name and parameter types) is used as unique identifier (\textbf{selector}) of
-a function. When an actor wants to invoke a function externally he should 
-provide its selector in the message data and follow the ABI
-format~\cite{bib:solidity-docs}.
+(function name and parameter types) is used as unique identifier
+(\textbf{selector}) of a function. When an actor wants to invoke a function
+externally it should provide the function's selector in the message data and
+follow the ABI format~\cite{bib:solidity-docs}.
 Essentially the Solidity compiler puts at the start of the compiled code a
 switch-statement that checks if the first four bytes of the message call data
-match a known (external) function. If it is the case the program jumps to the
+match a known function's selector. If it is the case the program jumps to the
 definition of the matched function otherwise a so-called fallback function is 
 invoked.
 The programmer may specify the fallback function by writing an unnamed function
@@ -79,15 +79,17 @@ called either externally or internally, while the latter can be called only
 internally and are not visible to contracts that are below in the inheritance
 hierarchy.
 
-Apart from visibility the function header may contain a state mutability flag:
-we distinguish between \texttt{pure}, \texttt{view} and \texttt{payable}. 
+In addition to the visibility the function header may contain a state mutability
+flag: we distinguish between \texttt{pure}, \texttt{view} and \texttt{payable}. 
 The first indicates that the function will not access the state, the second
 promises to access the state in a read-only fashion while the latter indicates 
 that the function is capable of receiving money.
 Pure and view functions can be invoked also from outside the EVM, i.e. without
-executing the EVM and spending gas, indeed in that case they are either
-returning a constant or are reading the storage, but if they are invoked during
-the execution of a transaction it spends gas.
+a transaction and without paying fees. After all, the function reads only the
+local state without the intervention of the other peers.
+Obviously, if these types of functions are called with a transaction or during
+the execution of another contract, the normal gas consumption applies, because
+all the full nodes should execute the code.
 
 
 
