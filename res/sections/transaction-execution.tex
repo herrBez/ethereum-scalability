@@ -11,8 +11,8 @@ that all executions terminate, the concept of \textbf{gas} is introduced. In
 this execution model each action that must be performed by the members of the
 network has an associated cost expressed in gas. In particular, each EVM
 byte-code instruction, increase in the storage space by a contract and the
-transaction itself have a fixed associated cost. A transaction specifies the
-\textbf{gas price} and the \textbf{gas limit}. The former is the price of a unit
+transaction itself have a fixed associated cost. A transaction specifies its
+\textbf{gas price} and its \textbf{gas limit}. The former is the price of a unit
 of gas and is bound to a particular execution. The higher this price the higher
 the possibility that the miner will include this transaction in the blockchain.
 Usually the miners advertise the minimum gas price they are willing to accept.
@@ -60,7 +60,7 @@ transaction execution:
 	transaction at the transaction's gas price\footnote{This sum cannot exceed the
 	initial allocated price~\cite{wood2018ethereum}, in other words the refund
 	balance can be used to mitigate the transaction cost, but not to profit.}. If
-	the message call or contract creation did not completed successfully, their
+	the message call or contract creation did not complete successfully, the
 	state is reverted and the refund balance is zeroed, since its modifications to
 	the state are not considered. The gas used is given to the beneficiary address
 	(i.e. the miner) who built and finalized the block. Finally, the self-destruct

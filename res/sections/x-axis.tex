@@ -1,7 +1,10 @@
-\subsection{X-Axis - Horizontal Duplication}
+\subsubsection{X-Axis: Horizontal Duplication}
 
 The x-axis of the cube of the scalability is concerned with the horizontal
-duplication, i.e. cloning of the system~\cite{bib:art-of-scalability} on 
-multiple machines.
-In particular, given multiple equal machines the requests are sent to only one
-of the machine. Usually, the work is distributed by a work balancer.
+duplication and cloning with absolutely no bias, running each identical copy of
+the system on a different server. Usually, the work is distributed by a load
+balancer.
+
+Reasoning on the x-axis is typically easy and the implementation can be fast,
+but the data sets have to be replicated in their entirety which increases
+operational costs.

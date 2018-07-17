@@ -3,9 +3,10 @@
 The Recursive Length Prefix (RLP) encoding algorithm is a fundamental building
 block in the Ethereum system.
 It is used both to marshal the content
-of the UDP and TCP packets sent, as described in~\autoref{sec:network-layer} and~\autoref{sec:rlpx-transport-protocol}, and
-to reach a bit level consensus on the World State through the blockchain, as 
-described in~\autoref{}.
+of the UDP and TCP packets sent, as described in~\autoref{sec:network-layer}
+and~\autoref{sec:rlpx-transport-protocol}, and to reach a bit level consensus on
+the World State through the blockchain, as described
+in~\autoref{sec:world-state}.
 
 
 This algorithm is used \emph{only} to encode byte arrays of arbitrary length.
@@ -15,6 +16,6 @@ is completely dependent on the message in the protocol, which should
 also specify the byte-size of the structures involved.
 According to the documentation~\cite{bib:design-rationale} RLP has been chosen
 for its simplicity and its byte level consistency.
-For the formal specification of the algorithm we refer 
-to the Yellow Paper~\cite[Appendix B]{wood2018ethereum} and the
+For the formal specification of the algorithm we refer
+to the Yellow Paper~\cite[Appendix B]{wood2018ethereum} and the RLP
 documentation~\cite{bib:ethereumrlpspec}.

@@ -1,0 +1,40 @@
+\subsection{External Interaction}
+
+So far we described how Ethereum \emph{internally} works but we did not provide
+a description of \emph{how} a user or an external application can interact with
+the system, e.g. how transactions are sent by users or how an application can
+read the balance of a given address.
+
+To this extent, the Ethereum community has developed a JSON RPC
+API~\cite{bib:json-rpc} compliant with the JSON RPC 2.0
+specification~\cite{bib:json2012json}. JSON RPC is stateless and can be used on
+top of diverse protocols (e.g. http). It allows external actors to invoke the
+exposed API methods by sending JSON encoded requests. These should specify the
+API version, the API method, the parameters encoded as a list and a nonce that
+binds a request to a reply. For the sake of clarity, we show an example that
+calls the method \verb|eth_blockNumber|, which returns the number of blocks:
+
+\begin{lstlisting}[language=bash]
+curl -X POST -H "Content-Type: application/json" --data \
+'{"jsonrpc":"2.0","method":"eth_blockNumber","params":[],"id":1}' \
+http://localhost:8545
+\end{lstlisting}
+
+The server replies with a JSON string that contains the result and the same
+nonce as the request.
+
+In addition to the JSON RPC API, a JavaScript API was developed. It is provided
+as a JavaScript library,
+\texttt{web3}\footnote{\url{https://github.com/ethereum/web3.js}}, that allows
+JavaScript code to communicate with a running Ethereum client. It is simply a
+convenient JavaScript wrapper for the JSON RPC calls~\cite{bib:javascript-api}.
+For a complete list of the methods supported by the two APIs, we refer to the
+respective documentations~\cite{bib:json-rpc, bib:javascript-api}.
+
+The different Ethereum client implementations provide options to start JSON RPC
+server on top of different protocols: for example, go ethereum allows to start
+the server on top of HTTP, WebSocket and IPC Socket, i.e. shared memory.
+Moreover, this client gives the possibility to users to start or to attach to a
+given running instance a JavaScript Runtime Environment REPL
+console~\cite{bib:js-console}, which can execute Javascript programs and access
+the JavaScript API methods.
