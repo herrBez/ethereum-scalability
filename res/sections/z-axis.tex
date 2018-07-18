@@ -14,12 +14,20 @@ located on the other side of the globe.
 
 \paragraph{Ethereum} We argue that currently Ethereum is not developed in this
 axis, because each node of the network should have information about the whole
-blockchain and the status of all accounts in the network (\autoref{sec:state})
-to process the transactions. Indeed, to process a transaction that requires the
-EVM, at least the balance of the creator of the transaction and the code of the
-invoked contract are needed.
-Moreover, the invoked contract may in turn call other contracts and so on.
-Thus, to process a transaction at least the account state of the sender and the
-called contracts should be known. In addition the execution of the contracts may
-increase the balance of other accounts as a side effects, e.g. through the
-\texttt{SELFDESTRUCT} opcode.
+blockchain and the status of all accounts in the network 
+(\autoref{sec:world-state}) to process the transactions. For this reason 
+Ethereum cannot be more efficient than a single machine, as already pointed out 
+by Vitalik Buterin in the muave paper~\cite{bib:mauve}.
+
+However, a z-axis split would be not trivial, as the following example 
+clarifies. Let's consider the process of a transaction that requires some 
+computations on the EVM. To complete this action we need several information, 
+such as the balance of the sender of the transaction and the code of the
+invoked contract. Moreover, the invoked contract may in turn call other 
+contracts and so on. These may in addition modify the balance of other accounts
+as a side effect, e.g. through the \texttt{SELFDESTRUCT} opcode. Thus, to 
+process a transaction we need the account states of the sender and the called
+contracts and all account state that are affected by the computations.
+
+\paragraph{Proposals} To tackle a z-axis split the Ethereum community has 
+proposed to implement sharding~\cite{bib:mauve}
