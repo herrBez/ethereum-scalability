@@ -3,8 +3,23 @@
 The direction taken by scaling on the y-axis is to segment based on the service,
 i.e. based on \emph{dissimilar} things. Scaling on the z-axis means segment on
 \emph{similar} things, thus making the segmentation biased by the data or the
-actions that are unique to the sender or the receiver of the request. An example
+actions that are unique to the sender or the receiver of the request. In
+particular, to enhance significantly the system a z-axis split should parition
+both transactions and the data necessary to perform the transactions. An example
 of such scaling could be, in a client-server architecture, the geographic
 distribution of the servers based on the clients requests, such that a request
 performed in Europe is undertaken by a server located in Europe instead of one
 located on the other side of the globe.
+
+
+\paragraph{Ethereum} We argue that currently Ethereum is not developed in this
+axis, because each node of the network should have information about the whole
+blockchain and the status of all accounts in the network (\autoref{sec:state})
+to process the transactions. Indeed, to process a transaction that requires the
+EVM, at least the balance of the creator of the transaction and the code of the
+invoked contract are needed.
+Moreover, the invoked contract may in turn call other contracts and so on.
+Thus, to process a transaction at least the account state of the sender and the
+called contracts should be known. In addition the execution of the contracts may
+increase the balance of other accounts as a side effects, e.g. through the
+\texttt{SELFDESTRUCT} opcode.
