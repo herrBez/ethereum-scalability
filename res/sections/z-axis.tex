@@ -4,22 +4,44 @@ The direction taken by scaling on the y-axis is to segment based on the service,
 i.e. based on \emph{dissimilar} things. Scaling on the z-axis means segment on
 \emph{similar} things, thus making the segmentation biased by the data or the
 actions that are unique to the sender or the receiver of the request. In
-particular, to enhance significantly the system a z-axis split should parition
-both transactions and the data necessary to perform the transactions. An example
-of such scaling could be, in a client-server architecture, the geographic
-distribution of the servers based on the clients requests, such that a request
-performed in Europe is undertaken by a server located in Europe instead of one
-located on the other side of the globe.
+particular, to enhance significantly the system a z-axis split should partition
+both transactions and the data necessary to perform the transactions. 
+An example of such scaling could be, in a client-server architecture, the 
+geographic distribution of the servers based on the clients requests, such that 
+a request performed in Europe is undertaken by a server located in Europe 
+instead of one located on the other side of the globe. One similar example of
+successful z-axis split is sharding.
+
+\paragraph{Sharding} 
+Sharding is commonly used in distributed databases to scale out by splitting
+the data of a database in several servers. One emblematic example is
+MongoDB\footnote{\url{https://www.mongodb.com/}}~\cite{bib:mongodb}. This kind
+of NoSQL database splits the documents into the different \emph{shards}
+according to a selected \emph{shard key}. Each shard is accountable to store 
+the documents in a partition of the key space. To access the data 
+transparently, that is without knowing where the data are really stored an
+entity, called \texttt{mongos} is introduced. Its aim is to redirect the
+requests to the right shards, collect the responses and return them to the
+requester. Moreover a balancer is introduced. It is accountable to balance the 
+amount of data in each server while minimizing the transfer of data among the 
+shards. When a shards is too full it may create new shards, if additional
+servers are available, or it may simply rearrange the partition. 
+The big advantage of MongoDB's approach is that the splitting of data and
+migration of data are done automatically without human intervention.
 
 
-\paragraph{Ethereum} We argue that currently Ethereum is not developed in this
-axis, because each node of the network should have information about the whole
+
+
+
+
+\paragraph{Ethereum} We argue that currently Ethereum is not developed in the
+z-axis, because each node of the network should have information about the whole
 blockchain and the status of all accounts in the network 
 (\autoref{sec:world-state}) to process the transactions. For this reason 
 Ethereum cannot be more efficient than a single machine, as already pointed out 
 by Vitalik Buterin in the muave paper~\cite{bib:mauve}.
 
-However, a z-axis split would be not trivial, as the following example 
+Furthermore, a z-axis split would be not trivial, as the following example 
 clarifies. Let's consider the process of a transaction that requires some 
 computations on the EVM. To complete this action we need several information, 
 such as the balance of the sender of the transaction and the code of the
@@ -29,5 +51,22 @@ as a side effect, e.g. through the \texttt{SELFDESTRUCT} opcode. Thus, to
 process a transaction we need the account states of the sender and the called
 contracts and all account state that are affected by the computations.
 
-\paragraph{Proposals} To tackle a z-axis split the Ethereum community has 
-proposed to implement sharding~\cite{bib:mauve}
+\paragraph{Proposals} To tackle a z-axis split the Ethereum 
+foundation~\cite{bib:mauve} and the scientific 
+community~\cite{bib:scaling-croman} has proposed sharding as an effective 
+measure to augment the transaction throughput.
+
+The Ethereum sharding proposal consists in splitting the world state and
+transaction history into different partitions, called shards. 
+Each shard is a different universe in which the transactions affect only the 
+accounts in the same shard. This allows to augment dramatically the transaction
+throughput, by parallelizing the processing of transactions.
+Obviously, it is desirable to allow the communication between different shards,
+therefore \emph{cross-sharding} communication mechanisms were proposed.
+
+Currently, the prysmaticlabs company is modifying the go ethereum implementation
+to implement both PoS and sharding.
+
+
+
+
