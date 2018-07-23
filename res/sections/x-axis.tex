@@ -21,7 +21,7 @@ identical copy of it. Right after, you set up
 nginx\footnote{\url{http://nginx.org/}} as HTTP load balancer. The two Web
 servers now work in parallel and access the same database, thanks to your
 ability to write \emph{stateless} servers. The statelessness is an important
-property in this scenario, it avoids dependency between requests, that is the
+property in this scenario, it avoids dependency between requests, that is
 the server can process a request without needing to access the information of
 another one. In the example, if you would not have written a stateless server
 (i.e. stateful), one request arrived at one of the two servers could be the ones
