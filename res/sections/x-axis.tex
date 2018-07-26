@@ -28,6 +28,26 @@ another one. In the example, if you would not have written a stateless server
 on which another request being processing on the other server depends on, hence
 without permitting to successfully fulfill the latter.
 
+\begin{figure}
+  \centering
+  \begin{subfigure}[m]{.4\textwidth}
+    \centering
+    \includegraphics[height=4cm]{./res/img/webserver.pdf}
+    \caption{}
+    \label{fig:webserver}
+  \end{subfigure}
+  \hskip 3em
+  \begin{subfigure}[m]{.4\textwidth}
+    \centering
+    \includegraphics[height=4cm]{./res/img/webserver-nginx.pdf}
+    \caption{}
+    \label{fig:webserver-nginx}
+  \end{subfigure}
+  \caption{Web servers without (\protect\subref{fig:webserver}) and with (\protect\subref{fig:webserver-nginx}) load balancer.}
+  \label{fig:webserver-scale-x}
+\end{figure}
+
+
 \paragraph{State}
 Let's clarify the concept of \emph{state} in order to better understand the
 importance of it scaling on the x-axis. We said that, in other words, an
@@ -41,6 +61,8 @@ be done also with a stateless approach), in which a user is authorized to
 request some resources only after an authentication request. In this setting,
 the result of the authentication could be stored in the server making it
 stateful, i.e. some requests are dependent on the authentication request.
+
+
 
 % discutere sui mining pool
 
