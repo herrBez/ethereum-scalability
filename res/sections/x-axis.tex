@@ -1,9 +1,9 @@
 \subsubsection{X-Axis: Horizontal Duplication}
 
 The x-axis of the cube of the scalability is concerned with the horizontal
-duplication and cloning with absolutely no bias, running each identical copy of
-the system on a different server. Usually, the work is distributed by a load
-balancer.
+duplication and cloning of services and data with absolutely no bias, running
+each identical copy of the system on a different server. Usually, the work is
+distributed by a load balancer.
 
 Reasoning on the x-axis is typically easy and the implementation can be fast,
 but the data sets have to be replicated in their entirety which increases
@@ -21,8 +21,8 @@ identical copy of it. Right after, you set up
 nginx\footnote{\url{http://nginx.org/}} as HTTP load balancer. The two Web
 servers now work in parallel and access the same database, thanks to your
 ability to write \emph{stateless} servers. The statelessness is an important
-property in this scenario, it avoids dependency between requests, that is
-the server can process a request without needing to access the information of
+property in this scenario, it avoids dependency between requests, that is the
+server can process a request without needing to access the information of
 another one. In the example, if you would not have written a stateless server
 (i.e. stateful), one request arrived at one of the two servers could be the ones
 on which another request being processing on the other server depends on, hence
@@ -47,7 +47,6 @@ without permitting to successfully fulfill the latter.
   \label{fig:webserver-scale-x}
 \end{figure}
 
-
 \paragraph{State}
 Let's clarify the concept of \emph{state} in order to better understand the
 importance of it scaling on the x-axis. We said that, in other words, an
@@ -61,6 +60,36 @@ be done also with a stateless approach), in which a user is authorized to
 request some resources only after an authentication request. In this setting,
 the result of the authentication could be stored in the server making it
 stateful, i.e. some requests are dependent on the authentication request.
+Referring at \autoref{fig:webserver-nginx}, in the stateful implementation, the
+user sessions could be stored at Web server level forcing them to communicate
+with each other to check for open user sessions.
+% add comparison between this state and the Ethereum state
+
+It should be clear now the role of the \emph{state} scaling on the x-axis. Once
+we scale by cloning, we duplicate the data along with the service. This can be
+not a drawback at first, but it may become an issue increasing the data size.
+
+\paragraph{Ethereum}
+In \autoref{sec:background}, we already said that Ethereum is stateful, thus
+making it difficult to scale on the x-axis. As we discussed in
+\autoref{sec:network-layer}, the Ethereum implementation uses a peer-to-peer
+network in which the nodes are \emph{servent}. Although there are different
+clients (e.g. Geth\footnote{\url{https://github.com/ethereum/go-ethereum}},
+Parity\footnote{\url{https://github.com/paritytech/parity}},
+cpp-ethereum\footnote{\url{https://github.com/ethereum/cpp-ethereum}},
+pyethapp\footnote{\url{https://github.com/ethereum/pyethapp}}, ecc.), each one
+is compliant with the Ethereum protocols abstracting from the distinct
+implementations, so this is not a distinctive characteristic from a functional
+perspective. Let's not consider initially the possible different node types
+\todo{Here we should discuss the different node types (full, archive, light) or
+refer to a section} supposing that it can access the state and that it has its
+own copy of it. In \autoref{sec:consensus:algorithm}, we introduced the Ethereum
+consensus algorithm and the PoW algorithm which is run by the miners in order to
+create the next valid block. The more miners join the network, thus incrementing
+the global hash rate, the more difficult a state transition become, hence
+duplicating the miners in the network does not increment the transaction
+throughput making the scaling on the x-axis absent in the current
+implementation.
 
 
 
