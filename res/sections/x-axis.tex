@@ -11,19 +11,19 @@ operational costs.
 
 % descrivere un esempio virtuoso fuori dall'architettura di Ethereum
 In order to better understand the concept, we bring an example of a common
-architecture which scales on this axis. Suppose you are running your own
-e-commerce startup of wine. The business is going great and suddenly you have to
-face the explosive growth of HTTP requests to your server. Since you have an
-early stage startup, so far you had only a single server running on a single
-machine, but you know that, if everything goes as hoped, you cannot scale-up for
-a long time. So, you decide to take you Web server codebase and deploy an
-identical copy of it. Right after, you set up
+architecture which scales on this axis. Suppose we are running our own
+e-commerce startup of wine. The business is going great and suddenly we have to
+face the explosive growth of HTTP requests to the server. Since we have an
+early stage startup, so far we had only a single server running on a single
+machine, but we know that, if everything goes as hoped, we cannot scale-up for
+a long time. So, we decide to take the Web server codebase and deploy an
+identical copy of it. Right after, we set up
 nginx\footnote{\url{http://nginx.org/}} as HTTP load balancer. The two Web
-servers now work in parallel and access the same database, thanks to your
+servers now work in parallel and access the same database, thanks to our
 ability to write \emph{stateless} servers. The statelessness is an important
 property in this scenario, it avoids dependency between requests, that is the
 server can process a request without needing to access the information of
-another one. In the example, if you would not have written a stateless server
+another one. In the example, if we would not have written a stateless server
 (i.e. stateful), one request arrived at one of the two servers could be the ones
 on which another request being processing on the other server depends on, hence
 without permitting to successfully fulfill the latter.
