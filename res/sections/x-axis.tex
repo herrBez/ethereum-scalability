@@ -13,14 +13,26 @@ operational costs.
 In order to better understand the concept, we bring an example of a common
 architecture which scales on this axis. Suppose we are running our own
 e-commerce startup of wine. The business is going great and suddenly we have to
-face the explosive growth of HTTP requests to the server. Since we have an
-early stage startup, so far we had only a single server running on a single
-machine, but we know that, if everything goes as hoped, we cannot scale-up for
-a long time. So, we decide to take the Web server codebase and deploy an
-identical copy of it. Right after, we set up
-nginx\footnote{\url{http://nginx.org/}} as HTTP load balancer. The two Web
-servers now work in parallel and access the same database, thanks to our
-ability to write \emph{stateless} servers. The statelessness is an important
+face the explosive growth of HTTP requests to the server. Since we have an early
+stage startup, so far we had only a single server running on a single machine,
+but we know that, if everything goes as hoped, we cannot scale-up for a long
+time. So, we decide to take the Web server codebase and deploy an identical copy
+of it. nginx\footnote{\url{http://nginx.org/}} is an HTTP and reverse proxy
+server, a mail proxy server, and a generic TCP/UDP proxy server. Among the HTTP
+server features, it serves as load balancer which is what we are looking for.
+The load balancing methods supported by nginx are:
+
+\begin{itemize}
+  \item round-robin, the requests are distributed in round-robin
+  \item least-connected, the next request is assigned to the server with the
+  least number of active connections
+  \item ip-hash, the request is assigned to a server based on the client's IP
+  address
+\end{itemize}
+
+The two Web servers now work in parallel and access the same database and,
+thanks to our ability to write \emph{stateless} servers, we can choose any of
+the load balancing methods offered by nginx. The statelessness is an important
 property in this scenario, it avoids dependency between requests, that is the
 server can process a request without needing to access the information of
 another one. In the example, if we would not have written a stateless server
@@ -61,8 +73,13 @@ request some resources only after an authentication request. In this setting,
 the result of the authentication could be stored in the server making it
 stateful, i.e. some requests are dependent on the authentication request.
 Referring at \autoref{fig:webserver-nginx}, in the stateful implementation, the
-user sessions could be stored at Web server level forcing them to communicate
-with each other to check for open user sessions.
+user sessions could be stored at Web server level. In our example, the only load
+balancing method which supports session persistence is \emph{ip-hash} thanks to
+its ability to always redirect requests from a client to the same server except
+when this server is unavailable or when the client's IP address change. Indeed,
+with \emph{round-robin} and \emph{least-connected} each request is potentially
+distributed to a different server making it necessary to write stateless
+servers.
 % add comparison between this state and the Ethereum state
 
 It should be clear now the role of the \emph{state} scaling on the x-axis. Once
