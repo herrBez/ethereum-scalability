@@ -12,7 +12,7 @@ a request performed in Europe is undertaken by a server located in Europe
 instead of one located on the other side of the globe. One similar example of
 successful z-axis split is sharding.
 
-\paragraph{Sharding} 
+\paragraph{Sharding}
 Sharding is commonly used in distributed databases to scale \emph{horizontally}
 by splitting the data of a single database in several servers. In this way, it
 is possible to augment the transaction throughput by adding more machines, 
@@ -20,9 +20,19 @@ instead of requiring a more powerful machine, as in the case of \emph{vertical}
 scaling.
 %The idea of horizontal scaling comes in handy when the database is
 %hosted in the cloud, where usually the available machines have a limited power.
-Indeed, when the number of requests becomes bigger the resources of a 
-single server could be insufficient to grant acceptable response times. The
-drawback of using multiple servers is the management overhead.
+Indeed, when the number of requests grows the resources of a single server
+could be insufficient to grant acceptable response times. The drawback of using
+multiple servers is the management overhead.
+
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{./res/img/mongodb}
+        \caption{A typical architecture of an application server with a sharded
+        MongoDB database.}
+        \label{fig:mongodb}
+    \end{center}
+\end{figure}
 
 One emblematic example of implementation of (auto-)sharding is
 MongoDB\footnote{\url{https://www.mongodb.com/}}~\cite{bib:mongodb}. This kind
@@ -36,19 +46,19 @@ different \emph{shards} according to a selected \emph{shard key} and a
 \emph{sharding strategy}. Each shard consists of one or more replicated 
 servers\footnote{In MongoDB jargon it is known as \emph{replica set}.} and
 it is accountable to store the documents in a partition of the key space.
-These partitions consists of one or more chunks. They are minimal piece of data
-that contain a contiguous range of shard key values (default 64MB) with no
+These partitions are composed of one or more chunks. These are minimal piece of
+data that contain a contiguous range of shard key values (default 64MB) with no
 overlapping between chunks. The chunks are split whenever they exceed a 
 configured chunk size and they are migrated to other shards whenever a shard 
 contains too many chunks.
 
-Since the users should be able to access the data transparently, that is without
-knowing where the documents are really stored, an entity, called
-\texttt{mongos}, is introduced. It is essentially a broker between the 
-application and the database, that forwards the requests to the right shard(s), 
-collects the responses and returns them to the requester. Usually each 
-application has its own \texttt{mongos} instance, but other configurations are 
-also possible~\cite{bib:mongodb}.
+Since the users and the applications should be able to access the data 
+\emph{transparently}, that is without knowing where the documents are really 
+stored, an entity, called \texttt{mongos}, is introduced. It is essentially a 
+broker between the application and the database, that forwards the requests to 
+the right shard(s), collects the responses and returns them to the requester. 
+Usually each application has its own \texttt{mongos} instance, but other 
+configurations are also possible~\cite{bib:mongodb}.
 
 %Mongos should know where to search the documents according to the shard key,
 %therefore MongoDB maintain an up-to-date table that associate uniquely a chunk 
@@ -61,17 +71,53 @@ up and running, because the metadata should be updated in each replica.
 
 To automatically balance the load between the different shards a background 
 process in the principal config server, called \emph{sharded cluster balancer}, 
-is  employed\footnote{In version prior to 3.4 (the current version 
-is 4.0) the role balancer was played by the different mongos instances on 
-turn~\cite{bib:mongodb-docs}}. It monitors constantly the number of chunks on
-each shard and  whenever one  shard contains more chunks than a given 
-threshold, it tries to migrate chunks so that each shard has the same amount of 
-chunks. In addition, it attempts also to minimize the amount of data that 
-should be migrated to minimize the performance impact due to the bandwidth and 
-workload consumption of migration. For example, one shard cannot be involved in 
-more than one migration at the same time. Moreover, if additional servers are 
-available, the balancer may also create new shards or it may simply rearrange
-the partitions.
+is employed\footnote{In version prior to 3.4 (the current version is 4.0) the
+role balancer was played by the different \texttt{mongos} 
+instances on turn~\cite{bib:mongodb-docs}}. It monitors constantly the number
+of chunks on each shard and  whenever one  shard contains more chunks than a 
+given threshold, it tries to migrate chunks so that each shard has the same 
+amount of chunks. In addition, it attempts to minimize the amount of data 
+that should be migrated to reduce the performance impact due to the bandwidth 
+and workload consumption caused by migration. For example, one shard cannot be 
+involved in more than one migration at the same time. Moreover, if additional 
+servers are available, the balancer may also create new shards or it may simply 
+rearrange the partitions.
+
+These concepts are summarized in~\autoref{fig:mongodb}, in which the replicas
+are bound with dashed lines whereas the solid lines represents which
+component communicates with which one. The chunks are shown with the
+ranges of the shard key space they cover.
+Whenever the application server must query the database to collect information
+it demands the mongos instance to do so. If the query contains the shard-key
+the broker can forward the request to the right shard(s). When these information
+is not available mongos should broadcast the request to all shards.
+
+% EXAMPLE
+\todo{To keep or not to keep the example?}
+We clarify this by means of an example. Let's take into 
+consideration~\autoref{fig:mongodb} and suppose that the sharded database
+contains the collections of users of the system of the application server,
+which needs the data related to a user to perform authentication.
+Furthermore we suppose that the shard key is the username and that the chunks
+are split according to the initial letter of the username. Now, if the 
+application server needs the data belonging to a certain user, let's say 
+\texttt{JohnDoe}, it has to create a query and send it to the mongos instance. 
+This searches in the config server which chunk \emph{should contain} the
+searched key and discover that shard-0 contains the chunk ranging from G to L 
+and therefore forwards the request to shard-0 and obtains the awaited response.
+Mongos elaborate it and send it to the application server, that can now use
+the information. However, if the query does not contain the shard key, the 
+broker has no way to know in which shard the information is stored and has to
+broadcast the request.
+Obviously the choice of the shard key is fundamental to grant a certain
+level of performance. If the server is sharded according to let's say the age
+of the user, the search by username would require a broadcast and also a 
+filtering.
+
+  
+
+
+
 
 
 
