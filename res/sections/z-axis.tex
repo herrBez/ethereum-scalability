@@ -13,21 +13,65 @@ instead of one located on the other side of the globe. One similar example of
 successful z-axis split is sharding.
 
 \paragraph{Sharding} 
-Sharding is commonly used in distributed databases to scale out by splitting
-the data of a database in several servers. One emblematic example is
+Sharding is commonly used in distributed databases to scale \emph{horizontally}
+by splitting the data of a single database in several servers. In this way, it
+is possible to augment the transaction throughput by adding more machines, 
+instead of requiring a more powerful machine, as in the case of \emph{vertical} 
+scaling.
+%The idea of horizontal scaling comes in handy when the database is
+%hosted in the cloud, where usually the available machines have a limited power.
+Indeed, when the number of requests becomes bigger the resources of a 
+single server could be insufficient to grant acceptable response times. The
+drawback of using multiple servers is the management overhead.
+
+One emblematic example of implementation of (auto-)sharding is
 MongoDB\footnote{\url{https://www.mongodb.com/}}~\cite{bib:mongodb}. This kind
-of NoSQL database splits the documents into the different \emph{shards}
-according to a selected \emph{shard key}. Each shard is accountable to store 
-the documents in a partition of the key space. To access the data 
-transparently, that is without knowing where the data are really stored an
-entity, called \texttt{mongos} is introduced. Its aim is to redirect the
-requests to the right shards, collect the responses and return them to the
-requester. Moreover a balancer is introduced. It is accountable to balance the 
-amount of data in each server while minimizing the transfer of data among the 
-shards. When a shards is too full it may create new shards, if additional
-servers are available, or it may simply rearrange the partition. 
-The big advantage of MongoDB's approach is that the splitting of data and
-migration of data are done automatically without human intervention.
+of open-source NoSQL database stores documents without a fixed schema.
+%In addition to auto-sharding, MongoDB has several compelling features, such
+%as replication, aggregation framework and map-reduce. We will describe only
+%sharding because the other features are beyond the scope of this report. We
+%will refer to~\cite{} for a description of the other key features of MongoDB.
+MongoDB gives the possibility to split a collection of documents into 
+different \emph{shards} according to a selected \emph{shard key} and a 
+\emph{sharding strategy}. Each shard consists of one or more replicated 
+servers\footnote{In MongoDB jargon it is known as \emph{replica set}.} and
+it is accountable to store the documents in a partition of the key space.
+These partitions consists of one or more chunks. They are minimal piece of data
+that contain a contiguous range of shard key values (default 64MB) with no
+overlapping between chunks. The chunks are split whenever they exceed a 
+configured chunk size and they are migrated to other shards whenever a shard 
+contains too many chunks.
+
+Since the users should be able to access the data transparently, that is without
+knowing where the documents are really stored, an entity, called
+\texttt{mongos}, is introduced. It is essentially a broker between the 
+application and the database, that forwards the requests to the right shard(s), 
+collects the responses and returns them to the requester. Usually each 
+application has its own \texttt{mongos} instance, but other configurations are 
+also possible~\cite{bib:mongodb}.
+
+%Mongos should know where to search the documents according to the shard key,
+%therefore MongoDB maintain an up-to-date table that associate uniquely a chunk 
+%with a shard. 
+In order to know where the data are stored \texttt{config servers} are
+used. They contain metadata and the configuration settings for the 
+cluster, such as the list of chunks that are stored in each shard and the ranges
+covered by the chunks. Chunks can be split only if all the config servers are 
+up and running, because the metadata should be updated in each replica.
+
+To automatically balance the load between the different shards a background 
+process in the principal config server, called \emph{sharded cluster balancer}, 
+is  employed\footnote{In version prior to 3.4 (the current version 
+is 4.0) the role balancer was played by the different mongos instances on 
+turn~\cite{bib:mongodb-docs}}. It monitors constantly the number of chunks on
+each shard and  whenever one  shard contains more chunks than a given 
+threshold, it tries to migrate chunks so that each shard has the same amount of 
+chunks. In addition, it attempts also to minimize the amount of data that 
+should be migrated to minimize the performance impact due to the bandwidth and 
+workload consumption of migration. For example, one shard cannot be involved in 
+more than one migration at the same time. Moreover, if additional servers are 
+available, the balancer may also create new shards or it may simply rearrange
+the partitions.
 
 
 
