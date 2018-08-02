@@ -47,10 +47,14 @@ different \emph{shards} according to a selected \emph{shard key} and a
 servers\footnote{In MongoDB jargon it is known as \emph{replica set}.} and
 it is accountable to store the documents in a partition of the key space.
 These partitions are composed of one or more chunks. These are minimal piece of
-data that contain a contiguous range of shard key values (default 64MB) with no
-overlapping between chunks. The chunks are split whenever they exceed a 
-configured chunk size and they are migrated to other shards whenever a shard 
-contains too many chunks.
+data (default 64MB) that contain the documents, whose shard key values are
+included within a contiguous range of the key space. To have a unique 
+correspondence between documents and chunk, and transitively of documents
+and shard, no overlapping between chunks are permitted.
+If after inserting new documents in a given chunk, it exceeds a configured
+size, the chunk is split. Furthermore, if a shard contains too many chunks,
+some of them may be migrated.
+
 
 Since the users and the applications should be able to access the data 
 \emph{transparently}, that is without knowing where the documents are really 
@@ -66,17 +70,19 @@ configurations are also possible~\cite{bib:mongodb}.
 In order to know where the data are stored \texttt{config servers} are
 used. They contain metadata and the configuration settings for the 
 cluster, such as the list of chunks that are stored in each shard and the ranges
-covered by the chunks. Chunks can be split only if all the config servers are 
-up and running, because the metadata should be updated in each replica.
+covered by the chunks. Since all replicas should have the same information
+about the list of chunks and their actual location, chunks can be split and
+migrated only if all \texttt{config servers} are up and running.
 
 To automatically balance the load between the different shards a background 
-process in the principal config server, called \emph{sharded cluster balancer}, 
+process in the principal \texttt{config server}, called \emph{sharded cluster 
+balancer}, 
 is employed\footnote{In version prior to 3.4 (the current version is 4.0) the
 role balancer was played by the different \texttt{mongos} 
 instances on turn~\cite{bib:mongodb-docs}}. It monitors constantly the number
 of chunks on each shard and  whenever one  shard contains more chunks than a 
-given threshold, it tries to migrate chunks so that each shard has the same 
-amount of chunks. In addition, it attempts to minimize the amount of data 
+given threshold, it tries to migrate chunks to balance the amount of chunks
+in each shards.In addition, it attempts to minimize the amount of data 
 that should be migrated to reduce the performance impact due to the bandwidth 
 and workload consumption caused by migration. For example, one shard cannot be 
 involved in more than one migration at the same time. Moreover, if additional 
@@ -108,18 +114,11 @@ Mongos elaborate it and send it to the application server, that can now use
 the information. However, if the query does not contain the shard key, the 
 broker has no way to know in which shard the information is stored and has to
 broadcast the request.
-Obviously the choice of the shard key is fundamental to grant a certain
-level of performance. If the server is sharded according to let's say the age
-of the user, the search by username would require a broadcast and also a 
-filtering.
-
-  
-
-
-
-
-
-
+It is worth notice that the choice of the shard key is fundamental to grant a 
+certain level of performance. If the server is sharded according to, let's say 
+the age of the user, the search by username would require a broadcast, because
+in the config server there would be no information to forward the request to 
+the sharding containing the required document.
 
 
 
