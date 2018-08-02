@@ -129,7 +129,19 @@ blockchain and the status of all accounts in the network
 Ethereum cannot be more efficient than a single machine, as already pointed out 
 by Vitalik Buterin in the muave paper~\cite{bib:mauve}.
 
-Furthermore, a z-axis split would be not trivial, as the following example 
+Furthermore, a z-axis split similar in nature with the one of MongoDB, i.e.
+by letting different nodes store different part of the state would surely
+diminish the amount of data to store on each node, but
+\begin{enumerate*}[label=(\Alph*)]
+    \item it would require a lot of data to be sent across the network to 
+    perform the computations, and
+    \item it would not augment the transaction throughput, but rather 
+    diminishing it.
+%    \item finally, it would betray one of the fundamental principles of the 
+%    permissionless blockchains, namely the trust to other parties. 
+\end{enumerate*}
+To justify point (A) we consider that many computations require the ability to
+access a fair amount of addresses and their storage, as the following example
 clarifies. Let's consider the process of a transaction that requires some 
 computations on the EVM. To complete this action we need several information, 
 such as the balance of the sender of the transaction and the code of the
@@ -137,7 +149,14 @@ invoked contract. Moreover, the invoked contract may in turn call other
 contracts and so on. These may in addition modify the balance of other accounts
 as a side effect, e.g. through the \texttt{SELFDESTRUCT} opcode. Thus, to 
 process a transaction we need the account states of the sender and the called
-contracts and all account state that are affected by the computations.
+contracts and all account state that are affected by the computations. 
+The point (A) implies points (B), indeed the overhead due to the communication
+would surely slow down the transaction processing action.
+
+With these considerations in mind and by recalling that to be significant a
+z-axis split should partition both the transactions and the data necessary to 
+perform the transactions a more clever approach was proposed.
+
 
 \paragraph{Proposals} To tackle a z-axis split the Ethereum 
 foundation~\cite{bib:mauve} and the scientific 
