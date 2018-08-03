@@ -160,20 +160,39 @@ perform the transactions a more clever approach was proposed.
 
 \paragraph{Proposals} To tackle a z-axis split the Ethereum 
 foundation~\cite{bib:mauve} and the scientific 
-community~\cite{bib:scaling-croman} has proposed sharding as an effective 
-measure to augment the transaction throughput.
+community~\cite{bib:scaling-croman} has proposed sharding combined with
+Proof-of-Stake as an effective measure to augment the transaction throughput.
+Although the details about sharding are updating constantly and there is not
+a reference implementation we will report here the basic ideas~\cite{bib:mauve,bib:sharding-faq} and why this
+approach could improve the scalability of the system.
 
 The Ethereum sharding proposal consists in splitting the world state and
-transaction history into different partitions, called shards. 
-Each shard is a different universe in which the transactions affect only the 
-accounts in the same shard. This allows to augment dramatically the transaction
-throughput, by parallelizing the processing of transactions.
+transaction history into different partitions, called shards.
+Each shard is a distinct universe in which the transactions affect only the 
+accounts in the same shard. These transactions are collected in 
+\emph{collations}, that play the same role as blocks in a traditional  
+blockchain. Indeed, collations form a chain and resembles the blocks 
+of~\autoref{fig:world-state}. Once per \emph{epoch} a main block is created
+and a pointer to the chain of collation for each shard is added in the main
+block, as shown in~\autoref{fig:collations}.
 Obviously, it is desirable to allow the communication between different shards,
-therefore \emph{cross-sharding} communication mechanisms were proposed.
+therefore \emph{cross-sharding} communication mechanisms were 
+proposed~\cite{bib:sharding-faq}. To grant a degree of decentralization the 
+proposers of new blocks, the validators and the committee, that decides whether 
+to include a collation header in the main chain are selected randomly~\cite{}.
+
+This allows to process the transactions of the different shards in parallel
+and therefore augment the transaction throughput.
+
+
+
 
 Currently, the prysmaticlabs company is modifying the go ethereum implementation
 to implement both PoS and sharding.
 
+One important feature that is desirable and it is planned is the transparency
+of sharding to smart contract developers. The sharding is planned to be 
+implemented at a protocol level.
 
 
 
