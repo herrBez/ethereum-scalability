@@ -104,11 +104,24 @@ perspective. Let's not consider initially the possible different node types
 refer to a section} supposing that it can access the state and that it has its
 own copy of it. In \autoref{sec:consensus:algorithm}, we introduced the Ethereum
 consensus algorithm and the PoW algorithm which is run by the miners in order to
-create the next valid block. The more miners join the network, thus incrementing
-the global hash rate, the more difficult a state transition become, hence
-duplicating the miners in the network does not increment the transaction
-throughput making the scaling on the x-axis absent in the current
-implementation.
+create the next valid block. The more miners join the network (or improve the
+existent), thus incrementing the global hash rate, the more difficult a state
+transition become. In \autoref{sec:max-troughput}, we measure the maximal
+transaction throughput in a private blockchain\footnote{See \autoref{sec:tests}
+for a detailed tests description.}. Incrementing the number of miners in the
+network does not increment the transaction throughput, indeed it is almost
+negatively affected. This decreasing in performance can be due to a variety of
+factors like network overhead, "unluckiness" of the miners which affects the
+mining difficulty, or perturbation in the performance of the nodes, but it is
+not relevant for the purpose of the test. Another significant test we present is
+described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a
+gas limit high enough to not restrict the number of transactions which can be
+included in a block. The results show a little increment in the transaction
+throughput with regards to the previous test, but again the number of miners
+does not affect the overall performance. Hence duplicating the miners in the
+network does not increment the transaction throughput making the scaling on the
+x-axis absent in the current implementation.
+
 
 
 
