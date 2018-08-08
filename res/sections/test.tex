@@ -58,14 +58,14 @@ switch between epochs~\cite{bib:dagger-hashimoto}.
 \paragraph{Genesis file}
 The genesis file contains useful information to create (deterministically) the
 genesis block and the initial state. It contains several parameters, such as the
-maximum gas limit for the files, the difficulty and an initial allocation of
+maximum gas limit for the blocks, the difficulty and an initial allocation of
 Ether for some accounts\footnote{This possibility has been used for the
 so-called Initial Coin Offering (ICO) used by the Ethereum Foundation to obtain
 fiat currency to finance the project.}. Clearly, each node of the network should
 be initialized with the same genesis file. The genesis file for the main network
 and the official Ethereum test networks are hard-coded. To create a new private
 Ethereum network we use a new genesis file, in which we specify an arbitrary
-network-id and nonce, so that the packets of different networks are simply
+network-id and a nonce, so that the packets of different networks are simply
 dropped as described in~\autoref{sec:ethereum-wire-protocol}. In \autoref{} we
 show an extract of the genesis block we used. Apart from the arbitrary values,
 that is the id and the nonce, other parameters used in the tests require some
@@ -79,7 +79,7 @@ timestamp. Therefore, to prevent these unwanted changes in the difficulty value,
 during the second loop of the setup phase, the initiator reads its timestamp and
 gives it as parameter to the peers\footnote{Before starting the test all the
 peers should be configured, therefore using the timestamp of the coordinator
-does not assume fine-grained coordinated clocks.}
+does not assume fine-grained coordinated clocks.}.
 
 As already described in \autoref{sec:consensus:algorithm}, the
 \textbf{difficulty} is an adaptive parameter that determines how much effort
@@ -108,7 +108,9 @@ to the gas limit a portion of itself~\cite{wood2018ethereum}. Thus, in a
 relative brief simulation the initial value is fundamental. Due to the
 considerations of \autoref{sec:background}, we decided to use a large value for
 the gas limit, i.e. $500 \cdot 21000$, that corresponds to the gas to execute
-$500$ transactions without execution of code.
+$500$ transactions without execution of code\footnote{To give a term of
+reference, we can consider that currently the gas limit for the main Etherum
+network is circa $8$ Milion, that corresponds roughly to $381 \cdot 21000$.}.
 
 
 \paragraph{Maximal throughput}
