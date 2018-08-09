@@ -70,9 +70,11 @@ configurations are also possible~\cite{bib:mongodb}.
 In order to know where the data are stored \texttt{config servers} are
 used. They contain metadata and the configuration settings for the 
 cluster, such as the list of chunks that are stored in each shard and the ranges
-covered by the chunks. Since all replicas should have the same information
-about the list of chunks and their actual location, chunks can be split and
-migrated only if all \texttt{config servers} are up and running.
+covered by the chunks. Each time a chunk is split or migrated these settings
+should be updated.
+%Since all replicas should have the same information
+%about the list of chunks and their actual location, chunks can be split and
+%migrated only if all \texttt{config servers} are up and running.
 
 To automatically balance the load between the different shards a background 
 process in the principal \texttt{config server}, called \emph{sharded cluster 
@@ -82,7 +84,7 @@ role balancer was played by the different \texttt{mongos}
 instances on turn~\cite{bib:mongodb-docs}}. It monitors constantly the number
 of chunks on each shard and  whenever one  shard contains more chunks than a 
 given threshold, it tries to migrate chunks to balance the amount of chunks
-in each shards.In addition, it attempts to minimize the amount of data 
+in each shards. In addition, it attempts to minimize the amount of data 
 that should be migrated to reduce the performance impact due to the bandwidth 
 and workload consumption caused by migration. For example, one shard cannot be 
 involved in more than one migration at the same time. Moreover, if additional 
@@ -95,7 +97,7 @@ component communicates with which one. The chunks are shown with the
 ranges of the shard key space they cover.
 Whenever the application server must query the database to collect information
 it demands the mongos instance to do so. If the query contains the shard-key
-the broker can forward the request to the right shard(s). When these information
+the broker can forward the request to the right shard(s). When this information
 is not available mongos should broadcast the request to all shards.
 
 % EXAMPLE
@@ -116,9 +118,9 @@ broker has no way to know in which shard the information is stored and has to
 broadcast the request.
 It is worth notice that the choice of the shard key is fundamental to grant a 
 certain level of performance. If the server is sharded according to, let's say 
-the age of the user, the search by username would require a broadcast, because
+the age of the users, the search by username would require a broadcast, because
 in the config server there would be no information to forward the request to 
-the sharding containing the required document.
+the shard containing the required document.
 
 
 
