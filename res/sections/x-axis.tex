@@ -132,11 +132,37 @@ transactions and the EVM computations which is in contrast with the concept of
 load distribution of the x-axis. Thus, the system is limited by the performance
 of the single computer duplicated in the network. In order to scale on this
 vector, there should be a balancing of load between the nodes. The proposed
-Proof of Stake (see \autoref{}\todo{Refer PoS section}) does not scale on the
+Proof of Stake (see \autoref{sec:pos}) does not scale on the
 x-axis, indeed increasing the number of validators doesn't implies a higher
 throughput, but maybe a lower ones due to network
 overhead\cite{bib:cbc-casper}\todo{Check cite}.
 
+
+\paragraph{Proof of Stake}
+\label{sec:pos}
+Proof of Stake (PoS) is a class of algorithms through which a cryptocurrency
+blockchain network achieve distributed consensus. As we have seen in
+\autoref{sec:consensus:algorithm}, in PoW the truth is determined by heavy
+computation done by the miners. In PoS, the consensus depends on the
+\emph{stake} confirmed by each validator, which is an economic deposit in the
+network cryptocurrency (ether in this case).
+
+\begin{figure}
+	\begin{center}
+		\includegraphics[width=\textwidth]{./res/img/pos.pdf}
+	\end{center}
+	\caption{Overview of a block creation in the Proof of Stake.}
+	\label{fig:pos}
+\end{figure}
+
+\autoref{fig:pos} shows a creation of a new block at high level. If a node owns
+an amount of the blockchain's base cryptocurrency, it can become a validator
+sending a deposit transaction which locks a given value. Once the transaction
+has successfully executed, the node becomes one of the validators thus
+participating in the voting process of the new block. The consensus algorithm
+determines how the validators agree on which block will be the next one.
+Different type of PoS can be obtained by varying the consensus algorithm and how
+the rewards are assigned.
 
 
 % discutere sui mining pool
