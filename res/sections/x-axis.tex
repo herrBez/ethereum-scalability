@@ -123,6 +123,20 @@ network does not increment the transaction throughput making the scaling on the
 x-axis absent in the current implementation.
 
 
+\paragraph{Proposals}
+Currently, there are no proposals to scale on this direction. The reason
+probably lies in the consensus layer. In \autoref{sec:consensus:algorithm}, we
+talked about the validation procedure involved in the consensus algorithm.
+Everyone validates each block propagated in the network executing all the
+transactions and the EVM computations which is in contrast with the concept of
+load distribution of the x-axis. Thus, the system is limited by the performance
+of the single computer duplicated in the network. In order to scale on this
+vector, there should be a balancing of load between the nodes. The proposed
+Proof of Stake (see \autoref{}\todo{Refer PoS section}) does not scale on the
+x-axis, indeed increasing the number of validators doesn't implies a higher
+throughput, but maybe a lower ones due to network
+overhead\cite{bib:cbc-casper}\todo{Check cite}.
+
 
 
 % discutere sui mining pool
