@@ -141,11 +141,12 @@ overhead\cite{bib:cbc-casper}\todo{Check cite}.
 \paragraph{Proof of Stake}
 \label{sec:pos}
 Proof of Stake (PoS) is a class of algorithms through which a cryptocurrency
-blockchain network achieve distributed consensus. As we have seen in
+blockchain network achieves distributed consensus. As we have seen in
 \autoref{sec:consensus:algorithm}, in PoW the truth is determined by heavy
-computation done by the miners. In PoS, the consensus depends on the
-\emph{stake} confirmed by each validator, which is an economic deposit in the
-network's cryptocurrency (ether in this case).
+computation done by the miners. In PoS, there are validators instead of miners
+and the consensus depends on the \emph{stake} confirmed by each validator, which
+consists in an economic deposit in the network's cryptocurrency (ether in this
+case).
 
 \begin{figure}
 	\begin{center}
@@ -158,11 +159,11 @@ network's cryptocurrency (ether in this case).
 \autoref{fig:pos} shows a creation of a new block at high level. If a node owns
 an amount of the blockchain's base cryptocurrency, it can become a validator
 sending a deposit transaction which locks a given value. Once the transaction
-has successfully executed, the node becomes one of the validators thus
-participating in the voting process of the new block. The consensus algorithm
-determines how the validators agree on which block will be the next one.
-Different type of PoS can be obtained by varying the consensus algorithm and how
-the rewards are assigned.
+has successfully executed, the node becomes one of the validators. The consensus
+algorithm determines how a validator is chosen in the set of validators to
+\emph{propose} the next block, and then how the validators agree on which block
+is canonical. Different type of PoS can be obtained by varying the consensus
+algorithm and how the rewards are assigned.
 
 
 % discutere sui mining pool
