@@ -53,7 +53,7 @@ correspondence between documents and chunk, and transitively of documents
 and shard, no overlapping between chunks are permitted.
 If after inserting new documents in a given chunk, it exceeds a configured
 size, the chunk is split. Furthermore, if a shard contains too many chunks,
-some of them may be migrated.
+some of them may be migrated to other shards.
 
 
 Since the users and the applications should be able to access the data 
@@ -112,8 +112,8 @@ application server needs the data belonging to a certain user, let's say
 This searches in the config server which chunk \emph{should contain} the
 searched key and discover that shard-0 contains the chunk ranging from G to L 
 and therefore forwards the request to shard-0 and obtains the awaited response.
-Mongos elaborate it and send it to the application server, that can now use
-the information. However, if the query does not contain the shard key, the 
+Mongos elaborate it and send the reply to the application server, that can now
+use the information. However, if the query does not contain the shard key, the 
 broker has no way to know in which shard the information is stored and has to
 broadcast the request.
 It is worth notice that the choice of the shard key is fundamental to grant a 
@@ -175,7 +175,7 @@ accounts in the same shard. These transactions are collected in
 \emph{collations}, that play the same role as blocks in a traditional  
 blockchain. Indeed, collations form a chain and resembles the blocks 
 of~\autoref{fig:world-state}. Once per \emph{epoch} a main block is created
-and a pointer to the chain of collation for each shard is added in the main
+and a pointer to the chain of collations for each shard is added in the main
 block, as shown in~\autoref{fig:collations}.
 Obviously, it is desirable to allow the communication between different shards,
 therefore \emph{cross-sharding} communication mechanisms were 
@@ -183,8 +183,10 @@ proposed~\cite{bib:sharding-faq}. To grant a degree of decentralization the
 proposers of new blocks, the validators and the committee, that decides whether 
 to include a collation header in the main chain are selected randomly~\cite{}.
 
-This allows to process the transactions of the different shards in parallel
-and therefore augment the transaction throughput.
+This allows to process the transactions of different shards in parallel
+and therefore augment the transaction throughput. Another major benefit of this
+approach is that the nodes assigned to one shard should verify only the 
+transactions in one shard rather than verifying all the transactions.
 
 
 
