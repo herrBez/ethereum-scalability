@@ -40,7 +40,41 @@ to the right service. In the case of a browser application, the gateway could
 also exists only in it without needing a dedicated back end component, or it
 could not exists at all, for example advertising the location of each service
 and delegating to the users the responsibility to choose the right service. Each
-service has its own non-shared database, which represents a good solution in the
-case of perfect isolated services. More often, there could be some logical
-relations between data stored in different services making necessary to
-implement a mechanism to maintain data consistency.\todo{To complete}
+service has its own non-shared database in order to be decoupled from other
+services, which represents a good solution in the case of perfect isolated
+services. More often, there could be some logical relations between data stored
+in different services making necessary to implement a mechanism to maintain data
+consistency. Such database separation opens the possibility to the services to
+choose the database type which fits better for the service they are providing.
+For example, the purchase service could use a SQL database taking advantage of
+the different isolation levels to concurrently and consistently handle the
+payments, while the product service could use a NoSQL database to tackle the
+different properties of the products. The services could be organized around the
+business capabilities (or "something that a business does in order to generate
+value" \cite{bib:decompose-business-capability}), or decomposed by
+responsibility for particular actions or for all the operations on entities of a
+given type, but ideally each service should have only a small set of
+responsibilities.
+
+The main drawbacks of the Microservice Architecture Pattern
+\cite{bib:microservice-architecture} are the increased complexity in development
+and deployment. On the other hand, it has a number of advantages, among which:
+
+\begin{itemize}
+	\item \textbf{decoupling}. The services functional decomposition decouples the
+	components of the systems reflecting this behavior also in the database
+	separation
+	\item \textbf{fault isolation and design for failure}. Since the services
+	implement different functionality of the system, they can be run on different
+	processes leading to two consequences. The first one, as stated in
+	\cite{bib:microservices-martin-fowler}, is that the application has to be
+	designed thinking about a possible failure of a supplier, thus the client has
+	to tolerate the failure of services responding as gracefully as possible. The
+	second one is improved fault isolation, indeed, if a service has an unintended
+	behavior, it less likely to affect the other components of the system
+	\item \textbf{scalability}. The services can be run on different more
+	customized machines which better fit the resources requirements, hence making
+	the vertical scaling more efficient wasting less resources. Moreover, if
+	combined with the x-axis, it is possible to have a more fine-grained control
+	on the horizontal scaling.
+\end{itemize}
