@@ -17,6 +17,10 @@ be solved by digital signatures, while the latter consists in using the same
 digital token to pay multiple entities and remained unsolved until the 
 appearance of Bitcoin.
 
+This technology has found, apart from merely financial applications, other
+applications such as auctions and supply chain.
+
+
 Bitcoin is a state transition system, in which there is a transition from
 a valid state to another valid state through a valid \emph{transaction}. The
 state consists in the balance of the addresses\footnote{The addresses 
@@ -57,7 +61,11 @@ canonical blockchain, i.e. the valid one is needed. In the case of bitcoin
 it is simply the longest chain, because it correspond to the one with more work
 invested on it. The co-existance of multiple blockchain can be very useful
 in case of a network partition, indeed, once the partition is over the 
-peers can agree on the blockchain.
+peers can agree on the blockchain. The drawback of this system is that
+there is no consensus finality~\cite{bib:the-quest}, thus it is necessary to
+wait a certain number of blocks (confirmation blocks) to be sure that the 
+transactions are really confirmed. The number of confirmation blocks in bitcoin
+is six, which correspond to circa one hour.
 
 The double spending problem is solved by letting each peer of the network
 know the current state and the transactions that are already spent.
