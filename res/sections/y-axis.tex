@@ -2,11 +2,11 @@
 
 The y-axis scaling focuses on the separation based on the responsibility for an
 action which can be determined by the type of data or the type of work performed
-for a transaction. While scaling on the x-axis could means "everyone does
-everything", scaling on the y-axis specializes the workers splitting the whole
+for a transaction. While scaling on the x-axis could means ``everyone does
+everything'', scaling on the y-axis specializes the workers splitting the whole
 service in small services and assigning each service to a single worker. If we
 combine the x-axis with the y-axis, we could have cluster of specialized workers
-such that each cluster cover a different service, but workers in the same
+such that each cluster covers a different service, but workers in the same
 cluster do the same job.
 
 With regards to the data, differently from what happens in the x-axis, each
@@ -50,8 +50,8 @@ For example, the purchase service could use a SQL database taking advantage of
 the different isolation levels to concurrently and consistently handle the
 payments, while the product service could use a NoSQL database to tackle the
 different properties of the products. The services could be organized around the
-business capabilities (or "something that a business does in order to generate
-value" \cite{bib:decompose-business-capability}), or decomposed by
+business capabilities (or ``something that a business does in order to generate
+value'' \cite{bib:decompose-business-capability}), or decomposed by
 responsibility for particular actions or for all the operations on entities of a
 given type, but ideally each service should have only a small set of
 responsibilities.
