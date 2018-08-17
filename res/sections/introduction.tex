@@ -8,28 +8,67 @@ blockchain in the actual form is due to Satoshi Nakamoto's groundbreaking
 paper, ``Bitcoin: A peer-to-peer electronic cash system''
 (2008)~\cite{bib:bitcoin}. 
 
-The aim of this technology is to provide a total order of the 
+The aim of the blockchain technology is to provide a total order of the 
 transactions in a distributed ledger without relying on a trusted third party, 
 e.g. a bank~\cite{bib:the-quest}. Not relying on a trusted central authority
 may lead to practical issues like transaction repudiation and the infamous 
 \textbf{double-spending problem}. The former is self-explanatory and can
 be solved by digital signatures, while the latter consists in using the same
-digital token to pay multiple entities and remained unsolved until bitcoin 
-appeared. 
+digital token to pay multiple entities and remained unsolved until the 
+appearance of Bitcoin.
 
-The idea to solve the double spending problem consists in making all the peers
-aware of all transactions and to disallow rewriting of history. This implies
-that the information stored on the blockchain is immutable\footnote{After a 
-confirmation time as explained in~\autoref{sec:consensus}} and tamper-proof,
-which are desirable properties in a public ledger.
+Bitcoin is a state transition system, in which there is a transition from
+a valid state to another valid state through a valid \emph{transaction}. The
+state consists in the balance of the addresses\footnote{The addresses 
+correspond to a private/public key pair. Furthermore, each peer of the 
+network can have zero or more addresses}. Each node in the network maintains a
+local copy of the state and updates its \emph{own} copy of the state in a 
+deterministic way according to the transactions. Therefore, to have an exact 
+replica in each node, the order of transactions should be total and agreed by 
+every member of the network. The mechanism through which this total order is
+provided and maintained is the blockchain, which is literally a chain of
+blocks. Each block of the chain contains an ordered list of transactions and is 
+connected to the previous block by inserting the hash of the previous block in 
+its header. Each node of the network has the faculty to create transactions and
+must sign them to show that it is in possession of the private key corresponding
+to a given address. The transactions are spread in the network through
+gossip protocols. Once a node receives a new transaction, it verifies 
+the validity of the transaction and if the checks pass the node sends the 
+transactions to the peers, it knows. Eventually, the transactions are received
+by a member of the network, who tries to find a nonce such that the hash of the 
+block is smaller than a given value. Since this task is computationally 
+expensive, if the node successfully find this value, it adds at the beginning 
+of the transaction list a transaction in which it assign to a beneficiary 
+address an amount of newly minted coins, according to the protocol's 
+rule\footnote{This value was initially $50$ Bitcoins. This reward halves every 
+$210000$ blocks. Currently it is 12.5 Bitcoins. Around year $2140$ no coins 
+would be minted~\cite{bib:masteringbitcoin}.}. In addition to this reward, it 
+receives also fees from the sender of the included transactions. The members of
+the network, who try to create new blocks, are called miners, because their 
+action resembles the extraction of precious metals. The miners are incentivized 
+to create valid blocks, that is, it contains valid transaction and the solution 
+to the puzzle  is correct, because the other peer of the network accept 
+\emph{only} valid blocks. They can verify the correctness of the transactions, 
+because they have a local copy of the state and can verify the correctness of 
+the nonce by simply computing a single hash. It is worth notice that multiple
+parties try to create new blocks concurrently and therefore it is possible that 
+multiple version of the blockchain co-exist. So, a mechanism to select the 
+canonical blockchain, i.e. the valid one is needed. In the case of bitcoin
+it is simply the longest chain, because it correspond to the one with more work
+invested on it. The co-existance of multiple blockchain can be very useful
+in case of a network partition, indeed, once the partition is over the 
+peers can agree on the blockchain.
+
+The double spending problem is solved by letting each peer of the network
+know the current state and the transactions that are already spent.
 
 
 
 
-This technology has found, apart from merely financial applications, other
-applications such as auctions and supply chain. We can make a distinction
-between permissionless and permissioned blockchain. The former are blockchains
-in which everyone who has an Internet connection and a client can participate
-while the latter requires authentication and is commonly used by banks.
-Prominent examples of permissionless blockchains are Bitcoin and Ethereum, while
-a representative permissioned blockchain is hyperledger.
+
+
+
+
+
+
+
