@@ -27,7 +27,7 @@ to run commands on the remote machines. Similarly to~\cite{blockbench} we
 distinguish between the roles \emph{miner} and \emph{client}. The nodes of the
 former type are accountable to generate new blocks while the nodes of the latter
 type create and propagate transactions and both verify the blocks\footnote{To
-reduce the number of test variables we consider only full nodes}. We can assign
+reduce the number of test variables we consider only full nodes.}. We can assign
 multiple roles to a single machine. In this case we run \emph{one distinct geth
 instance} for each different role. The coordinator copies the right genesis
 block in the test machines.
@@ -66,10 +66,20 @@ be initialized with the same genesis file. The genesis file for the main network
 and the official Ethereum test networks are hard-coded. To create a new private
 Ethereum network we use a new genesis file, in which we specify an arbitrary
 network-id and a nonce, so that the packets of different networks are simply
-dropped as described in~\autoref{sec:ethereum-wire-protocol}. In \autoref{} we
-show an extract of the genesis block we used. Apart from the arbitrary values,
-that is the id and the nonce, other parameters used in the tests require some
-justification, that we provide in the remainder of this paragraph.
+dropped as described in~\autoref{sec:ethereum-wire-protocol}. 
+
+\begin{figure}[H]
+    \lstinputlisting[caption={An extract of the genesis file used in the tests.}, label=listing:genesis]{./res/code/genesis-file.json}
+\end{figure}
+
+In \autoref{listing:genesis} we show an extract of the genesis block we used. 
+Apart from the arbitrary values, that is the id and the nonce, and the data
+that perhaps are required by the system do not have influence on scalability,
+such as the coinbase, i.e. the address that receives the reward for the genesis
+block, the extra data, and the block number/hash corresponding to the
+Ethereum Improvement Proposals, which indicate incompatible changes in the
+protocols, other parameters used in the tests require some justification, that 
+we provide in the remainder of this paragraph.
 
 The \textbf{timestamp} of the genesis file, that corresponds to the one of the
 genesis block, influences the difficulty of the first blocks, and transitively
