@@ -18,7 +18,7 @@ digital token to pay multiple entities and remained unsolved until the
 appearance of Bitcoin.
 
 This technology has found, apart from merely financial applications, other
-applications such as auctions, supply chain and notary.
+applications such as auctions, supply chain and notary services.
 
 \paragraph{Bitcoin}
 Bitcoin is a state transition system, in which there is a transition from
@@ -88,7 +88,23 @@ latter requires authentication and is commonly used by banks or consortium of
 companies. Prominent examples of permissionless blockchains are Bitcoin and 
 Ethereum, while a representative permissioned blockchain is hyperledger.
 
+\paragraph{Overview}
+In the remainder of the paper we will discuss exclusively Ethereum. Ethereum 
+can be viewed as a generalization of Bitcoin. While in Bitcoin the execution 
+environment is stateless and is used only to express conditions to spend the 
+money, e.g. demonstrate the possession of a given private key, in Ethereum the 
+execution environment is stateful and it is Turing Complete. To avoid the 
+misuse of the network resources, each opcode is associated associated with an 
+amount of gas, so the termination of the computations is always guaranteed.
 
+This paper is organized into two main chapters. The first chapter describes the 
+architecture of Ethereum in a bottom-up fashion by individuating and describing
+the layers in which it can be split. The second chapter analyze the scalability 
+of the system, both theoretically, with the analysis of the 
+literature~\autoref{sec:background} and the description of the cube of the 
+scalability~\cite{bib:art-of-scalability} applied to Ethereum and practically, 
+by creating a private Ethereum Network and running some 
+tests~\autoref{sec:tests}.
 
 
 
