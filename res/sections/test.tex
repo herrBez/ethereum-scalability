@@ -114,7 +114,7 @@ different number of miners. We can notice that in our homogeneous system the
 final values of difficulties have a quasi linear dependency with the number of
 miners. For the test we took as initial value the median of the last $100$
 blocks. These values are represented in~\autoref{table:start-difficulty}. We
-reported also the coefficient of variation to show that the value of the last
+reported also the coefficient of variation to show that the values of the last
 $100$ blocks are pretty stable.
 \begin{figure}
   \begin{center}
@@ -160,17 +160,17 @@ $8$), fixing the number of clients at $16$. The miner machine executes only one
 geth instance, while the client machines executes two instances.
 
 For our tests we used the scaleway
-platform\footnote{https://www.scaleway.com/}. We rent $17$ (one master
+platform\footnote{\url{https://www.scaleway.com/}}. We rent $17$ (one master
 and $16$ slaves) START1-S servers,
 which dispose of $2$ X86 64 bit Cores and $2$ GB of RAM and an internal
 bandwidth of $1$ Gbit/s, so that the network would not be a bottleneck. Each
-server run Ubuntu 16.04 and has installed, \texttt{geth} version 1.8.11-stable.
-During the tests the master act also as bootstrap node. We described its role in
-\autoref{sec:network-layer}.
+server runs Ubuntu 16.04 and has installed, \texttt{geth} version 1.8.11-stable.
+During the tests the master acts also as bootstrap node. We described its role
+in \autoref{sec:network-layer}.
 
 More details about the implementation and the configuration can be obtained
 by inspecting the repository, containing the code for the 
-tests~\footnote{https://github.com/gfornari/ethereum-test/tree/benchmark}.
+tests~\footnote{\url{https://github.com/gfornari/ethereum-test/tree/benchmark}}.
 
 
 \subsubsection{Results}
@@ -214,3 +214,4 @@ limit to avoid its limitations including pending transactions in the next block.
   \caption{Average throughput and number of mined blocks on 5 runs with high gas limit.}
   \label{tab:max-troughput-high-gaslimit}
 \end{table}
+
