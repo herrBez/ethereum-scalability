@@ -23,15 +23,15 @@ Subprotocol), \emph{bzz} (Swarm) and \emph{shh} (Whisper) protocols are used.
 The \verb+Disconnect+ message notifies the receiver that the sender is going to
 disconnect itself. The disconnect message can specify optionally an integer that
 encodes a reason. For the complete reason codes, we refer to the \devpp{}
-specification~\cite{devp2pwire}. The \verb+Ping+ and \verb+Pong+ message are
+specification~\cite{devp2pwire}. The \verb+Ping+ and \verb+Pong+ messages are
 used to check whether the counterpart is still on-line or not.
 
 \paragraph{Ethereum Wire Protocol}
-There are several versions of the Ethereum Wire Protocol protocol. Throughout
-this section we will consider only the versions $62$ and $63$ (which are
-compatible) that are currently supported by the Go client implementation of the
-Ethereum protocol\footnote{\url{https://github.com/ethereum/go-ethereum/}}
-(v1.8.3).
+There are several versions of the Ethereum Wire Protocol. Throughout this 
+section we will consider only the versions $62$ and $63$ (which are compatible) 
+that are currently supported by the Go client implementation of the Ethereum 
+protocol\footnote{\url{https://github.com/ethereum/go-ethereum/}}
+(v1.8.11).
 
 The first message that must be exchanged between two peers is the
 \textbf{Status} message. This kind of message is used to exchange, among others,
