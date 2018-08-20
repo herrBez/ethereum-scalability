@@ -22,14 +22,14 @@ called \emph{internal transaction}, because of its dual nature of being
 structured as a transaction and of being managed internally of the Ethereum
 execution environment.
 
-The relation between transactions, messages and contract creation is 
-represented in~\autoref{fig:messages-transactions}. We notice that messages and 
-contract creation have the same structure and both contain an unlimited size 
-byte array. The interpretation of this value depends on the type of transaction:
-in the former case the value is interpreted as \verb+data+, the input for the
-message call, while in the latter case it is interpreted as \verb|init|, a piece
-of EVM code used to initialize the storage of the smart contract and to return
-the EVM code that will persist on the world state.
+The relation between transactions, messages and contract creation is represented
+in~\autoref{fig:messages-transactions}. We notice that messages and contract
+creation have the same structure and both contain an unlimited size byte array.
+The interpretation of this value depends on the type of transaction: if the
+value is interpreted as \verb+data+, it represents the input for the message
+call, else if it is interpreted as \verb|init|, it represents a piece of EVM
+code used to initialize the storage of the smart contract and to return the EVM
+code that will persist on the world state.
 
 
 \autoref{fig:messages-to-from-contract} shows the message call with regard to a
