@@ -120,22 +120,22 @@ on the Keccak-256-hash of the IDs and therefore
     We provide only a general overview of the algorithm. For implementation
     optimizations we refer to ~\cite{bib:kademlia}.}.
 The replication parameter, $k$, is set to $16$ and concurrency parameter,
-$\alpha$ is set to $3$~\cite{bib:rlpx-discovery-protocol}. 
+$\alpha$ is set to $3$~\cite{bib:rlpx-discovery-protocol}.
 
 \subparagraph{Packet Format}
 The nodes communicate through UDP packets, in which the payload is used to
-encode the messages of the Ethereum's network layer. Inside the UDP payload 
-the nodes should insert:
+encode the messages of the Ethereum's network layer. Inside the UDP payload the
+nodes should insert:
 \begin{itemize}
-    \item the hash of the juxtaposition of the signature, packet-type and
+    \item the hash of the juxtaposition of signature, packet-type and
     packet-data, used to verify the integrity of the packet
-    \item the signature, that is used to check the identity of the sender, that
-    can be verified by using the node ID, that is used as a public Key.
+    \item the signature, used as a public Key to check the identity of the
+    sender, which can be verified through the node ID
     \item the packet-type, that is a byte that uniquely identify the packet
     type, e.g. PING (0x01)
-    \item the packet-data, that has a different format depending on the packet 
+    \item the packet-data, that has a different format depending on the packet
     type and is encoded with the RLP algorithm(\autoref{sec:marshaling}).
-    We refer to~\cite{bib:rlpx-discovery-protocol} for the exact content 
+    We refer to~\cite{bib:rlpx-discovery-protocol} for the exact content
     exchanged with the different RLPx node discovery packets.
 \end{itemize}
 \begin{figure}
