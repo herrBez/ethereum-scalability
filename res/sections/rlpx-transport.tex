@@ -11,11 +11,15 @@ should be encoded with RLP.
     \begin{center}
         \includegraphics[width=\textwidth]{./res/img/rlpx-transport}
         \caption{Relationship between TCP, RLPx and the subprotocols}
+        \label{fig:rlpx-transport}
     \end{center}
 \end{figure}
 
-The relationship between TCP, RLPx and the subprotocol is depicted 
-in~\autoref{fig:}.
+The relationship between TCP, RLPx and the subprotocol and the structure of
+these packages is depicted in~\autoref{fig:rlpx-transport}. Although the RLPx
+transport protocol can split big packages in frames, we consider here only 
+packages with a single frame for the sake of simplicity and refer to interested
+readers to the official documentation~\cite{rlpx}.
 
 Concretely, the RLPx transport protocol is built on top of TCP, i.e., it is
 sent as payload in a TCP packet. The content of this packet is serialized using 
@@ -30,11 +34,11 @@ with RLPx should perform two handshakes:
     that is used to encrypt and authenticate the subsequent RLPx messages 
     between them.
     \item Protocol Handshake, in which the peers exchanges and agree on the 
-    subprotocols and versions, also known as capabilities, that both support.
-    Essentially, both exchange a \texttt{Hello} message, that contain
-    the list of supported subprotocols and their version. Each one independently
-    find the list of common protocols (i.e. name and version), sort it 
-    according to the lexicographic order and identify each pair protocol/version
-    with an identifier..
+    subprotocols and versions, also known as \emph{capabilities}, that both
+    support. Essentially, both exchange a \texttt{Hello} message, that contain
+    the list of supported subprotocols and their versions. Each one
+    independently compute the list of common capabilities, sort it  according 
+    to the lexicographic order and identify each pair 
+    protocol/version with the index in the list.
 \end{enumerate}
 
