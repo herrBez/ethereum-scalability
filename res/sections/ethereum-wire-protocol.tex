@@ -2,35 +2,13 @@
 \label{sec:ethereum-wire-protocol}
 
 The Ethereum Wire Protocol (\emph{eth})~\cite{bib:ethereumwireprotocol}  is an
-application level sub-protocol of the \devpp{} Wire Protocol. With the term
-sub-protocol, it is intended an extension of the base protocol defining more
-messages which are added to the base ones. It is used to spread the information
-about the blockchain and for the synchronization.
+application level sub-protocol of the rlpx transport protocol. It is used to 
+spread the information about the blockchain and for the synchronization.
 
-\paragraph{\devpp{} Wire Protocol}
-The base \devpp{} Wire Protocol exploits RLPx Transport Protocol, that is, the
-\devpp{} Wire Protocol's messages are sent through the RLPx Protocol in its
-payload. \devpp{} Wire Protocol has four message types: \verb+Hello+,
-\verb+Disconnect+, \verb+Ping+ and \verb+Pong+.
-
-The \verb+Hello+ (Handshake) message is used upon connection and upon receiving
-a message of this kind. This message specifies, among others, the protocol
-version, the \textbf{capabilities} and their version, the port on which the
-client listens and the node ID. The capabilities are the application level
-protocols supported by the sender of the Hello Message. At the moment of
-writing, only the \emph{eth} (Ethereum), \emph{les} (Light Ethereum
-Subprotocol), \emph{bzz} (Swarm) and \emph{shh} (Whisper) protocols are used.
-The \verb+Disconnect+ message notifies the receiver that the sender is going to
-disconnect itself. The disconnect message can specify optionally an integer that
-encodes a reason. For the complete reason codes, we refer to the \devpp{}
-specification~\cite{devp2pwire}. The \verb+Ping+ and \verb+Pong+ messages are
-used to check whether the counterpart is still on-line or not.
-
-\paragraph{Ethereum Wire Protocol}
-There are several versions of the Ethereum Wire Protocol. Throughout this 
-section we will consider only the versions $62$ and $63$ (which are compatible) 
-that are currently supported by the Go client implementation of the Ethereum 
-protocol\footnote{\url{https://github.com/ethereum/go-ethereum/}}
+Currently, there are several versions of this protocol. Throughout 
+this  section we will consider only the versions $62$ and $63$ (which are 
+compatible) that are currently supported by the Go client implementation of the 
+Ethereum protocol\footnote{\url{https://github.com/ethereum/go-ethereum/}}
 (v1.8.11).
 
 The first message that must be exchanged between two peers is the
