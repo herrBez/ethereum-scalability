@@ -162,7 +162,7 @@ perform the transactions a more clever approach was proposed.
 
 
 \paragraph{Proposals} To tackle a z-axis split, we can identify different
-proposals, among which Plasma and the sharding. The Plasma proposal is
+proposals, among which Plasma and Sharding. The Plasma proposal is
 categorized as an \emph{off-chain} solution because it executes some
 transactions outside the main chain. At the opposite, in which the sharding
 belongs, the \emph{on-chain} solutions execute every transaction on the main
@@ -172,18 +172,19 @@ minimal implementation called Minimum Viable
 Plasma\footnote{\url{https://ethresear.ch/t/minimal-viable-plasma/426}}), while
 an on-chain solution requires an hard-fork.
 
-The idea of \textbf{Plasma} is to create a tree hierarchy of blockchains. Each chain
-refer to a parent chain, except the root (i.e. the main chain, Ethereum in our
-case). Plasma consists of a series of smart contracts which allows for many
-blockchains within a root blockchain~\cite{poon2017plasma} as represented in
-\autoref{fig:plasma}. The Plasma blockchains co-exists with their own business
+\subparagraph{Plasma}
+The idea of \textbf{Plasma} is to create a tree hierarchy of blockchains. Each
+chain refers to a parent chain, except the root (i.e. the main chain, Ethereum
+in our case). Plasma consists of a series of smart contracts which allows for
+many blockchains within a root blockchain~\cite{poon2017plasma} as represented
+in~\autoref{fig:plasma}. The Plasma blockchains co-exist with their own business
 logic and all the computations are enforced at root level (i.e. in the main
 chain, Ethereum) only in the event of proof of fraud, and only the block header
 hashes are submitted. During non-faulty states, only merkleized commitments are
 periodically broadcast to the root blockchain. The efficiency mainly comes from
 this last feature since multiple state updates can be condensed in a single
 state update in the root chain. This system design implies that most of the
-computation can be does off-chain (i.e. outside the root chain) and the state is
+computation can be done off-chain (i.e. outside the root chain) and the state is
 enforced on-chain (i.e. in the root chain). Significant scalability for the
 users is achieved through chain split: when a Plasma blockchain grows too large,
 it can be split in child chains allowing the users to observe only Plasma
@@ -197,6 +198,7 @@ blockchains in which their funds resides.
   \end{center}
 \end{figure}
 
+\subparagraph{Sharding}
 The Ethereum foundation~\cite{bib:mauve} and the scientific
 community~\cite{bib:scaling-croman} has proposed \textbf{sharding} combined with
 Proof-of-Stake as an effective measure to augment the transaction throughput.
