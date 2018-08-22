@@ -173,10 +173,10 @@ Plasma\footnote{\url{https://ethresear.ch/t/minimal-viable-plasma/426}}), while
 an on-chain solution requires an hard-fork.
 
 \subparagraph{Plasma}
-The idea of \textbf{Plasma} is to create a tree hierarchy of blockchains. Each
-chain refers to a parent chain, except the root (i.e. the main chain, Ethereum
-in our case). Plasma consists of a series of smart contracts which allows for
-many blockchains within a root blockchain~\cite{poon2017plasma} as represented
+The idea of Plasma is to create a tree hierarchy of blockchains. Each chain
+refers to a parent chain, except the root (i.e. the main chain, Ethereum in our
+case). Plasma consists of a series of smart contracts which allows for many
+blockchains within a root blockchain~\cite{poon2017plasma} as represented
 in~\autoref{fig:plasma}. The Plasma blockchains co-exist with their own business
 logic and all the computations are enforced at root level (i.e. in the main
 chain, Ethereum) only in the event of proof of fraud, and only the block header
@@ -193,19 +193,23 @@ blockchains in which their funds resides.
 \begin{figure}[!h]
   \begin{center}
     \includegraphics[width=0.7\textwidth]{./res/img/plasma}
-    \captionsource{Plasma hierarchical tree structure representation.}{https://plasma.io/plasma.pdf}
+    \captionsource{Plasma hierarchical tree structure
+    representation.}{\url{https://plasma.io/plasma.pdf}}
     \label{fig:plasma}
   \end{center}
 \end{figure}
 
 \subparagraph{Sharding}
-The Ethereum foundation~\cite{bib:mauve} and the scientific
-community~\cite{bib:scaling-croman} has proposed \textbf{sharding} combined with
+The Ethereum foundation~\cite{bib:mauve, bib:sharding-faq} and the scientific
+community~\cite{bib:scaling-croman} has proposed sharding combined with
 Proof-of-Stake as an effective measure to augment the transaction throughput.
 Although the details about sharding are updating constantly and there is not a
-reference implementation, we will report here the basic
-ideas~\cite{bib:mauve,bib:sharding-faq} and why this approach could improve the
-scalability of the system.
+reference implementation\footnote{The prysmaticlabs company is modifying the go
+ethereum implementation to implement both PoS and sharding
+(\url{https://github.com/prysmaticlabs/prysm}), but it is far from being
+production ready.}, we will report here the basic
+ideas~\cite{bib:mauve,bib:sharding-faq} and explain why this approach could
+improve the scalability of the system.
 
 The Ethereum sharding proposal consists in splitting the world state and
 transaction history into different partitions, called shards.
@@ -222,16 +226,11 @@ proposed~\cite{bib:sharding-faq}. To grant a degree of decentralization the
 proposers of new blocks, the validators and the committee, that decides whether
 to include a collation header in the main chain are selected randomly~\cite{}.
 
-This allows to process the transactions of different shards in parallel
-and therefore augment the transaction throughput. Another major benefit of this
-approach is that the nodes assigned to one shard should verify only the
-transactions in one shard rather than verifying all the transactions.
+Sharding allows to process the transactions of different shards in parallel
+and therefore augment the transaction throughput significantly. Another major
+benefit of this approach is that the nodes assigned to one shard should verify
+only the transactions in one shard rather than verifying all the transactions.
 
-
-
-
-Currently, the prysmaticlabs company is modifying the go ethereum implementation
-to implement both PoS and sharding.
 
 One important feature that is desirable and it is planned is the transparency
 of sharding to smart contract developers. The sharding is planned to be
