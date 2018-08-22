@@ -6,12 +6,12 @@ i.e. based on \emph{dissimilar} things. Scaling on the z-axis means segment on
 \emph{similar} things, thus making the segmentation biased by the data or the
 actions that are unique to the sender or the receiver of the request. In
 particular, to enhance significantly the system a z-axis split should partition
-both transactions and the data necessary to perform the transactions.
-An example of such scaling could be, in a client-server architecture, the
-geographic distribution of the servers based on the clients requests, such that
-a request performed in Europe is undertaken by a server located in Europe
-instead of one located on the other side of the globe. One similar example of
-successful z-axis split is sharding.
+both transactions and the data necessary to perform the transactions. An example
+of such scaling could be, in a client-server architecture, the geographic
+distribution of the servers based on the clients requests, such that a request
+performed in Europe is undertaken by a server located in Europe instead of one
+located on the other side of the globe. One similar example of successful z-axis
+split is sharding.
 
 \paragraph{Sharding}
 Sharding is commonly used in distributed databases to scale \emph{horizontally}
@@ -27,12 +27,12 @@ multiple servers is the management overhead.
 
 
 \begin{figure}
-    \begin{center}
-        \includegraphics[width=0.7\textwidth]{./res/img/mongodb}
-        \caption{A typical architecture of an application server with a sharded
-        MongoDB database.}
-        \label{fig:mongodb}
-    \end{center}
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{./res/img/mongodb}
+    \caption{A typical architecture of an application server with a sharded
+    MongoDB database.}
+    \label{fig:mongodb}
+  \end{center}
 \end{figure}
 
 One emblematic example of implementation of (auto-)sharding is
@@ -136,12 +136,12 @@ Furthermore, a z-axis split similar in nature with the one of MongoDB, i.e.
 by letting different nodes store different part of the state would surely
 diminish the amount of data to store on each node, but
 \begin{enumerate*}[label=(\Alph*)]
-    \item it would require a lot of data to be sent across the network to
-    perform the computations, and
-    \item it would not augment the transaction throughput, but rather
-    diminishing it.
-%    \item finally, it would betray one of the fundamental principles of the
-%    permissionless blockchains, namely the trust to other parties.
+  \item it would require a lot of data to be sent across the network to
+  perform the computations, and
+  \item it would not augment the transaction throughput, but rather
+  diminishing it.
+  %    \item finally, it would betray one of the fundamental principles of the
+  %    permissionless blockchains, namely the trust to other parties.
 \end{enumerate*}
 To justify point (A) we consider that many computations require the ability to
 access a fair amount of addresses and their storage, as the following example
@@ -161,13 +161,49 @@ z-axis split should partition both the transactions and the data necessary to
 perform the transactions a more clever approach was proposed.
 
 
-\paragraph{Proposals} To tackle a z-axis split the Ethereum
-foundation~\cite{bib:mauve} and the scientific
-community~\cite{bib:scaling-croman} has proposed sharding combined with
+\paragraph{Proposals} To tackle a z-axis split, we can identify different
+proposals, among which Plasma and the sharding. The Plasma proposal is
+categorized as an \emph{off-chain} solution because it executes some
+transactions outside the main chain. At the opposite, in which the sharding
+belongs, the \emph{on-chain} solutions execute every transaction on the main
+chain. Typically, in order to apply an off-chain solution, one or more smart
+contracts are sufficient (for example, Vitalik proposed a specification for a
+minimal implementation called Minimum Viable
+Plasma\footnote{\url{https://ethresear.ch/t/minimal-viable-plasma/426}}), while
+an on-chain solution requires an hard-fork.
+
+The idea of \textbf{Plasma} is to create a tree hierarchy of blockchains. Each chain
+refer to a parent chain, except the root (i.e. the main chain, Ethereum in our
+case). Plasma consists of a series of smart contracts which allows for many
+blockchains within a root blockchain~\cite{poon2017plasma} as represented in
+\autoref{fig:plasma}. The Plasma blockchains co-exists with their own business
+logic and all the computations are enforced at root level (i.e. in the main
+chain, Ethereum) only in the event of proof of fraud, and only the block header
+hashes are submitted. During non-faulty states, only merkleized commitments are
+periodically broadcast to the root blockchain. The efficiency mainly comes from
+this last feature since multiple state updates can be condensed in a single
+state update in the root chain. This system design implies that most of the
+computation can be does off-chain (i.e. outside the root chain) and the state is
+enforced on-chain (i.e. in the root chain). Significant scalability for the
+users is achieved through chain split: when a Plasma blockchain grows too large,
+it can be split in child chains allowing the users to observe only Plasma
+blockchains in which their funds resides.
+
+\begin{figure}[!h]
+  \begin{center}
+    \includegraphics[width=0.7\textwidth]{./res/img/plasma}
+    \captionsource{Plasma hierarchical tree structure representation.}{https://plasma.io/plasma.pdf}
+    \label{fig:plasma}
+  \end{center}
+\end{figure}
+
+The Ethereum foundation~\cite{bib:mauve} and the scientific
+community~\cite{bib:scaling-croman} has proposed \textbf{sharding} combined with
 Proof-of-Stake as an effective measure to augment the transaction throughput.
-Although the details about sharding are updating constantly and there is not
-a reference implementation we will report here the basic ideas~\cite{bib:mauve,bib:sharding-faq} and why this
-approach could improve the scalability of the system.
+Although the details about sharding are updating constantly and there is not a
+reference implementation, we will report here the basic
+ideas~\cite{bib:mauve,bib:sharding-faq} and why this approach could improve the
+scalability of the system.
 
 The Ethereum sharding proposal consists in splitting the world state and
 transaction history into different partitions, called shards.
