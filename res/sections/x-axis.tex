@@ -61,7 +61,7 @@ without permitting to successfully fulfill the latter.
 
 \paragraph{State}
 Let's clarify the concept of \emph{state} in order to better understand the
-importance of it scaling on the x-axis. We said that, in other words, an
+importance of it for scaling on the x-axis. We said that, in other words, an
 application that uses state chooses the next action to be performed evaluating
 the current execution condition \cite{bib:art-of-scalability}. This definition
 holds for the protocols as well. A common example of stateless protocol is HTTP,
@@ -90,8 +90,8 @@ an issue increasing the data size.
 
 \paragraph{Ethereum}
 \label{sec:x-axis-ethereum}
-In \autoref{sec:background}, we already said that Ethereum is stateful, thus
-making it difficult to scale on the x-axis. As we discussed in
+In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
+thus making it difficult to scale on the x-axis. As we discussed in
 \autoref{sec:network-layer}, the Ethereum implementation uses a peer-to-peer
 network in which the nodes are \emph{servent}. Although there are different
 clients (e.g. Geth\footnote{\url{https://github.com/ethereum/go-ethereum}},
@@ -112,7 +112,7 @@ transaction throughput in a private blockchain\footnote{See \autoref{sec:tests}
 for a detailed tests description.}. Incrementing the number of miners in the
 network does not increment the transaction throughput, indeed it is almost
 negatively affected. This decreasing in performance can be due to a variety of
-factors like network overhead, "unluckiness" of the miners which affects the
+factors like network overhead, ``unluckiness'' of the miners which affects the
 mining difficulty, or perturbation in the performance of the nodes, but it is
 not relevant for the purpose of the test. Another significant test we present is
 described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a
