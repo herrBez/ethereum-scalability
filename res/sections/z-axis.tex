@@ -207,9 +207,10 @@ Proof-of-Stake (\emph{shasper}\footnote{This name is obtained by the
 contraction of the words \emph{sharding} and \emph{Casper}, the Ethereum's
 Proof of Stake proposal~\cite{bib:cbc-casper}.}) as an effective measure to
 augment the transaction throughput dramatically.
-Although the details about this proposal are updating constantly and there is
-not a reference implementation\footnote{The prysmaticlabs company is modifying
-the geth implementation to implement both PoS and sharding
+Although the details about this proposal are updating 
+constantly\footnote{\url{https://notes.ethereum.org/SCIg8AH5SA-O4C1G1LYZHQ#}}
+and there is not a reference implementation\footnote{The prysmaticlabs company 
+is modifying the geth implementation to implement both PoS and sharding
 (\url{https://github.com/prysmaticlabs/prysm}), but it is far from being
 production ready.}, we will report here the basic
 ideas~\cite{bib:mauve,bib:sharding-faq} about sharding and explain why this
@@ -217,23 +218,24 @@ approach could improve the scalability of the system.
 
 The Ethereum sharding proposal consists in splitting the world state and
 transaction history into different partitions, called shards. Each shard is a
-distinct universe in which the transactions affect only the accounts in the
-same shard. The transaction affecting one shard are collected in so-called
-\emph{collations} by member of the network known as \emph{proposers}.
-Collations are the analogous of blocks at the shard level and like blocks
-(\autoref{fig:world-state}), are chained and contain several fields, among
-which, the list of transactions and the address of the proposer.
-Once per \emph{epoch} a block in the main chain (main block) is created and the
-accepted collation's headers are stored in the main block. The collations are
-accepted or refused by a committee of \emph{attesters}. To become an attester
-or a proposer the members of the network should deposit an amount of Ether.
+distinct universe, i.e. is itself a PoS chain, in which the transactions affect 
+only the accounts in the same shard. The transactions affecting one shard are 
+collected in so-called \emph{collations} by member of the network known as 
+\emph{proposers}. Collations are the analogous of blocks at the shard level and 
+like blocks (\autoref{fig:world-state}), are chained and contain several 
+fields, among which, the list of transactions and the address of the proposer.
+Once per \emph{epoch} a block in the main PoS chain (main block) is created, 
+where \emph{cross-links} (e.g., the hash of the collations) to the accepted 
+shard collations are inserted. The collations are accepted or refused by a 
+committee of \emph{attesters}. To become an attester or a proposer the members 
+of the network should deposit an amount of Ether.
 After this operation, they can be randomly assigned to different shards to
 grant a certain level of decentralization and security.
 
 This sharding proposal allows to process the transactions of different shards
 in parallel and therefore augment the transaction throughput significantly.
 Another major benefit of this approach is that the nodes in one shard
-should verify only the transactions in the shard rather than verifying all the
+should verify only the transactions in their shard rather than verifying all the
 transactions.
 
 This simplified description of Sharding do not take into consideration the
