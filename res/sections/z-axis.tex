@@ -173,6 +173,14 @@ Plasma\footnote{\url{https://ethresear.ch/t/minimal-viable-plasma/426}}), while
 an on-chain solution requires an hard-fork.
 
 \subparagraph{Plasma}
+\begin{figure}[t]
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{./res/img/plasma}
+        \captionsource{Plasma hierarchical tree structure
+            representation.}{\url{https://plasma.io/plasma.pdf}}
+        \label{fig:plasma}
+    \end{center}
+\end{figure}
 The idea of Plasma is to create a tree hierarchy of blockchains. Each chain
 refers to a parent chain, except the root (i.e. the main chain, Ethereum in our
 case). Plasma consists of a series of smart contracts which allows for many
@@ -190,19 +198,13 @@ users is achieved through chain split: when a Plasma blockchain grows too large,
 it can be split in child chains allowing the users to observe only Plasma
 blockchains in which their funds resides.
 
-\begin{figure}[!h]
-  \begin{center}
-    \includegraphics[width=0.7\textwidth]{./res/img/plasma}
-    \captionsource{Plasma hierarchical tree structure
-    representation.}{\url{https://plasma.io/plasma.pdf}}
-    \label{fig:plasma}
-  \end{center}
-\end{figure}
+
 
 \subparagraph{Sharding}
 The Ethereum foundation~\cite{bib:mauve, bib:sharding-faq} and the scientific
-community~\cite{bib:scaling-croman} has proposed sharding combined with
-Proof-of-Stake as an effective measure to augment the transaction throughput.
+community~\cite{bib:scaling-croman} have proposed sharding combined with
+Proof-of-Stake as an effective measure to augment the transaction throughput
+significantly.
 Although the details about sharding are updating constantly and there is not a
 reference implementation\footnote{The prysmaticlabs company is modifying the go
 ethereum implementation to implement both PoS and sharding
@@ -214,12 +216,13 @@ improve the scalability of the system.
 The Ethereum sharding proposal consists in splitting the world state and
 transaction history into different partitions, called shards.
 Each shard is a distinct universe in which the transactions affect only the
-accounts in the same shard. These transactions are collected in
+accounts in the same shard. Some member of the network, called \emph{proposers},
+are randomly assigned to a shard  and collect transactions in
 \emph{collations}, that play the same role as blocks in a traditional
 blockchain. Indeed, collations form a chain and resembles the blocks
-of~\autoref{fig:world-state}. Once per \emph{epoch} a main block is created
-and a pointer to the chain of collations for each shard is added in the main
-block, as shown in~\autoref{fig:collations}.
+of~\autoref{fig:world-state}. Once per \emph{epoch} a block in the main chain
+(main block) is created and the hash of the collations of the different shards
+are added to the main block. %as shown in~\autoref{fig:collations}.
 Obviously, it is desirable to allow the communication between different shards,
 therefore \emph{cross-sharding} communication mechanisms were
 proposed~\cite{bib:sharding-faq}. To grant a degree of decentralization the
