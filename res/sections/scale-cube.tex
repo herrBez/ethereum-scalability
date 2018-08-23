@@ -1,4 +1,4 @@
-\subsection{The Scale Cube in Ethereum}
+\subsection{The Scale Cube}
 \label{sec:scale-cube}
 
 The Scale Cube, as shown in \autoref{fig:scale-cube}, uses the representation of
@@ -9,7 +9,7 @@ size, the Scale Cube does not provide actual metrics to quantify the
 scalability, but rather a way of think about scale; that is what we mean with
 \emph{scaling directions}.
 
-\begin{figure}
+\begin{figure}[h]
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{./res/img/scale-cube.pdf}
 	\end{center}
@@ -25,4 +25,9 @@ physical machine~\cite{bib:art-of-scalability}. Of course, it might scale up,
 that is it could run on a more powerful machine, but it won't scale out, then it
 will not take advantage of a distributed architecture. All of the three axes
 scales well from a transaction perspective, that is, in our case, the
-transaction throughput. % TODO check this last sentence
+transaction throughput. \todo{check this last sentence}
+
+In the Sections \ref{sec:x-axis}, \ref{sec:y-axis} and \ref{sec:z-axis} we will
+describe the single axes with aid of examples, argue where Ethereum is placed 
+with respect to the specific axis and describe some solutions proposed to 
+augment the scalability of the system.

@@ -1,4 +1,4 @@
-\subsubsection{Z-Axis: Horizontal Data Partitioning}
+\subsection{Z-Axis: Horizontal Data Partitioning}
 \label{sec:z-axis}
 
 The direction taken by scaling on the y-axis is to segment based on the service,
@@ -125,9 +125,9 @@ the shard containing the required document.
 
 
 
-\paragraph{Ethereum} We argue that currently Ethereum is not developed in the
-z-axis, because each node of the network should have information about the whole
-blockchain and the status of all accounts in the network
+\subsubsection{Ethereum} We argue that currently Ethereum is not developed in
+the z-axis, because each node of the network should have information about the 
+whole blockchain and the status of all accounts in the network
 (\autoref{sec:world-state}) to process the transactions. For this reason
 Ethereum cannot be more efficient than a single machine, as already pointed out
 by Vitalik Buterin in the muave paper~\cite{bib:mauve}.
@@ -161,7 +161,7 @@ z-axis split should partition both the transactions and the data necessary to
 perform the transactions more clever approaches were proposed.
 
 
-\paragraph{Proposals} To tackle a z-axis split, we can identify different
+\subsubsection{Proposals} To tackle a z-axis split, we can identify different
 proposals, among which Plasma and Sharding. The Plasma proposal is
 categorized as an \emph{off-chain} solution because it executes some
 transactions outside the main chain. At the opposite, in which the sharding
