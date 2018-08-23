@@ -29,10 +29,10 @@ these packets consist of two fields:
   \item the frame, which is the packet of the subprotocol.
 \end{itemize}
 
-In turn the subprotocol packet contain a code that uniquely identify the message
-type (packet-type) and its content (packet-data), that is specific to the
-subprotocol. The content of this packet is serialized using the RLP marshaling
-algorithm.
+In turn the subprotocol packet contains a code that uniquely identify the
+message type (packet-type) and its content (packet-data), that is specific to 
+the subprotocol. The content of this packet is serialized using the RLP 
+marshaling algorithm.
 
 When two peers establish a connection with the RLPx transport protocol, they
 perform a two-way handshake:
@@ -61,13 +61,13 @@ connection at this layer, the special subprotocol \devpp{} Wire
 Protocol~\cite{devp2pwire} is involved. This subprotocol reserves 16
 message-types although only 4 are implemented. The \verb+Hello+ (Handshake)
 message is used for the protocol handshake. This message specifies, among
-others, the protocol version, the \textbf{capabilities} and their version, the
-port on which the client listens and the node ID. The \verb+Disconnect+ message
-notifies the receiver that the sender is going to disconnect itself. The
-disconnect message can specify optionally an integer that encodes a
-reason\footnote{We refer to the \devpp{} specification~\cite{devp2pwire} for a
-complete list of reason codes}. The \verb+Ping+ and \verb+Pong+ messages are
-used to check whether the counterpart is still on-line or not.
+others, the protocol version, the capabilities, the port on which the client 
+listens and the node ID. The \verb+Disconnect+ message notifies the receiver 
+that the sender is going to disconnect itself. The disconnect message can 
+specify optionally an integer that encodes a reason\footnote{We refer to the 
+\devpp{} specification~\cite{devp2pwire} for a complete list of reason codes}. 
+The \verb+Ping+ and \verb+Pong+ messages are used to check whether the 
+counterpart is still on-line or not.
 
 After the protocol handshake both peers know the shared capabilities. Since each
 protocol have a predefined amount of reserved message types, sorting them
@@ -76,7 +76,7 @@ protocol-type from the packet-type. We show how it works by means of an easy
 example shown in~\autoref{table:capabilities}. Let's suppose that the peers
 share the capabilities (expressed as tuples $\langle$subprotocol,
 version$\rangle$) $\langle$abc, 4$\rangle$, $\langle$abc, 5$\rangle$ and
-$\langle$zzz, 2$\rangle$ and that the capabilities reserve $9$, $10$ and $5$
+$\langle$zzz, 2$\rangle$ and that the capabilities reserve $9$, $11$ and $5$
 message types respectively. The first row of the table represents the first $16$
 message types reserved by the RLPx transport protocol. Then, if one of the peers
 receives the message of type \texttt{0x1B}, it can determine that the message
@@ -89,10 +89,9 @@ $\langle$abc, 5$\rangle$.
       Capability & Reserved-IDs & Effective ID\\
       \hline
       - & \texttt{[0x0, 0x10]} & \texttt{[0x0, 0x10]} \\
-      $\langle$abc, 4$\rangle$ & \texttt{[0x0, 0x8]} & \texttt{[0x11, 0x19]}  \\
-      $\langle$abc, 5$\rangle$ & \texttt{[0x0, 0xA]} & \texttt{[0x1A, 0x24]}  \\
-      $\langle$zzz, 2$\rangle$ & \texttt{[0x0, 0x4]}  & \texttt{[0x25,
-      0x3A]}
+      $\langle$abc, 4$\rangle$ & \texttt{[0x0, 0x8]} & \texttt{[0x11, 0x1A]}  \\
+      $\langle$abc, 5$\rangle$ & \texttt{[0x0, 0xA]} & \texttt{[0x1B, 0x26]}  \\
+      $\langle$zzz, 2$\rangle$ & \texttt{[0x0, 0x4]}  & \texttt{[0x27, 0x3C]} \\
     \end{tabular}
     \caption{Example of data-structure built after the protocol handshake}
     \label{table:capabilities}
@@ -100,7 +99,7 @@ $\langle$abc, 5$\rangle$.
 \end{table}
 
 We notice that, although the RLPx Header (\autoref{fig:rlpx-transport}) contains
-a field to specify the protocol type, it is not used by the implementation of
+a field to specify the protocol type, it is not used by the implementations of
 Ethereum (at least geth and ethereumj\footnote{Since all the implementations
 should be interoperable, it means that all the implementations do not use this
 field or they deal with the case in which it is not used.}). If it would be the
