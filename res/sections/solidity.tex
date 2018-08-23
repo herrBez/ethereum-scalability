@@ -53,25 +53,23 @@ execution of the decorated functions.
 
 The \textbf{functions} are an abstraction of the language. They can be invoked 
 either \texttt{internally}, that is inside the same call stack activation record
-with a JUMP or JUMPI instruction or \texttt{externally}, that is by creating a
-new message call. In the former case the machine state is the same of the
-invoker, while in the latter the code is executed in a new machine state, that
-is by creating a new activation record on the call stack, as discussed in
-\autoref{sec:evm}.
-The first 4 bytes of the keccak256 hash of the signature of external function
-(function name and parameter types) is used as unique identifier
-(\textbf{selector}) of a function. When an actor wants to invoke a function
-externally it should provide the function's selector in the message data and
-follow the ABI format~\cite{bib:solidity-docs}.
-Essentially the Solidity compiler puts at the start of the compiled code a
-switch-statement that checks if the first four bytes of the message call data
-match a known function's selector. If it is the case the program jumps to the
-definition of the matched function otherwise a so-called fallback function is 
-invoked.
-The programmer may specify the fallback function by writing an unnamed function
-that does not take parameters. Since the signature depends on the number and
-the type of arguments, function overloading is easily implemented by using
-the new obtained selector.
+with a \texttt{JUMP} or \texttt{JUMPI} instruction or \texttt{externally}, that 
+is by creating a new message call. In the former case the machine state is the 
+same of the invoker, while in the latter the code is executed in a new machine 
+state, that is by creating a new activation record on the call stack, as 
+discussed in \autoref{sec:evm}. The first 4 bytes of the keccak256 hash of the 
+signature of external function (function name and parameter types) is used as 
+unique identifier (\textbf{selector}) of a function. When an actor wants to 
+invoke a function externally it should provide the function's selector in the 
+message data and follow the ABI format~\cite{bib:solidity-docs}. Essentially, 
+the Solidity compiler puts at the start of the compiled code a switch-statement 
+that checks if the first four bytes of the message call data match a known
+function's selector. If it is the case the program jumps to the definition of 
+the matched function otherwise a so-called fallback function is invoked. The 
+programmer may specify the fallback function by writing an unnamed function 
+that does not take parameters. Since the signature depends on the number and 
+the type of arguments, function overloading is easily implemented by using the 
+new obtained selector.
 
 Moreover, we distinguish also between \texttt{public} and \texttt{private}
 functions. The formers can be called either externally or internally, while the

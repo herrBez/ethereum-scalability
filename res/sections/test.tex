@@ -42,13 +42,14 @@ In each run of test we distinguish at least two phases:
 \paragraph{Setup phase}
 The setup consists in iterating on the test machines twice:
 \begin{itemize}
-  \item in the first iteration the required ethash data structures are generated,
-  \item in the second one a genesis file is used to initialize the ethereum world
-  state.
+  \item in the first iteration the required ethash data structures are 
+  generated,
+  \item in the second one a genesis file is used to create the genesis block 
+  and initialize the ethereum  world state.
 \end{itemize}
 
 
-\subparagraph{Ethash data structure}
+\subparagraph{Ethash data structures}
 During the setup phase the nodes with the roles miner generate the DAG and the
 cache for the first two epochs, while the clients generate only the caches,
 because they are required only to validate blocks. We generate the DAGs for the
@@ -90,8 +91,8 @@ simply dropped.
 
 Apart from the arbitrary values, that is the id and the nonce, and the data
 that perhaps are required by the system do not have influence on the transaction
-throughput, some parameters require some justification, that we provide in the 
-remainder of this paragraph.
+throughput, the values of some parameters require some justification, that we 
+provide in the remainder of this paragraph.
 
 The \textbf{timestamp} of the genesis file, that corresponds to the one of the
 genesis block, influences the difficulty of the first blocks, and transitively
@@ -150,14 +151,14 @@ relative brief simulation the initial value is fundamental.
 
 \paragraph{Test Phase}
 After the setup phase, the real tests begin by starting the execution of the 
-geth instances on the different machines. The clients emit transactions, simple
-transfer of values that do not require the intervention of the EVM, with a 
-predefined release time ($50$ ms) while the miner starts collecting 
-transactions and creating blocks. The tests are stopped after a configurable 
-time ($10$ minutes). For each configuration the tests are repeated a 
-configurable number of times ($5$) because the probabilistic nature of the 
+geth instances on the different machines. The clients emit transactions that
+cause simple transfers of values that do not require the intervention of the
+EVM, with a predefined release time ($50$ ms), while the miners starts
+collecting transactions and creating blocks. The tests are stopped after a 
+configurable time ($10$ minutes). For each configuration the tests are repeated 
+a configurable number of times ($5$) because the probabilistic nature of the 
 Proof-of-Work algorithm and the interaction of many systems do not guarantee 
-stable results.
+deterministic results.
 
 
 \paragraph{Concrete Parameters}

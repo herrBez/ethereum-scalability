@@ -38,44 +38,52 @@ thus increasing the possibility of forks. Decreasing the latter would increase
 the transaction throughput and increase also the possibility of forks. The
 increase in the number of forks reduces the security of the whole
 system~\cite{bib:ghost}. To address these bottlenecks multiple solutions were
-proposed. The blockchain system Bitcoin Cash and Litecoin try to augment the
-maximal transaction throughput by modifying the bitcoin client to have a maximum
+proposed. The Blockchain systems Bitcoin Cash and Litecoin try to augment the
+maximal transaction throughput by modifying the Bitcoin client to have a maximum
 block size of $8$ MB and to have a block interval of $2.5$ minutes,
 respectively. The GHOST~\cite{bib:ghost} protocol consider also the stale blocks
 to permit to diminish the block interval while preserving the same security
 guarantees of the original proof of work, as we already described in
 \autoref{sec:consensus:algorithm}.
 
-In addition to these considerations a number of confirmation blocks are needed
+In addition to these considerations, a number of confirmation blocks are needed
 to be sure that the transactions are really confirmed~\cite{bib:taxonomy}, i.e.
 it is unlikely that the block in which they are included can be discarded in
 favor of other blocks. This uncertainty in the acceptance of a block is also
 known as \textbf{lack of Consensus Finality}~\cite{bib:the-quest} and is due to
 the probabilistic nature of the PoW consensus algorithm. Currently, in Bitcoin,
-to be sure that a block cannot be replaced by another one, the confirmation of 6
-blocks are needed~\cite{bib:masteringbitcoin}. This corresponds roughly to an
-hour.
+the number of confirmation blocks is set to $6$~\cite{bib:masteringbitcoin}.
+This means that after the insertion of a transaction in a block at least an hour
+must be waited to be sure that it would be confirmed.
 
 Another concern with this technology is the need to \textbf{store} an
 increasingly large amount of data to keep the desired security guarantees.
+Currently, the minimum requirement to run a Bitcoin full-node, that is, a node
+that verifies all transactions, is $145$
+GB\footnote{https://bitcoin.org/en/bitcoin-core/features/requirements}.
 
 Other major concerns are related to the \textbf{cost} of the system, especially
 the cost per confirmed transaction~\cite{bib:scaling-croman} that is due to the
 mining cost, the transaction validation, the bandwidth and the storage.
 
-Finally, the bootstrap time~\cite{bib:scaling-croman}, that is, the time needed
+Finally, the bootstrap time, that is, the time needed
 for a new node to download and process the whole transaction history is another
-key factor that can contribute to the scalability of the
-system~\cite{bib:scaling-croman}.
+key factor that can contribute to the scalability (scaling
+out)~\cite{bib:scaling-croman} and openness~\cite{van2017distributed} of the
+system.
 
-\paragraph{Ethereum} Vukoli\'c~\cite{bib:the-quest} states that the introduction
-of smart-contracts in Ethereum make the problem very similar to database
-replication and in particular \emph{state machine replication}. Also
-Wood~\cite{wood2018ethereum} argue that it is very difficult to reach a high
-degree of scalability by parallelizing transactions in this system because it is
-essentially a state transaction machine. Indeed the state in Ethereum influence
-the smart contract execution and therefore the majority of transactions are
-dependent from previous ones, thus making Ethereum \textbf{stateful}.
+\paragraph{Ethereum} The previous considerations about the scalability of 
+Bitcoin apply also to Ethereum. In addition, the introduction of 
+smart-contracts in Ethereum makes the problem very similar to database 
+replication and in particular \emph{state machine
+replication}~\cite{bib:the-quest}. Also Wood~\cite{wood2018ethereum} argues
+that  it is very difficult to reach a high degree of scalability by 
+parallelizing transactions in this system because it is essentially a state 
+transaction machine. Indeed, the state in Ethereum influence the smart contract 
+execution and therefore the majority of transactions are dependent from 
+previous ones, thus making Ethereum \textbf{stateful}.
+
+
 
 
 %*** et al. \cite{bib:sok:ethereum} individuate that scalability of blockchain
