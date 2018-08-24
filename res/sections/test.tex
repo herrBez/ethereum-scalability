@@ -9,8 +9,8 @@ nodes~\cite{bib:securityAndScalabilityPoW, bib:algorand}. Since we do not
 dispose of so many resources we take inspiration from
 Blockbench~\cite{blockbench}, which compares the performance and scalability of
 Hyperledger\footnote{\url{https://www.hyperledger.org/}} and Ethereum in a
-\emph{private} scenario, that is when we take into consideration a limited
-number of authenticated nodes.
+permissioned/\emph{private} scenario, that is, when we take into consideration
+a limited number of authenticated nodes.
 
 We tried to use the public available Blockbench
 repository\footnote{\url{https://github.com/ooibc88/blockbench}} but we did not
@@ -56,13 +56,12 @@ because they are required only to validate blocks. We generate the DAGs for the
 first two epochs, because ethash uses double buffer of DAGs to grant a smooth
 switch between epochs~\cite{bib:dagger-hashimoto}.
 
-
 \subparagraph{Genesis file}
 The genesis file contains useful information to create (deterministically) the
 genesis block and the initial state. We report an extract of the genesis file
 we used in~\autoref{listing:genesis}. It is simply a JSON file, which specifies
 several parameters. Most of them specify directly the attributes of the block
-number $0$, which are shown in \autoref{fig:world-state}. Here we describe
+number $0$, which are shown in \autoref{fig:world-state}. Here, we describe
 only the fields that are not directly a parameter specification:
 \begin{itemize}
     \item \texttt{config}: It describes the network id and the number and hash
@@ -179,6 +178,12 @@ we wanted to confirm that this value influence the number of transaction
 processed as described in \autoref{sec:background}.
 
 
+\subsection{Results}
+
+In this section we report interesting results obtained from the two tests we
+conducted. We focused especially on the transaction throughput of the system
+but we also report data about the storage needed to run the single systems.  
+
 \paragraph{Maximal throughput - Low Gas Limit}
 \label{sec:max-troughput}
 For this test we used a gas limit of $3141592$, which corresponds to circa
@@ -186,11 +191,13 @@ $150 \cdot 21000$.
 
 \begin{table}[h]
   \centering
-  \begin{tabular}{lcccc}
-    \hline
+  \begin{tabular}{l | cccc}
     & 1 miner & 2 miners & 4 miners & 8 miners \\ \hline
-    Avg throughput & 8.01 & 7.17 & 5.83 & 6.65 \\ \hline
-    Avg blocks & 24.00 & 37.80 & 26.60 & 30.00 \\ \hline
+    Avg throughput & 5.37 & 7.17 & 6.73 & 6.65 \\ 
+    Avg blocks & 24.00 & 37.80 & 30.02 & 30.00 \\ 
+    Avg txs per block & 133.77 & 114.69 & 133.61 & 133.15 \\ 
+    Max throughput & 7.18 & 7.76 & 8.17 & 8.67 \\
+    Min throughput & 3.68 & 6.83 & 5.91 & 4.91 \\
   \end{tabular}
   \caption{Average throughput and number of mined blocks on 5 runs.}
   \label{tab:max-troughput}
@@ -211,6 +218,7 @@ Milion, that corresponds roughly to $381 \cdot 21000$.}.
     & 1 miner & 2 miners & 4 miners & 8 miners \\ \hline
     Avg throughput & 8.17 & 11.55 & 9.02 & 11.07 \\ \hline
     Avg blocks & 33.60 & 27.20 & 37.20 & 29.80 \\ \hline
+    Max throughput & 12.55 & 17.50 & 17.77 & 12.53 \\ \hline
   \end{tabular}
   \caption{Average throughput and number of mined blocks on 5 runs with high gas limit.}
   \label{tab:max-troughput-high-gaslimit}
