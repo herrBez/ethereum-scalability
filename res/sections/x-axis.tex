@@ -1,4 +1,4 @@
-\subsubsection{X-Axis: Horizontal Duplication}
+\subsection{X-Axis: Horizontal Duplication}
 
 The x-axis of the cube of the scalability is concerned with the horizontal
 duplication and cloning of services and data with absolutely no bias, running
@@ -59,7 +59,7 @@ without permitting to successfully fulfill the latter.
   \label{fig:webserver-scale-x}
 \end{figure}
 
-\paragraph{State}
+\subsubsection{State}
 Let's clarify the concept of \emph{state} in order to better understand the
 importance of it for scaling on the x-axis. We said that, in other words, an
 application that uses state chooses the next action to be performed evaluating
@@ -88,7 +88,7 @@ changes, these changes should be reflected on the server which accesses that
 same part of the state. This can be not a drawback at first, but it may become
 an issue increasing the data size.
 
-\paragraph{Ethereum}
+\subsubsection{Ethereum}
 \label{sec:x-axis-ethereum}
 In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
 thus making it difficult to scale on the x-axis. As we discussed in
@@ -124,7 +124,7 @@ network does not increment the transaction throughput making the scaling on the
 x-axis absent in the current implementation.
 
 
-\paragraph{Proposals}
+\subsubsection{Proposals}
 Currently, there are no proposals to scale on this direction. The reason
 probably lies in the consensus layer. In \autoref{sec:consensus:algorithm}, we
 talked about the validation procedure involved in the consensus algorithm.
@@ -139,7 +139,7 @@ throughput, but maybe a lower ones due to network
 overhead\cite{bib:cbc-casper}\todo{Check cite}.
 
 
-\paragraph{Proof of Stake}
+\subsubsection{Proof of Stake}
 \label{sec:pos}
 Proof of Stake (PoS) is a class of algorithms through which a cryptocurrency
 blockchain network achieves distributed consensus. As we have seen in
