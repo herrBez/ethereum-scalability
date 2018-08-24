@@ -16,7 +16,7 @@ We tried to use the public available Blockbench
 repository\footnote{\url{https://github.com/ooibc88/blockbench}} but we did not
 manage to configure it, because of a lot of hard-coded configuration variables
 and the lack of a well-written documentation. Therefore we desisted and wrote
-our own 
+our own
 system\footnote{\url{https://github.com/gfornari/ethereum-test/tree/benchmark}}.
 
 
@@ -42,9 +42,9 @@ In each run of test we distinguish at least two phases:
 \paragraph{Setup phase}
 The setup consists in iterating on the test machines twice:
 \begin{itemize}
-  \item in the first iteration the required ethash data structures are 
+  \item in the first iteration the required ethash data structures are
   generated,
-  \item in the second one a genesis file is used to create the genesis block 
+  \item in the second one a genesis file is used to create the genesis block
   and initialize the ethereum  world state.
 \end{itemize}
 
@@ -65,22 +65,22 @@ number $0$, which are shown in \autoref{fig:world-state}. Here, we describe
 only the fields that are not directly a parameter specification:
 \begin{itemize}
     \item \texttt{config}: It describes the network id and the number and hash
-    of blocks that marks the entry into force of the Ethereum Improvement 
+    of blocks that marks the entry into force of the Ethereum Improvement
     Proposals (EIP), which indicate incompatible changes in the protocol or
     simply a new version of Ethereum
     \item \texttt{alloc}: It specifies an initial allocation of Ether for the
     accounts\footnote{This possibility has been exploited for the so-called
-    Initial Coin Offering (ICO) used by the Ethereum Foundation to obtain fiat 
+    Initial Coin Offering (ICO) used by the Ethereum Foundation to obtain fiat
     currency to finance the project.} we use in the tests.
 \end{itemize}
-Obviously, each node of the network should be initialized with the same genesis 
+Obviously, each node of the network should be initialized with the same genesis
 file. Otherwise, the hash of the genesis block differs and the peers cannot
 establish a connection with the Ethereum Wire Protocol, as described
-in~\autoref{sec:ethereum-wire-protocol}. Thus, the genesis file for the main 
-network  and the official Ethereum test networks are hard-coded. To create a 
-new private Ethereum network it is sufficient to use a new genesis file, in 
-which some parameters are changed. Therefore, in our genesis file we use an 
-arbitrary network id and nonce, so that packets of different networks are 
+in~\autoref{sec:ethereum-wire-protocol}. Thus, the genesis file for the main
+network  and the official Ethereum test networks are hard-coded. To create a
+new private Ethereum network it is sufficient to use a new genesis file, in
+which some parameters are changed. Therefore, in our genesis file we use an
+arbitrary network id and nonce, so that packets of different networks are
 simply dropped.
 
 \begin{figure}[H]
@@ -90,7 +90,7 @@ simply dropped.
 
 Apart from the arbitrary values, that is the id and the nonce, and the data
 that perhaps are required by the system do not have influence on the transaction
-throughput, the values of some parameters require some justification, that we 
+throughput, the values of some parameters require some justification, that we
 provide in the remainder of this paragraph.
 
 The \textbf{timestamp} of the genesis file, that corresponds to the one of the
@@ -149,32 +149,32 @@ to the gas limit a portion of itself~\cite{wood2018ethereum}. Thus, in a
 relative brief simulation the initial value is fundamental.
 
 \paragraph{Test Phase}
-After the setup phase, the real tests begin by starting the execution of the 
+After the setup phase, the real tests begin by starting the execution of the
 geth instances on the different machines. The clients emit transactions that
 cause simple transfers of values that do not require the intervention of the
 EVM, with a predefined release time ($50$ ms), while the miners starts
-collecting transactions and creating blocks. The tests are stopped after a 
-configurable time ($10$ minutes). For each configuration the tests are repeated 
-a configurable number of times ($5$) because the probabilistic nature of the 
-Proof-of-Work algorithm and the interaction of many systems do not guarantee 
+collecting transactions and creating blocks. The tests are stopped after a
+configurable time ($10$ minutes). For each configuration the tests are repeated
+a configurable number of times ($5$) because the probabilistic nature of the
+Proof-of-Work algorithm and the interaction of many systems do not guarantee
 deterministic results.
 
 
 \paragraph{Concrete Parameters}
-We measure the throughput with different number of miners ($1$, $2$, $4$ and 
-$8$), fixing the number of clients at $16$ with two different gas limits. 
-The miner machine executes only one \texttt{geth} instance in miner mode, while 
-the client machines execute two instances in client mode. For our tests we used 
+We measure the throughput with different number of miners ($1$, $2$, $4$ and
+$8$), fixing the number of clients at $16$ with two different gas limits.
+The miner machine executes only one \texttt{geth} instance in miner mode, while
+the client machines execute two instances in client mode. For our tests we used
 the scaleway
 platform\footnote{\url{https://www.scaleway.com/}}. We rent $17$ (one master
-and $16$ slaves) START1-S servers, which dispose of $2$ X86 64 bit Cores and 
-$2$ GB of RAM and an internal bandwidth of $1$ Gbit/s, so that the network 
-would not be a bottleneck. Each server runs Ubuntu 16.04 and has installed, 
-\texttt{geth} version 1.8.11-stable. During the tests the master acts also as 
-bootstrap node. We described its role in \autoref{sec:network-layer}. 
+and $16$ slaves) START1-S servers, which dispose of $2$ X86 64 bit Cores and
+$2$ GB of RAM and an internal bandwidth of $1$ Gbit/s, so that the network
+would not be a bottleneck. Each server runs Ubuntu 16.04 and has installed,
+\texttt{geth} version 1.8.11-stable. During the tests the master acts also as
+bootstrap node. We described its role in \autoref{sec:network-layer}.
 
 The two tests we conducted differs only for the gas limit in the genesis block,
-we wanted to confirm that this value influence the number of transaction 
+we wanted to confirm that this value influence the number of transaction
 processed as described in \autoref{sec:background}.
 
 
@@ -182,7 +182,7 @@ processed as described in \autoref{sec:background}.
 
 In this section we report interesting results obtained from the two tests we
 conducted. We focused especially on the transaction throughput of the system
-but we also report data about the storage needed to run the single systems.  
+but we also report data about the storage needed to run the single systems.
 
 \paragraph{Maximal throughput - Low Gas Limit}
 \label{sec:max-troughput}
@@ -193,9 +193,9 @@ $150 \cdot 21000$.
   \centering
   \begin{tabular}{l | cccc}
     & 1 miner & 2 miners & 4 miners & 8 miners \\ \hline
-    Avg throughput & 5.37 & 7.17 & 6.73 & 6.65 \\ 
-    Avg blocks & 24.00 & 37.80 & 30.02 & 30.00 \\ 
-    Avg txs per block & 133.77 & 114.69 & 133.61 & 133.15 \\ 
+    Avg throughput & 5.37 & 7.17 & 6.73 & 6.65 \\
+    Avg blocks & 24.00 & 37.80 & 30.02 & 30.00 \\
+    Avg txs per block & 133.77 & 114.69 & 133.61 & 133.15 \\
     Max throughput & 7.18 & 7.76 & 8.17 & 8.67 \\
     Min throughput & 3.68 & 6.83 & 5.91 & 4.91 \\
   \end{tabular}
@@ -207,8 +207,8 @@ $150 \cdot 21000$.
 \paragraph{Maximal throughput - High gas limit}
 \label{sec:max-throughput-high-gaslimit}
 For this test we use a very large gas limit $10500000$ which corresponds to
-$500 \cdot 21000$\footnote{To give a term of reference, we can consider that 
-currently (August 2018) the gas limit for the main Etherum network is circa $8$ 
+$500 \cdot 21000$\footnote{To give a term of reference, we can consider that
+currently (August 2018) the gas limit for the main Etherum network is circa $8$
 Milion, that corresponds roughly to $381 \cdot 21000$.}.
 
 \begin{table}[h]
@@ -217,7 +217,7 @@ Milion, that corresponds roughly to $381 \cdot 21000$.}.
     & 1 miner & 2 miners & 4 miners & 8 miners \\ \hline
     Avg throughput & 8.17 & 11.55 & 9.02 & 11.07 \\
     Avg blocks & 33.60 & 27.20 & 37.20 & 29.80 \\
-    Avg txs per block & 145.25 & 262.98 & 157.15 & 226.32  \\ 
+    Avg txs per block & 145.25 & 262.98 & 157.15 & 226.32  \\
     Max throughput & 12.55 & 17.50 & 17.77 & 12.525 \\
     Min throughput & 6.82 & 6.83 & 6.83 & 7.14 \\
   \end{tabular}
