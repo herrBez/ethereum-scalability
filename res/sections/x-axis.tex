@@ -9,7 +9,7 @@ Reasoning on the x-axis is typically easy and the implementation can be fast,
 but the data sets have to be replicated in their entirety which increases
 operational costs.
 
-% descrivere un esempio virtuoso fuori dall'architettura di Ethereum
+\subsubsection{An example: Web server replication}
 In order to better understand the concept, we bring an example of a common
 architecture which scales on this axis. Suppose we are running our own
 e-commerce startup of wine. The business is going great and suddenly we have to
@@ -88,7 +88,7 @@ changes, these changes should be reflected on the server which accesses that
 same part of the state. This can be not a drawback at first, but it may become
 an issue increasing the data size.
 
-\subsubsection{Ethereum}
+\subsubsection{Ethereum current state and proposals}
 \label{sec:x-axis-ethereum}
 In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
 thus making it difficult to scale on the x-axis. As we discussed in
@@ -123,8 +123,6 @@ does not affect the overall performance. Hence duplicating the miners in the
 network does not increment the transaction throughput making the scaling on the
 x-axis absent in the current implementation.
 
-
-\subsubsection{Proposals}
 Currently, there are no proposals to scale on this direction. The reason
 probably lies in the consensus layer. In \autoref{sec:consensus:algorithm}, we
 talked about the validation procedure involved in the consensus algorithm.
@@ -137,7 +135,6 @@ Proof of Stake (see \autoref{sec:pos}) does not scale on the
 x-axis, indeed increasing the number of validators doesn't implies a higher
 throughput, but maybe a lower ones due to network
 overhead\cite{bib:cbc-casper}\todo{Check cite}.
-
 
 \subsubsection{Proof of Stake}
 \label{sec:pos}
