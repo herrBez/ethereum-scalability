@@ -14,10 +14,14 @@
   \renewcommand{\subsubsectionautorefname}{Section}
 }
 
+\lstset{
+	captionpos=b
+}
+
 % adapted from https://tex.stackexchange.com/questions/89574/language-option-supported-in-listings
 \lstdefinelanguage{Solidity}{
-	keywords={typeof, new, true, false, catch, function, return, null, catch, 
-		switch, var, if, in, while, do, else, case, break, uint8, public, 
+	keywords={typeof, new, true, false, catch, function, return, null, catch,
+		switch, var, if, in, while, do, else, case, break, uint8, public,
 		private, internal, external, view, 	returns, emit, require, pragma,
 		solidity, contract, address, event,	modifier, constructor},
 	keywordstyle=\color{blue}\bfseries,
