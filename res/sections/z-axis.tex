@@ -150,11 +150,14 @@ computations on the EVM. To complete this action we need several information,
 such as the balance of the sender of the transaction and the code of the
 invoked contract. Moreover, the invoked contract may in turn call other
 contracts and so on. These may in addition modify the balance of other accounts
-as a side effect, e.g. through the \texttt{SELFDESTRUCT} opcode. Thus, to
-process a transaction we need the account states of the sender and the called
-contracts and all account state that are affected by the computations.
-The point (A) implies points (B), indeed the overhead due to the communication
-would surely slow down the transaction processing action.
+as a side effect, e.g. through the \texttt{SELFDESTRUCT}\footnote{This opcode
+causes the deletion of the executing contract from the world state and sends
+the balance of the contract to a selected
+account~\cite{wood2018ethereum}.} opcode. Thus, to process a transaction we
+need the account states of the sender and the called contracts and all account
+state that are affected by the computations. The point (A) implies points (B),
+indeed the overhead due to the communication would surely slow down the
+transaction processing action.
 
 With these considerations in mind and by recalling that to be significant a
 z-axis split should partition both the transactions and the data necessary to
