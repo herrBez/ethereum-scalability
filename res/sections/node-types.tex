@@ -1,0 +1,32 @@
+\section{Node types}
+\label{sec:node-types}
+Currently, in Ethereum there are mainly three types of nodes: full nodes,
+archive nodes and light nodes.
+
+\paragraph{Full nodes}
+The full nodes are the nodes we describe throughout our work. They store the
+whole blockchain (comprising of block headers and bodies) and they have full
+copy of the most recent state, and verify and process every transactions. A full
+node can be a miner.
+
+\paragraph{Archive nodes}
+Archive nodes are full nodes that store also the state tree for each block,
+hence they are the most storage-bound nodes. They are used by block explorers,
+like Etherscan\footnote{\url{https://etherscan.io/}}.
+
+\paragraph{Light nodes}
+Light nodes store only the headers of the blocks of the blockchain. They do
+neither store the blocks' bodies nor the state. The idea behind light nodes, is
+to use the other peers in the network as a distributed hash table (DHT).
+In essence, they know the hash of the information and request the desired
+information from the peers they know with an on-demand logic.
+
+For example, a light node can retrieve the state of an account at a desired
+block by recursively requesting the content of the World State, starting from
+its hash which is contained in the block's header (\autoref{fig:world-state}).
+We refer to~\cite{bib:light-client} for further details about how and what type
+of other information a light node can retrieve.
+
+This type of clients assume that there are full-nodes in the network supporting
+the Light Ethereum Subprotocol (LES)~\cite{bib:les-protocol} which have message
+types to retrieve data on-demand.

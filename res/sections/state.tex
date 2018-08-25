@@ -44,14 +44,13 @@ storage contents of the account state.
 
 Since each node is the hash of its children, if any data in the tree change,
 recursively and correspondingly all the ancestors nodes have to change from the
-changed node to the root node. This property allows us to identify uniquely a
-tree having just the root node. This is worth notice because it influences
-the system scalability. Briefly, we can distinguish between \emph{light nodes}
-and \emph{full nodes}. The formers store just the blocks' headers, while the
-latters store the entire blockchain. The tree's property we just mentioned
-allows the light nodes to the validation process even without storing all the
-data. This is better analyzed in \autoref{sec:scalability} talking about the
-scalability.
+changed node to the root node. This property allows us to uniquely identify a
+tree having just the root node. This is worth to notice because it allows the
+nodes of the network to verify that big data-structures (like the World State)
+correspond to the one contained in the blocks' header by simply comparing a
+$256$-bit long hash. Moreover, this feature can be exploited to create the light
+nodes, as described in~\autoref{sec:node-types}.
+
 
 \subsubsection{Accounts}
 \label{sec:accounts}
