@@ -11,9 +11,9 @@ copy of the most recent state, and verify and process every transactions. A full
 node can be a miner.
 
 When running a full node the user have the possibility to decide whether to use
-the fast synchronization, i.e. the protocol version 62 
-(\verb|geth --syncmode fast|), or with the normal synchronization mechanism, 
-i.e. protocol version 63 (\verb|geth --syncmode full|). The default option is 
+the fast synchronization, i.e. the protocol version 62
+(\verb|geth --syncmode fast|), or with the normal synchronization mechanism,
+i.e. protocol version 63 (\verb|geth --syncmode full|). The default option is
 ''fast``, because it require significantly less time, as explained
 in~\autoref{sec:propagation-layer}.
 
@@ -47,5 +47,5 @@ types to retrieve data on-demand.
 To run a Light node it is sufficient to overwrite the default synchronization
 method:
 \begin{center}
-    \verb|geth --syncmode full --gcmode archive [other-options]|
+    \verb|geth --syncmode light [other-options]|
 \end{center}
