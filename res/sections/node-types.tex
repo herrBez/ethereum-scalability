@@ -14,7 +14,7 @@ When running a full node the user have the possibility to decide whether to use
 the fast synchronization, i.e. the protocol version 62
 (\verb|geth --syncmode fast|), or with the normal synchronization mechanism,
 i.e. protocol version 63 (\verb|geth --syncmode full|). The default option is
-''fast``, because it require significantly less time, as explained
+``fast'', because it require significantly less time, as explained
 in~\autoref{sec:propagation-layer}.
 
 \paragraph{Archive nodes}
@@ -27,6 +27,7 @@ mode (gcmode) for the state, so that all the intermediate states are stored:
 \begin{center}
 \verb|geth --syncmode full --gcmode archive [other-options]|
 \end{center}
+
 \paragraph{Light nodes}
 Light nodes store only the headers of the blocks of the blockchain. They do
 neither store the blocks' bodies nor the state. The idea behind light nodes, is
