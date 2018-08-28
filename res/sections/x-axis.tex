@@ -91,25 +91,13 @@ an issue increasing the data size.
 
 \subsubsection{Ethereum current state and proposals}
 \label{sec:x-axis-ethereum}
-In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
-thus making it difficult to scale on the x-axis. As we discussed in
-\autoref{sec:network-layer}, the Ethereum implementation uses a peer-to-peer
-network in which the nodes are \emph{servent}. Although there are different
-clients (e.g. Geth\footnote{\url{https://github.com/ethereum/go-ethereum}},
-Parity\footnote{\url{https://github.com/paritytech/parity}},
-cpp-ethereum\footnote{\url{https://github.com/ethereum/cpp-ethereum}},
-pyethapp\footnote{\url{https://github.com/ethereum/pyethapp}}, etc.), each one
-is compliant with the Ethereum protocols abstracting from the distinct
-implementations, so this is not a distinctive characteristic from a functional
-perspective. Let's not consider initially the possible different node types
-\todo{Here we should discuss the different node types (full, archive, light) or
-refer to a section} supposing that it can access the state and that it has its
-own copy of it. In \autoref{sec:consensus:algorithm}, we introduced the Ethereum
-consensus algorithm and the PoW algorithm which is run by the miners in order to
-create the next valid block. The more miners join the network (or improve the
-existent), thus incrementing the global hash rate, the more difficult a state
+
+In~\autoref{sec:consensus:algorithm}, we introduced the Ethereum consensus
+algorithm and the PoW algorithm which is run by the miners in order to create
+the next valid block. The more miners join the network (or improve the
+existents), thus incrementing the global hash rate, the more difficult a state
 transition become. In \autoref{sec:max-troughput}, we measure the maximal
-transaction throughput in a private blockchain\footnote{See \autoref{sec:tests}
+transaction throughput in a private blockchain\footnote{See~\autoref{sec:tests}
 for a detailed tests description.}. Incrementing the number of miners in the
 network does not increment the transaction throughput, indeed it is almost
 negatively affected. This decreasing in performance can be due to a variety of
@@ -120,22 +108,28 @@ described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a
 gas limit high enough to not restrict the number of transactions which can be
 included in a block. The results show a little increment in the transaction
 throughput with regards to the previous test, but again the number of miners
-does not affect the overall performance. Hence duplicating the miners in the
+does not affect the overall performance. Hence, duplicating the miners in the
 network does not increment the transaction throughput making the scaling on the
-x-axis absent in the current implementation.
+x-axis absent in the current implementation. When we are talking about
+duplicating, we are not assuming the nodes are running the same implementation.
+Indeed, there are multiple implementations (e.g.,
+geth\footnote{\url{https://github.com/ethereum/go-ethereum}},
+parity\footnote{\url{https://github.com/paritytech/parity}}, etc.), that adhere
+to the same protocols, therefore they are functionally equivalent.
 
-Currently, there are no proposals to scale on this direction. The reason
-probably lies in the consensus layer. In \autoref{sec:consensus:algorithm}, we
-talked about the validation procedure involved in the consensus algorithm.
-Everyone validates each block propagated in the network executing all the
-transactions and the EVM computations which is in contrast with the concept of
-load distribution of the x-axis. Thus, the system is limited by the performance
-of the single computer duplicated in the network. In order to scale on this
-vector, there should be a balancing of load between the nodes. The proposed
-Proof of Stake (see \autoref{sec:pos}) does not scale on the
-x-axis, indeed increasing the number of validators doesn't implies a higher
-throughput, but maybe a lower ones due to network
-overhead\cite{bib:cbc-casper}\todo{Check cite}.
+In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
+thus making it difficult to scale on the x-axis. Moreover, the implementation of
+the consensus layer requires that everyone validates each block propagated in
+the network executing all the transactions and the EVM computations which is in
+contrast with the concept of load distribution of the x-axis. Thus, the system
+is limited by the performance of the single computer duplicated in the network.
+Because of these issues, it is very difficult to individuate measures to scale
+on this axis without loosing other fundamental characteristics, like
+decentralization and trustlessness. Without these latter features, we would have
+a traditional system with a central authority on which we could implement some
+well know scaling solutions such as load balance among the different servers or
+simply scale up.
+
 
 \subsubsection{Proof of Stake}
 \label{sec:pos}
@@ -163,8 +157,3 @@ algorithm determines how a validator is chosen in the set of validators to
 \emph{propose} the next block, and then how the validators agree on which block
 is canonical. Different type of PoS can be obtained by varying the consensus
 algorithm and how the rewards are assigned.
-
-
-% discutere sui mining pool
-
-% discutere su Infura
