@@ -118,16 +118,17 @@ parity\footnote{\url{https://github.com/paritytech/parity}}, etc.), that adhere
 to the same protocols, therefore they are functionally equivalent.
 
 In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
-thus making it difficult to scale on the x-axis. Moreover, the implementation
-of the consensus layer requires that everyone validates each block propagated in
+thus making it difficult to scale on the x-axis. Moreover, the implementation of
+the consensus layer requires that everyone validates each block propagated in
 the network executing all the transactions and the EVM computations which is in
 contrast with the concept of load distribution of the x-axis. Thus, the system
 is limited by the performance of the single computer duplicated in the network.
-Because of these issues it is very difficult to individuate measures to
-to scale on this axis, without giving up other fundamental characteristics,
-like the decentralization and the trustlessness. Without these latter features
-we would have a traditional system with a central authority which could load
-the balance among the different servers or simply scale up.
+Because of these issues, it is very difficult to individuate measures to scale
+on this axis without loosing other fundamental characteristics, like
+decentralization and trustlessness. Without these latter features, we would have
+a traditional system with a central authority on which we could implement some
+well know scaling solutions such as load balance among the different servers or
+simply scale up.
 
 
 \subsubsection{Proof of Stake}
