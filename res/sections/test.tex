@@ -1,21 +1,23 @@
 \subsection{Tests}
 \label{sec:tests}
 
-To measure the scalability of Ethereum we prepared some tests to study the
+To measure the scalability of Ethereum, we prepared some tests to study the
 maximal throughput and the size of the blockchain with different configurations.
 To study the scalability of one permission-less blockchain system such as
-Ethereum one should prepare some tests using thousand of
-nodes~\cite{bib:securityAndScalabilityPoW, bib:algorand}. Since we do not
-dispose of so many resources we take inspiration from
-Blockbench~\cite{blockbench}, which compares the performance and scalability of
+Ethereum one should either rely on
+simulation~\cite{bib:securityAndScalabilityPoW} or prepare some tests using
+thousand of nodes~\cite{bib:securityAndScalabilityPoW, bib:algorand}. We dispose
+neither of a simulation of Ethereum nor dispose of so many resources.
+Therefore, we take inspiration from Blockbench~\cite{blockbench}, which
+compares the performance and scalability of
 Hyperledger\footnote{\url{https://www.hyperledger.org/}} and Ethereum in a
-permissioned/\emph{private} scenario, that is, when we take into consideration
-a limited number of authenticated nodes.
+\emph{private} (\emph{permissioned}) scenario, that is, when we consider a
+limited number of authenticated nodes.
 
 We tried to use the public available Blockbench
 repository\footnote{\url{https://github.com/ooibc88/blockbench}} but we did not
 manage to configure it, because of a lot of hard-coded configuration variables
-and the lack of a well-written documentation. Therefore we desisted and wrote
+and the lack of a well-written documentation. Thus, we desisted and wrote
 our own
 system\footnote{\url{https://github.com/gfornari/ethereum-test/tree/benchmark}}.
 
@@ -24,7 +26,7 @@ system\footnote{\url{https://github.com/gfornari/ethereum-test/tree/benchmark}}.
 
 To keep the configuration easy we opted for a classic master-slave logic. The
 master, i.e. the initiator and coordinator of the tests, uses the ssh protocol
-to run commands on the remote machines. Similarly to~\cite{blockbench} we
+to run commands on the remote machines. Similarly to~\cite{blockbench}, we
 distinguish between the roles \emph{miner} and \emph{client}. The nodes of the
 former type are accountable to generate new blocks while the nodes of the latter
 type create and propagate transactions and both verify the blocks\footnote{To
