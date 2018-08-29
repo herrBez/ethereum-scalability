@@ -1,18 +1,18 @@
 \subsection{Centralization}
 
-One of the major concern with a permissionless blockchain, such as Ethereum,
+One of the major concerns with a permissionless blockchain, such as Ethereum,
 is the centralization risk. Indeed, if the number of miners and also of full
 node diminishes, it is easier that Ethereum would be manipulated by a single
 entity.
 
 The risk is concrete, because the requirements to run a full node or 
 stand-alone miners are continuously growing. Thus, if the growth exceeds the
-evolution of COTS hardware, only few entities will be able to afford the 
-costs of maintaining such nodes. Moreover, there is no incentive to run a full
-node without mining, but these nodes are fundamental to grant the behavior of
-the network.
+evolution of COTS hardware, less powerful computers will drop and only few
+entities will be able to afford the costs of maintaining such nodes. Moreover, 
+there is no incentive to run a full node without mining, but these nodes are 
+fundamental to grant the behavior of the network.
 
-The nodes are required to keep in the storage:
+One of the major requirements is the storage. The nodes are required to keep:
 \begin{itemize}
     \item One or more snapshots of the world-state~\autoref{sec:world-state}
     at different blocks
@@ -44,7 +44,7 @@ The nodes are required to keep in the storage:
 The size of the world state is proportional to the number of addresses, because
 new addresses require an account state (\autoref{sec:world-state}).
 \autoref{fig:address-chart} shows the growth in the number of address from the
-beginning of $2017$. We notice that the number of unique address in the
+beginning of $2017$. We notice that the number of unique addresses in the
 Ethereum main net has exceeded the $40$ million units and that the growth
 rate~\autoref{fig:address-growth-rate-chart} follows the price evolution of the
 Ether~\autoref{fig:price-chart}, the currency of Ethereum. Indeed, around
@@ -70,7 +70,7 @@ Mebibytes.
 The miners should store also the DAG that starts from a size of $1$ Gibibytes
 and it is increased of $8$ Mebibytes, each epoch. So, currently, the DAG 
 requires $2.62$ Gibibytes. So GPUs with less than $2$ Gigabytes VRAM are not
-more profitable. This means that more specialized hardware are needed.
+more usable to mine. This means that more specialized hardware are needed.
 
 
 
