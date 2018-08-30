@@ -7,20 +7,21 @@ explain how to start nodes of this type with geth.
 \paragraph{Full nodes}
 The full nodes are the nodes we describe throughout our work. They store the
 whole blockchain (comprising of block headers and bodies) and they have full
-copy of the most recent state, and verify and process every transaction. A full
+copy of the most recent states, and verify and process every transaction. A full
 node can be a miner.
 
 When running a full node the user have the possibility to decide whether to use
 the fast synchronization, i.e. the protocol version 62
-(\verb|geth --syncmode fast|), or with the normal synchronization mechanism,
-i.e. protocol version 63 (\verb|geth --syncmode full|). The default option is
+(\verb|geth --syncmode fast|), or the normal synchronization mechanism, i.e.
+protocol version 63 (\verb|geth --syncmode full|). The default option is
 ``fast'', because it require significantly less time, as explained
 in~\autoref{sec:propagation-layer}.
 
 \paragraph{Archive nodes}
 Archive nodes are full nodes that store also the state tree for each block,
 hence they are the most storage-bound nodes. They are used by block explorers,
-like Etherscan\footnote{\url{https://etherscan.io/}}.
+like Etherscan\footnote{\url{https://etherscan.io/}} or enterprises that needs
+to have at their disposal historical information.
 
 To run an archive mode, it is sufficient to overwrite the garbage collection
 mode (gcmode) for the state, so that all the intermediate states are stored:
@@ -45,7 +46,7 @@ This type of clients assume that there are full-nodes in the network supporting
 the Light Ethereum Subprotocol (LES)~\cite{bib:les-protocol} which have message
 types to retrieve data on-demand.
 
-To run a Light node it is sufficient to overwrite the default synchronization
+To run a light node it is sufficient to overwrite the default synchronization
 method:
 \begin{center}
     \verb|geth --syncmode light [other-options]|

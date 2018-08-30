@@ -12,7 +12,7 @@ transactions in a distributed ledger without relying on a trusted third party,
 e.g. a bank~\cite{bib:the-quest}. Not relying on a trusted central authority may
 lead to practical issues like transaction repudiation and the infamous
 \textbf{double-spending problem}. The former is self-explanatory and can be
-solved by digital signatures, while the latter consists in using the same
+solved by digital signatures, while the flatter consists in using the same
 digital token to pay multiple entities and found its first practical
 decentralized solution with the appearance of
 Bitcoin~\cite{ethereumwp}\footnote{We refer to~\cite{ethereumwp} for a complete
@@ -43,7 +43,7 @@ transactions are received by a member of the network who groups some
 transactions in a block and tries to find a nonce such that the hash of the
 block is smaller than a given value. Since this task is computationally
 expensive, if the node finds this value, it adds at the beginning of the
-transaction list a transaction in which it assign to a beneficiary address an
+transaction list a transaction in which it assigns to a beneficiary address an
 amount of newly minted coins, according to the protocol's rule\footnote{This
 value was initially $50$ bitcoins. This reward halves every $210000$ blocks.
 Currently it is 12.5 bitcoins. Around year $2140$ no coins would be
@@ -66,7 +66,7 @@ peers can agree on the blockchain. The drawback of this system is that there is
 no consensus finality~\cite{bib:the-quest}, thus it is necessary to wait a
 certain number of blocks (confirmation blocks) to be sure that the transactions
 are really confirmed. The number of confirmation blocks in bitcoin is six, which
-correspond to approximately one hour.
+correspond to approximately one hour~\cite{bib:masteringbitcoin}.
 
 Although this description of Bitcoin abstracts from various details, it is
 sufficient to show how the double spending problem is solved. The idea is to let
@@ -91,9 +91,9 @@ permissioned blockchain is Hyperledger.
 \paragraph{Overview}
 In the remainder of the paper we will discuss exclusively Ethereum. Ethereum can
 be viewed as a generalization of Bitcoin. While in Bitcoin the execution
-environment (i.e. the script language) is stateless and is used only to express
+environment (i.e., the script language) is stateless and is used only to express
 conditions to spend the money, e.g. demonstrate the possession of a given
-private key, in Ethereum the execution environment (i.e. the EVM) is stateful
+private key, in Ethereum the execution environment (i.e., the EVM) is stateful
 and it is Turing Complete. To avoid the misuse of the network resources, each
 opcode is associated with an amount of gas, so the termination of the
 computations is always guaranteed.
