@@ -30,9 +30,9 @@ these packets consist of two fields:
 \end{itemize}
 
 In turn the subprotocol packet contains a code that uniquely identify the
-message type (packet-type) and its content (packet-data), that is specific to 
-the subprotocol. The content of this packet is serialized using the RLP 
-marshaling algorithm.
+message type (packet-type) and its content (packet-data), that is specific to
+the subprotocol. The content of this packet is serialized using the RLP
+algorithm.
 
 When two peers establish a connection with the RLPx transport protocol, they
 perform a two-way handshake:
@@ -61,12 +61,12 @@ connection at this layer, the special subprotocol \devpp{} Wire
 Protocol~\cite{devp2pwire} is involved. This subprotocol reserves 16
 message-types although only 4 are implemented. The \verb+Hello+ (Handshake)
 message is used for the protocol handshake. This message specifies, among
-others, the protocol version, the capabilities, the port on which the client 
-listens and the node ID. The \verb+Disconnect+ message notifies the receiver 
-that the sender is going to disconnect itself. The disconnect message can 
-specify optionally an integer that encodes a reason\footnote{We refer to the 
-\devpp{} specification~\cite{devp2pwire} for a complete list of reason codes}. 
-The \verb+Ping+ and \verb+Pong+ messages are used to check whether the 
+others, the protocol version, the capabilities, the port on which the client
+listens and the node ID. The \verb+Disconnect+ message notifies the receiver
+that the sender is going to disconnect itself. The disconnect message can
+specify optionally an integer that encodes a reason\footnote{We refer to the
+\devpp{} specification~\cite{devp2pwire} for a complete list of reason codes}.
+The \verb+Ping+ and \verb+Pong+ messages are used to check whether the
 counterpart is still on-line or not.
 
 After the protocol handshake both peers know the shared capabilities. Since each
