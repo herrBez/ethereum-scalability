@@ -10,8 +10,8 @@ links represent the possible communication channels, that is, a
 of the network can propagate the information efficiently. Essentially, this
 layer is constituted by a slight modification of the Kademlia protocol
 \cite{bib:kademlia}. In the Ethereum jargon, this protocol is known as
-\textbf{RLPx Node Discovery Protocol}~\cite{bib:rlpx-discovery-protocol}.
-In the remainder of this Section we firstly describe Kademlia and afterward
+\emph{RLPx Node Discovery Protocol}~\cite{bib:rlpx-discovery-protocol}.
+In the remainder of this Section, we firstly describe Kademlia and afterward
 the Ethereum variant.
 
 
@@ -30,8 +30,7 @@ information of the peers at a given XOR-distance from the node.
 In particular, the $i$-th list of a given node contains information regarding
 nodes at distance between $2^i$ and $2^{i+1}$ from it's ID.
 The maximal capacity of these lists, $k$, is chosen to minimize the probability
-that all the nodes in the lists fail at the same time and to minimize memory
-requirements and the send of messages, that will be dropped.
+that all the nodes in the lists fail at the same time.
 This parameter is  known as \emph{system-wide replication parameter}.
 Because of their maximal capacity the lists are usually denoted by the term
 \emph{k-bucket}.
@@ -77,13 +76,13 @@ The basic operation of this system is the \emph{key lookup}.
 It is implemented by asking recursively for closer and closer nodes.
 A node selects the $\alpha$ peers closest to the searched key.
 This operation is efficient because
-it restricts the selection to the nodes contained in the bucket in which the
+it restricts the selection to the peers contained in the bucket in which the
 node would have inserted the searched key\footnote{It is possible that the
     $k$-bucket
 has less than $\alpha$ entries, in this case the node search also in other
 buckets.}.
 Afterward, the node sends \emph{asynchronous} requests to these peers, that
-should reply with the contact information of the $k$ closest peers, it knows.
+should reply with the contact information of the $k$ closest nodes it knows.
 From the replied values the node takes only the closest $\alpha$ ones.
 The algorithm performs this step recursively.
 If in one of the phases no new closer nodes are discovered, the node retry with
@@ -97,13 +96,13 @@ four RPC functions:
 \begin{itemize}
     \item \verb|PING| is used to check whether a node is still on-line
     or not;
-    \item \verb|FIND_NODE| requests the replier to respond with the $k$ closest
-    nodes to the target known by it;
+    \item \verb|FIND_NODE| requests the replier to respond with the contact
+    information of the $k$ peers closest to the target;
     \item \verb|STORE| requests the receiver to store the given
     key-value pair;
     \item \verb|FIND_VALUE| requests the receiver to reply with the $k$
     nodes closest to the source. If the receiver has previously stored the
-    key-value pair, it is returned.
+    key-value pair, it replies with the searched value.
 \end{itemize}
 
 
@@ -126,9 +125,9 @@ encode the messages of the Ethereum's network layer. Inside the UDP payload the
 nodes should insert:
 \begin{itemize}
     \item the hash of the juxtaposition of signature, packet-type and
-    packet-data, used to verify the integrity of the packet
-    \item the signature, used as a public Key to check the identity of the
-    sender, which can be verified through the node ID
+    packet-data, used to verify the integrity of the UDP datagram
+    \item the signature, is used to check the identity of the sender and can
+    be verified through the node ID, which is the public key.
     \item the packet-type, that is a byte that uniquely identify the packet
     type: \texttt{Ping} (0x01), \texttt{Pong} (0x02), \texttt{FindNeighbours}
     (0x03) and \texttt{Neighbours} (0x04) ~\cite{bib:rlpx-discovery-protocol}
@@ -160,9 +159,8 @@ these nodes is to provide new nodes with contact information to other regular
 nodes that are already participating in the network.
 
 RLPx uses its own URL scheme, the \emph{enode}. In this scheme are specified
-the ID
-of the node encoded in hexadecimal format, the IP-Address and the TCP-Port of
-the node:
+the ID of the node encoded in hexadecimal format, the IP-Address and the 
+TCP Port of the node:
 \begin{verbatim}
 enode://<hexadecimal-node-id>@<IP>:<TCP-Port>[?discport:<UDP-PORT>]
 \end{verbatim}
