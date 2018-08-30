@@ -5,11 +5,11 @@ is the centralization risk. Indeed, if the number of miners and also of full
 node diminishes, it is easier that Ethereum would be manipulated by a single
 entity.
 
-The risk is concrete, because the requirements to run a full node or 
+The risk is concrete, because the requirements to run a full node or
 stand-alone miners are continuously growing. Thus, if the growth exceeds the
 evolution of COTS hardware, less powerful computers will drop and only few
-entities will be able to afford the costs of maintaining such nodes. Moreover, 
-there is no incentive to run a full node without mining, but these nodes are 
+entities will be able to afford the costs of maintaining such nodes. Moreover,
+there is no incentive to run a full node without mining, but these nodes are
 fundamental to grant the behavior of the network.
 
 One of the major requirements is the storage. The nodes are required to keep:
@@ -18,7 +18,7 @@ One of the major requirements is the storage. The nodes are required to keep:
     at different blocks
     \item The whole blockchain~\autoref{sec:world-state}
     \item The DAG cache for at least two epochs~\autoref{sec:consensus}
-    \item In case the node is a miner, the DAG of two 
+    \item In case the node is a miner, the DAG of two
     epochs~\autoref{sec:consensus}
 \end{itemize}
 
@@ -51,24 +51,24 @@ Ether~\autoref{fig:price-chart}, the currency of Ethereum. Indeed, around
 beginning of year $2018$ the growth is no more exponential but rather linear,
 because the growth rate is constant.
 In addition to this, some implementation, e.g. geth, requires to store in memory
-the state trees of the last $128$ 
-blocks\footnote{\url{https://blog.ethereum.org/2018/02/14/geth-1-8-iceberg\%C2\%
-B9/}} and when there is no place in the allocated cache it has to put some of
-the old trees on storage. Therefore SSD disk are required, because otherwise it
-would be too slow.
+the state trees of the last $128$
+blocks\footnote{\url{https://github.com/ethereum/go-ethereum/releases/tag/v1.8.0}}
+and when there is no place in the allocated cache it has to
+put some of the old trees on storage. Therefore SSD disk are required, because
+otherwise it would be too slow.
 
-Another data-structure that should be stored is the whole blockchain. It 
-consists of the block headers and also of the block bodies, i.e. the 
+Another data-structure that should be stored is the whole blockchain. It
+consists of the block headers and also of the block bodies, i.e. the
 transactions and the uncle hashes~\cite{wood2018ethereum}. The nodes cannot
-forget part of the canonical blockchain, because it can be used to rebuild 
+forget part of the canonical blockchain, because it can be used to rebuild
 the state. Currently, the blockchain counts more than $6$ Million blocks.
 
 The DAG size at the genesis block is $16$ Mebibytes and it is increased of $128$
-kibibytes each $30000$ blocks. So, currently, the cache is around $41$ 
+kibibytes each $30000$ blocks. So, currently, the cache is around $41$
 Mebibytes.
 
 The miners should store also the DAG that starts from a size of $1$ Gibibytes
-and it is increased of $8$ Mebibytes, each epoch. So, currently, the DAG 
+and it is increased of $8$ Mebibytes, each epoch. So, currently, the DAG
 requires $2.62$ Gibibytes. So GPUs with less than $2$ Gigabytes VRAM are not
 more usable to mine. This means that more specialized hardware are needed.
 
