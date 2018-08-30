@@ -90,4 +90,33 @@ does not follow the trend of the number of miners.
 Among the proposals coming from the Ethereum community to improve the
 scalability, no one takes evidently this direction. The different node roles,
 although implementing different functions, they do not define a functional
-decomposition since they operate on the global shared data.
+decomposition since they operate on the global shared data. This is the case of
+Proof of Stake as well whose we briefly introduce in \autoref{sec:pos}, where we
+can identify different node functions as we do in PoW.
+
+\subsubsection{Proof of Stake}
+\label{sec:pos}
+Proof of Stake (PoS) is a class of algorithms through which a cryptocurrency
+blockchain network achieves distributed consensus. As we have seen in
+\autoref{sec:consensus:algorithm}, in PoW the truth is determined by heavy
+computation done by the miners. In PoS, there are validators instead of miners
+and the consensus depends on the \emph{stake} confirmed by each validator, which
+consists in an economic deposit in the network's cryptocurrency (ether in this
+case).
+
+\begin{figure}
+    \begin{center}
+        \includegraphics[width=\textwidth]{./res/img/pos.pdf}
+    \end{center}
+    \caption{Overview of a block creation in the Proof of Stake.}
+    \label{fig:pos}
+\end{figure}
+
+\autoref{fig:pos} shows a creation of a new block at high level. If a node owns
+an amount of the blockchain's base cryptocurrency, it can become a validator
+sending a deposit transaction which locks a given value. Once the transaction
+has successfully executed, the node becomes one of the validators. The consensus
+algorithm determines how a validator is chosen in the set of validators to
+\emph{propose} the next block, and then how the validators agree on which block
+is canonical. Different type of PoS can be obtained by varying the consensus
+algorithm and how the rewards are assigned.
