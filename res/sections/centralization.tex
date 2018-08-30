@@ -52,7 +52,8 @@ beginning of year $2018$ the growth is no more exponential but rather linear,
 because the growth rate is constant.
 In addition to this, some implementation, e.g. geth, requires to store in memory
 the state trees of the last $128$
-blocks\footnote{} and when there is no place in the allocated cache it has to
+blocks\footnote{\url{https://github.com/ethereum/go-ethereum/releases/tag/v1.8.0}}
+and when there is no place in the allocated cache it has to
 put some of the old trees on storage. Therefore SSD disk are required, because
 otherwise it would be too slow.
 
