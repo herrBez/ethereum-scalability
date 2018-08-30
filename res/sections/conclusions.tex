@@ -1,0 +1,37 @@
+\section{Conclusions}
+\label{sec:conclusions}
+The Blockchain technology provides a way to find a total order of transactions
+in a distributed system without relying on a trusted third party. This permits
+to have an exact copy of the state in each node of the network, because each
+node starts from the same state and changes the state according to the
+transactions, whose execution is deterministic. The main advantage of this
+technology with respect to traditional transition systems, is its decentralized
+nature.
+
+In this report we took into consideration Ethereum, a representative of
+permissionless blockchain technology. This system is particularly interesting
+because it supports a general-purpose execution environment, the EVM.
+
+In the first part of this work we proposed a decomposition of the Ethereum's
+architecture in logical layers. The five stacked layers abstract from the
+implementation details and offer a conceptual organization useful to compare
+different blockchain proposals, although permitting flexibility as the case of
+the EVM which is a cross layer. Moreover, this decomposition allows a
+component-oriented development which helps reasoning on the system.
+
+The focus of the second part is the analysis of the scalability of Ethereum. To
+do so, we analyzed the existing literature (\autoref{sec:background}) and
+confirmed empirically that the current version of Ethereum reaches a maximal
+transaction throughput lower than two dozens per second, even if the
+transactions do not require computations. This value is not influenced by the
+number of miners, but rather by the block size and the block interval.
+Furthermore, we analyzed the motivation of this reduced transaction throughput
+with the aid of the cube of scalability~\cite{bib:art-of-scalability}. We argue
+that the current version of Ethereum is not developed in any direction of the
+cube by analyzing the current specification. Thereafter, we categorize the
+scalability improvement proposals based on the axes they will affect. From this
+analysis, it is clear that the most efforts of the community are concentrated on
+the z-axis of the cube~\autoref{sec:z-axis} with proposals like Plasma and
+sharding. Sharding is a scaling strategy already seen in the database systems,
+that is, systems which have to manage persistent data. Maybe, this common duty
+between Ethereum and the database systems leads the z-axis of the Scale Cube.
