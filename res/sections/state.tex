@@ -25,14 +25,15 @@ the Keccak 256-bit.} of the root of a Merkle Patricia tree data structure:
   the block
   \item the \verb+receiptsRoot+ represents the receipts list of the transactions
   included in the block, which shows the \emph{effect} of each transaction. In
-  \cite{merklingethereum}, Vitalik Buterin\footnote{The Ethereum's founder.}
+  \cite{merklingethereum}, the Ethereum's founder, Vitalik Buterin,
   writes that with the receipt information, someone can answer queries like
   ``Tell me all instances of an event of type X (e.g. a crowdfunding contract
   reaching its goal) emitted by this address in the past 30 days''.
 \end{itemize}
 
 Some other block header fields are described in \autoref{sec:tests}. For a
-complete fields list and description, we refer to~\cite{wood2018ethereum}.
+complete fields list and description, we refer to the Ethereum protocol
+specification~\cite{wood2018ethereum}.
 
 \paragraph{Merkle Patricia tree} A Merkle Patricia tree is a data structure
 which derives from a radix tree reducing the space complexity
@@ -70,13 +71,14 @@ There are two types of accounts:
 A \emph{non-contract account} has no EVM Code associated with it and is
 controlled by a private key. This type of account can send a message to another
 non-contract account, that is a value transfer, or to a contract account in
-order to trigger the execution of code. The state of an account is its balance.
+order to trigger the execution of code. The state of an account is essentially
+its balance.
 
 A \emph{contract account} has EVM Code associated with it and is controlled by
 it. This type of account cannot send messages or transactions on its own, but
 only as a response to a trigger. The state of a contract is its balance and its
 contract storage. A contract code is executed by the EVM, can manipulate its own
-persistent storage and can send internal transactions (i.e. message calls) to
+persistent storage and can send internal transactions (i.e., message calls) to
 other contracts.
 
 Both the types of account have an associated \emph{nonce}. In the case of an
