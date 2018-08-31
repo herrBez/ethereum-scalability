@@ -5,8 +5,8 @@ Although Ethereum clients with different implementations can agnostically
 participate in the system, there is no common agreement on the Ethereum
 architecture. Since ``an implementation is not an architecture''
 \cite{bib:art-of-scalability}, we propose a conceptual model which is inspired
-by the OSI reference model. The model is comprised of 5 horizontal layers and 1
-vertical layer: the
+by the OSI reference model. The model is comprised of 1 vertical layer
+and 5 horizontal layers:
 \begin{enumerate*}[label=(\arabic*)]
   \item network layer, the specification of the network topology, the
   \item propagation layer, how the nodes communicate and which protocols
@@ -30,11 +30,12 @@ appears in the data, consensus and application layers.
 	\label{fig:architecture}
 \end{figure}
 
-Sometimes we could refer to some implementation details along the description 
+Sometimes we could refer to some implementation details along the description
 of the layers, because the official documentations are not always complete,
 especially those parts regarding the network and propagation layer. In this case
-we take as reference implementation, go-ethereum (\texttt{geth}), which is
-maintained directly by the Ethereum Foundation.
+we take as reference implementation,
+go-ethereum\footnote{\url{https://geth.ethereum.org/}}
+(\texttt{geth}), which is maintained directly by the Ethereum Foundation.
 
 
 
