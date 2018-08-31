@@ -86,12 +86,12 @@ sent by the account while in the case of a contract account it corresponds to
 the number of contract creations performed by the account. Obviously, this value
 is always positive and can only be increased.
 
-When creating a transaction, the externally owned account should specify its
-nonce. This guarantees that the order of transactions of a single account are
-processed in the order specified by the sender. Without this expedient something
-unforeseen can happen, for example, the balance of the account can get under a
-certain threshold and so other transactions cannot be performed. Since contracts
-cannot perform transactions but can still create other contracts once invoked,
-the nonce is used to guarantee that each different created account have a
-different contract address. Indeed, the contract address is obtained as function
-of the address of the creator and its nonce~\cite{wood2018ethereum}.
+When creating a transaction, the EOA should specify its nonce. This guarantees
+that the order of transactions of a single account are processed in the order
+specified by the sender. Without this expedient something unforeseen can happen,
+for example, the balance of the account can get under a certain threshold and so
+other transactions cannot be performed. Since contracts cannot perform
+transactions but can still create other contracts once invoked, the nonce is
+used to guarantee that each different created account have a different contract
+address. Indeed, the contract address is obtained as function of the address of
+the creator and its nonce~\cite{wood2018ethereum}.
