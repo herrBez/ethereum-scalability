@@ -2,20 +2,29 @@
 \label{sec:node-types}
 Currently, in Ethereum there are mainly three types of nodes: full nodes,
 archive nodes and light nodes. Hereafter, we describe each type of node and
-explain how to start nodes of this type with geth.
+explain how to start nodes of this type with \texttt{geth} v1.8.11.
 
 \paragraph{Full nodes}
 The full nodes are the nodes we describe throughout our work. They store the
-whole blockchain (comprising of block headers and bodies) and they have full
-copy of the most recent states, and verify and process every transaction. A full
+whole blockchain (comprising of block headers and bodies), they have full copy
+of the most recent states, and they verify and process every transaction. A full
 node can be a miner.
 
-When running a full node the user have the possibility to decide whether to use
-the fast synchronization, i.e. the protocol version 62
-(\verb|geth --syncmode fast|), or the normal synchronization mechanism, i.e.
-protocol version 63 (\verb|geth --syncmode full|). The default option is
-``fast'', because it require significantly less time, as explained
-in~\autoref{sec:propagation-layer}.
+When running a full node the user has the possibility to decide whether to use:
+\begin{itemize}
+    \item the normal synchronization mechanism, i.e. the protocol version
+    $62$~\autoref{sec:normal-sync}:
+    \begin{center}
+        \verb|geth --syncmode full [other-options]|
+    \end{center}
+    \item the fast synchronization, i.e. the protocol version
+    $63$~\autoref{sec:fast-sync}
+    \begin{center}
+        \verb|geth --syncmode fast [other-options]|
+    \end{center}
+\end{itemize}
+The default option is ``fast'', because it require significantly less time, as
+explained in~\autoref{sec:propagation-layer}.
 
 \paragraph{Archive nodes}
 Archive nodes are full nodes that store also the state tree for each block,
@@ -23,7 +32,7 @@ hence they are the most storage-bound nodes. They are used by block explorers,
 like Etherscan\footnote{\url{https://etherscan.io/}} or enterprises that needs
 to have at their disposal historical information.
 
-To run an archive mode, it is sufficient to overwrite the garbage collection
+To run an archive node, it is sufficient to overwrite the garbage collection
 mode (gcmode) for the state, so that all the intermediate states are stored:
 \begin{center}
 \verb|geth --syncmode full --gcmode archive [other-options]|
@@ -32,8 +41,8 @@ mode (gcmode) for the state, so that all the intermediate states are stored:
 \paragraph{Light nodes}
 Light nodes store only the headers of the blocks of the blockchain. They do
 neither store the blocks' bodies nor the state. The idea behind light nodes, is
-to use the other peers in the network as a distributed hash table (DHT).
-In essence, they know the hash of the information and request the desired
+to use the other peers in the network as a distributed hash table (DHT). In
+essence, they know the hash of the information and request the desired
 information from the peers they know with an on-demand logic.
 
 For example, a light node can retrieve the state of an account at a desired
