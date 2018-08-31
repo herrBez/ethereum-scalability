@@ -69,21 +69,21 @@ importance of it for scaling on the x-axis. We said that, in other words, an
 application that uses state chooses the next action to be performed evaluating
 the current execution condition \cite{bib:art-of-scalability}. This definition
 holds for the protocols as well. A common example of stateless protocol is HTTP,
-since it does not need to know anything about a previous request having all the
-information needed to fulfill the current request. On the contrary, an example
-of stateful application is a possible implementation of user session (which can
-be done also with a stateless approach), in which a user is authorized to
-request some resources only after an authentication request. In this setting,
-the result of the authentication could be stored in the server making it
-stateful, i.e. some requests are dependent on the authentication request.
-Referring at \autoref{fig:webserver-nginx}, in the stateful implementation, the
-user sessions could be stored at Web server level. In our example, the only load
-balancing method which supports session persistence is \emph{ip-hash} thanks to
-its ability to always redirect requests from a client to the same server except
-when this server is unavailable or when the client's IP address changes. Indeed,
-with \emph{round-robin} and \emph{least-connected} each request is potentially
-distributed to a different server making it necessary to write stateless
-servers.
+since the replier does not need to know anything about a previous request having
+all the information needed to fulfill the current one. On the contrary, an
+example of stateful application is a possible implementation of user session
+(which can be done also with a stateless approach), in which a user is
+authorized to request some resources only after an authentication request. In
+this setting, the result of the authentication could be stored in the server
+making it stateful, i.e. some requests are dependent on the authentication
+request. Referring at \autoref{fig:webserver-nginx}, in the stateful
+implementation, the user sessions could be stored at Web server level. In our
+example, the only load balancing method which supports session persistence is
+\emph{ip-hash} thanks to its ability to always redirect requests from a client
+to the same server except when this server is unavailable or when the client's
+IP address changes. Indeed, with \emph{round-robin} and \emph{least-connected}
+each request is potentially distributed to a different server making it
+necessary to write stateless servers.
 % add comparison between this state and the Ethereum state
 
 It should be clear now the role of the \emph{state} scaling on the x-axis. Once
@@ -101,17 +101,25 @@ the next valid block. The more miners join the network (or improve the
 existents), thus incrementing the global hash rate, the more difficult a state
 transition become. In \autoref{sec:max-troughput}, we measure the maximal
 transaction throughput in a private blockchain\footnote{See~\autoref{sec:tests}
-for a detailed tests description.}. Our tests show that incrementing the number of miners in the network does not increment the transaction throughput, once the difficulty stabilizes. We notice however, that the results between different runs may vary. The turbulences in performance can be due to a variety of factors like network overhead, ``unluckiness'' of the miners which affects 
-the mining difficulty, or perturbation in the performance of the nodes. Another significant test we present is described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a gas limit high enough to not restrict the number of transactions which can be
-included in a block. The results show a little increment in the transaction
-throughput with regards to the previous test, but again the number of miners
-does not affect the overall performance. Hence, duplicating the miners in the
-network does not increment the transaction throughput making the scaling on the
-x-axis absent in the current implementation. When we are talking about
+for a detailed tests description.}. Our tests show that incrementing the number
+of miners in the network does not increment the transaction throughput, once the
+difficulty stabilizes. We notice that the results between different runs may
+vary probably as a consequence of the short running time of our tests (10
+minutes), which limit the chance to reach a stable point. The turbulences in
+performance can be due to a variety of factors like network overhead,
+``unluckiness'' of the miners which affects the mining difficulty, or
+perturbation in the performance of the nodes. Another significant test we
+present is described in \autoref{sec:max-throughput-high-gaslimit}. In this test
+we set a gas limit high enough to not restrict the number of transactions which
+can be included in a block. The results show a little increment in the
+transaction throughput with regards to the previous test, but again the number
+of miners does not affect the overall performance. Hence, duplicating the miners
+in the network does not increment the transaction throughput making the scaling
+on the x-axis absent in the current implementation. When we are talking about
 duplicating, we are not assuming the nodes are running the same implementation.
-Indeed, there are multiple implementations (e.g.,
-\texttt{geth},
-\texttt{parity}\footnote{\url{https://github.com/paritytech/parity}}, etc.), that adhere to the same protocols, therefore they are functionally equivalent.
+Indeed, there are multiple implementations (e.g., \texttt{geth},
+\texttt{parity}\footnote{\url{https://github.com/paritytech/parity}}, etc.),
+that adhere to the same protocols, therefore they are functionally equivalent.
 
 In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
 thus making it difficult to scale on the x-axis. Moreover, the implementation of
