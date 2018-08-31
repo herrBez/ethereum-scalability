@@ -1,23 +1,22 @@
 \subsubsection{Ethereum Wire Protocol}
 \label{sec:ethereum-wire-protocol}
 
-The Ethereum Wire Protocol (\emph{eth})~\cite{bib:ethereumwireprotocol}  is an
-application level sub-protocol of the RLPx transport protocol. It is used to
+The Ethereum Wire Protocol (\emph{eth})~\cite{bib:ethereumwireprotocol} is an
+application level subprotocol of the RLPx transport protocol. It is used to
 spread the information about the blockchain and for the synchronization.
 
-Currently, there are several versions of this protocol. Throughout
-this  section we will consider only the versions $62$ and $63$ (which are
-compatible) that are currently supported by
-\texttt{geth} (v1.8.11).
+Currently, there are several versions of this protocol. Throughout this section
+we will consider only the versions $62$ and $63$ (which are compatible) that are
+currently supported by \texttt{geth} (v1.8.11).
 
 The first message that should be exchanged between two peers is the
-\texttt{Status} message. This kind of message is used to exchange, information
-like, the Ethereum wire protocol version, the network ID, the total difficulty
-of the  heaviest chain known, the hash of the best known block and the genesis
+\texttt{Status} message. This message type is used to exchange information such
+as the Ethereum Wire Protocol version, the network ID, the total difficulty of
+the heaviest chain known, the hash of the best known block and the genesis
 block's hash. This message should be sent only during the handshake phase. If
-the  network ID or the genesis block's hash do not match or the supported
+the network ID or the genesis block's hash does not match or the supported
 \emph{eth} protocol versions are not compatible, the peers should drop the
-connection, since they are either on different chains or are not able to
+connection since they are either on different chains or are not able to
 communicate with each other.
 
 \subparagraph{Version 62 - Model Syncing}
@@ -25,41 +24,40 @@ To spread the presence of one or more blocks to peers that are not aware of
 them, the \texttt{NewBlockHashes} message type is used. Moreover, the
 \texttt{Transactions} message type spreads transactions to peers who are not
 aware of them. It is specified that in the same session a peer should not send
-twice the same transaction to a recipient\footnote{To this extent the
+twice the same transaction to a recipient\footnote{To this extent, the
 \texttt{geth} implementation (in the file \path{eth/peer.go}) keeps track for
 each peer of the set of transactions hash (\texttt{knowTxs}) and the set of
-block hash (\texttt{knownBlocks}) known to be known by it.}.
-The \texttt{GetBlockHeaders} message type requests to the recipient a specified
-amount of block headers descendant from the block with a given number or a
-given hash. The recipient of the message should respond with a
-\texttt{BlockHeaders} message, in which it has the faculty to send a reply with
-less than the specified amount of headers. Clearly, if the recipient of a
-message is not aware of any descendant of the given block, it sends a valid
-empty reply. Furthermore, to request and receive the real content of the
-blocks, the peers have the \texttt{GetBlockBodies} and \texttt{Blockbodies}
-messages. The requester specifies the hashes of the blocks it wants and the
-recipient replies with the bodies (i.e., the transactions and the uncles) of
-the required blocks. Finally, the \texttt{NewBlock} message spreads a single
-new block.
+block hash (\texttt{knownBlocks}) known to be known by it.}. The
+\texttt{GetBlockHeaders} message type requests to the recipient a specified
+amount of block headers descendant from the block with a given number or a given
+hash. The recipient of the message should respond with a \texttt{BlockHeaders}
+message in which it has the faculty to send a reply with less than the specified
+amount of headers. Clearly, if the recipient of a message is not aware of any
+descendant of the given block, it sends a valid empty reply. Furthermore, to
+request and receive the real content of the blocks, the peers have the
+\texttt{GetBlockBodies} and \texttt{Blockbodies} messages. The requester
+specifies the hashes of the blocks it wants and the recipient replies with the
+bodies (i.e. the transactions and the uncles) of the required blocks. Finally,
+the \texttt{NewBlock} message spreads a single new block.
 
 \subparagraph{Version 63 - Fast synchronization}
 From version v1.3.1 of
-\texttt{geth}\footnote{\url{https://github.com/ethereum/go-ethereum/releases/tag/v1.3.1}}
+\texttt{geth}\footnote{\url{https://github.com/ethereum/go-ethereum/releases/tag/v1.3.1}},
 it is possible to perform a fast synchronization. This synchronization type does
 not require that a node performs \emph{all} the computations happened during the
-history (i.e., the whole EVM instructions~\autoref{sec:evm}). Indeed, the
+history (i.e. the whole EVM instructions~\autoref{sec:evm} ). Indeed, the
 synchronizer downloads along the blockchain the transaction receipts which
 encapsulate useful information about the execution result of the transactions.
 This allows the synchronizer to deal only with the verification of the
-proof-of-work. At least in \texttt{geth}, this synchronization is possible only
-by the first synchronization for security
+proof-of-work \autoref{sec:consensus:algorithm}. At least in \texttt{geth}, this
+synchronization is possible only by the first synchronization for security
 reasons\footnote{\url{https://github.com/ethereum/go-ethereum/pull/1889}}. After
-the synchronizer reaches a \textit{pivot point} (i.e., last block $- 1024$) it
-retrieves the whole current state from the other peers and afterward processes
-the blockchain normally. To perform this synchronization the clients have at their disposal the
-\texttt{GetReceipts} and \texttt{Receipts} messages, which are the request for
-the receipts given the hash and the replies, respectively. Besides these, there
-are also the \texttt{GetNodeData} and \texttt{NodeData} message types which
-provide the mean to query and send the required version of the state: the first
-one message types take as input a variable number of hashes and the second one
-responds with the content.
+the synchronizer reaches a \emph{pivot point} (i.e. last block minus $1024$), it
+retrieves the whole current state from the other peers and subsequently
+processes the blockchain normally. To perform this synchronization, the clients
+have at their disposal the \texttt{GetReceipts} and \texttt{Receipts} messages,
+which are the request for the receipts given the hash and the replies
+respectively. Besides these, there are also the \texttt{GetNodeData} and
+\texttt{NodeData} message types which provide the mean to query and send the
+required version of the state: the first one takes as input a variable number of
+hashes and the second one replies with the content.
