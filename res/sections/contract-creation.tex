@@ -9,7 +9,7 @@ second case it corresponds to the address of the contract that is executing.
 
 \begin{figure}
 	\begin{center}
-		\includegraphics[width=\textwidth]{./res/img/contract-creation.pdf}
+		\includegraphics[width=0.8\textwidth]{./res/img/contract-creation.pdf}
 	\end{center}
 	\caption{The steps of the contract creation algorithm.}
 	\label{fig:contract-creation}
@@ -21,13 +21,14 @@ Firstly, the 160-bit identifier for the contract account is determined as
 function of the sender's address and its nonce. The value specified in the
 contract
 creation is transferred from the sender to the brand new contract account.
-Afterward, the \textbf{init} code is executed on the Ethereum Virtual Machine.
+Afterward, the \emph{init} code (\autoref{fig:messages-transactions}) is
+executed on the Ethereum Virtual Machine.
 This  piece of code initiate the storage of the contract account and returns the
-\textbf{body}, i.e. the contract code that will persist on the account state. If
+\emph{body}, i.e. the contract code that will persist on the account state. If
 during the execution an out-of-gas exception occurred, the state is reverted to
 the initial state as if the contract creation did not take place. If the
 execution of the init code completed successfully, the creator must pay an
-amount of gas proportional to the size of the \textbf{body}, because it must be
+amount of gas proportional to the size of the body, because it must be
 stored by all the full nodes. If the gas remained after the execution is not
 enough to afford this cost or the body of the contract code is too big, the
 state is reverted~\cite{wood2018ethereum}. If all the whole procedure succeed,

@@ -29,7 +29,7 @@ these packets consist of two fields:
   \item the frame, which is the packet of the subprotocol.
 \end{itemize}
 
-In turn the subprotocol packet contains a code that uniquely identify the
+In turn, the subprotocol packet contains a code that uniquely identify the
 message type (packet-type) and its content (packet-data), that is specific to
 the subprotocol. The content of this packet is serialized using the RLP
 algorithm.
@@ -58,20 +58,20 @@ perform a two-way handshake:
 
 To perform the protocol handshake, and in general to establish and keep the
 connection at this layer, the special subprotocol \devpp{} Wire
-Protocol~\cite{devp2pwire} is involved. This subprotocol reserves 16
-message-types although only 4 are implemented. The \verb+Hello+ (Handshake)
-message is used for the protocol handshake. This message specifies, among
-others, the protocol version, the capabilities, the port on which the client
-listens and the node ID. The \verb+Disconnect+ message notifies the receiver
-that the sender is going to disconnect itself. The disconnect message can
-specify optionally an integer that encodes a reason\footnote{We refer to the
-\devpp{} specification~\cite{devp2pwire} for a complete list of reason codes}.
-The \verb+Ping+ and \verb+Pong+ messages are used to check whether the
-counterpart is still on-line or not.
+Protocol~\cite{devp2pwire} is involved. This subprotocol does not have an
+identifier and reserves 16 message-types although only 4 are implemented. The
+\verb+Hello+ (handshake) message is used for the protocol handshake. This
+message specifies, among others, the protocol version, the capabilities, the
+port on which the client listens and the node ID. The \verb+Disconnect+ message
+notifies the receiver that the sender is going to disconnect itself optionally
+specifying an integer that encodes a reason\footnote{We refer to the \devpp{}
+specification~\cite{devp2pwire} for a complete list of reason codes.}. The
+\verb+Ping+ and \verb+Pong+ messages are used to check whether the counterpart
+is still on-line or not.
 
-After the protocol handshake both peers know the shared capabilities. Since each
-protocol have a predefined amount of reserved message types, sorting them
-lexicographically it is possible to build a data-structure to retrieve the
+After the protocol handshake, both peers know the shared capabilities. Since
+each protocol have a predefined amount of reserved message types, sorting them
+lexicographically makes it possible to build a data-structure to retrieve the
 protocol-type from the packet-type. We show how it works by means of an easy
 example shown in~\autoref{table:capabilities}. Let's suppose that the peers
 share the capabilities (expressed as tuples $\langle$subprotocol,
@@ -88,10 +88,10 @@ $\langle$abc, 5$\rangle$.
     \begin{tabular}{c | c | c }
       Capability & Reserved IDs & Effective Packet Types\\
       \hline
-      - & \texttt{[0x0, 0x10]} & \texttt{[0x0, 0x10]} \\
-      $\langle$abc, 4$\rangle$ & \texttt{[0x0, 0x8]} & \texttt{[0x11, 0x1A]}  \\
-      $\langle$abc, 5$\rangle$ & \texttt{[0x0, 0xA]} & \texttt{[0x1B, 0x26]}  \\
-      $\langle$zzz, 2$\rangle$ & \texttt{[0x0, 0x4]}  & \texttt{[0x27, 0x3C]} \\
+      - & \texttt{[0x00, 0x10]} & \texttt{[0x00, 0x10]} \\
+      $\langle$abc, 4$\rangle$ & \texttt{[0x00, 0x08]} & \texttt{[0x11, 0x1A]} \\
+      $\langle$abc, 5$\rangle$ & \texttt{[0x00, 0x0A]} & \texttt{[0x1B, 0x26]} \\
+      $\langle$zzz, 2$\rangle$ & \texttt{[0x00, 0x04]} & \texttt{[0x27, 0x3C]} \\
     \end{tabular}
     \caption{Example of data-structure built after the protocol handshake}
     \label{table:capabilities}
@@ -100,8 +100,9 @@ $\langle$abc, 5$\rangle$.
 
 We notice that, although the RLPx Header (\autoref{fig:rlpx-transport}) contains
 a field to specify the protocol type, it is not used by the implementations of
-Ethereum (at least geth and ethereumj\footnote{Since all the implementations
-should be interoperable, it means that all the implementations do not use this
-field or they deal with the case in which it is not used.}). If it would be the
-case it would be sufficient to use the protocol-type in the RLPx header to
-identify uniquely a protocol.
+Ethereum (at least \texttt{geth} and \texttt{ethereumj}\footnote{Since all the
+implementations should be interoperable, it means that all the implementations
+do not use this field or they deal with the case in which it is not used.}). If
+it would be the case, it would be sufficient to use the protocol-type in the
+RLPx header to identify uniquely a protocol. The reason probably lies in the
+fact that \devpp{} protocol do not have an identifier.

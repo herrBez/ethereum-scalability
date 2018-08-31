@@ -10,14 +10,15 @@ machine. The difference is due to the gas needed for a transaction to be
 executed: since the gas can not be infinite, there will be always an upper
 bound on the possible total amount of computation~\cite{wood2018ethereum}.
 
-Usually, a smart contract is written in a high-level language (e.g.
-Solidity\footnote{\url{https://github.com/ethereum/solidity}} or
-Vyper\footnote{\url{https://github.com/ethereum/vyper}}), then compiled in its
+Usually, a smart contract is written in a high-level language, e.g.
+Solidity
+(\autoref{sec:solidity}) or
+Vyper\footnote{\url{https://github.com/ethereum/vyper}}, then compiled in EVM
 bytecode. The contracts communicate with each other and with external actors
 through their Application Binary Interface (ABI), represented in
 \autoref{fig:abi}. This interface serves as a declaration of the functions
 implemented by the contract and their arguments, thus another actor can trigger
-the execution of them and get its result. The execution takes place in the EVM.
+the execution of it and get its result. The execution takes place in the EVM.
 
 \begin{figure}
 	\begin{center}
