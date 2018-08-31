@@ -20,7 +20,7 @@ transaction (\autoref{sec:tx-execution}), that can be either a contract creation
 \subsubsection{Consensus Algorithm}
 \label{sec:consensus:algorithm}
 
-Finding an agreement on the order of transaction (i.e. the actual blockchain)
+Finding an agreement on the order of transaction (i.e., the actual blockchain)
 and the world status is crucial, thus multiple consensus algorithms were
 proposed~\cite{bib:the-quest}. Ethereum follows an idea very close to the
 consensus algorithm of Bitcoin, which is also known in the literature as
@@ -43,7 +43,7 @@ not consists in:
     \item re-performing all the transactions,
     \item re-executing \emph{all} the EVM computations to verify whether the
     transaction receipts and the state root contained in the propagated block
-    (\autoref{fig:world-state}) are valid, i.e. corresponds to the values
+    (\autoref{fig:world-state}) are valid, i.e., corresponds to the values
     computed locally,
     \item checking that the nonce in the block is valid.
 \end{enumerate}
@@ -59,20 +59,22 @@ because to begin mining new blocks and maintaining the infrastructure a big
 initial investment is needed and only few entities and definitely not private
 parties can afford this cost.
 
-Essentially to create a valid block the miner should find a mixHash and
+Essentially, to create a valid block the miner should find a mixHash and
 a nonce (\autoref{fig:world-state}) for the block.
 The PoW algorithm takes as input the block header without nonce,
-the candidate nonce and a big dataset, known as \textbf{DAG} and
-returns the mixHash and a number $n$. The puzzle is resolved if
+the candidate nonce and a big dataset (initially $1$ GiB), known as
+\textbf{DAG} and returns the mixHash and a number $n$. The puzzle is resolved if
 $n$ is smaller than $2^{256}$ divided by the difficulty of the block. Clearly,
 the higher the difficulty the higher the number of tries to find a suitable
-nonce. The DAG can be precalcolated and is fixed for each epoch, i.e.
-$30000$ blocks, that corresponds roughly to 
-$100$~\cite{bib:ethereum-wiki-mining} or $141$ hours~\cite{bib:solidity-docs}.
-To verify that the mixHash and the nonce are valid only a cache for the DAG is
-needed. Actually, the cache is required also to generate the DAG itself.
-At each epoch the DAG and the cache change and their size increase of
-$8$ mebibytes and $128$ kibibytes, respectively.
+nonce and consequently, the consumption of resources.
+
+The DAG can be precalcolated and is fixed for each epoch, i.e.,
+$30000$ blocks, that corresponds roughly to a number of hours in the range
+between $100$~\cite{bib:ethereum-wiki-mining} and
+$141$~\cite{bib:solidity-docs}. To verify that the mixHash and the nonce are
+valid only a cache for the DAG is needed. This data-structure is required also
+to generate the DAG itself. At each epoch the DAG and the cache change and
+their size increase of $8$ mebibytes and $128$ kibibytes, respectively.
 We refer to the yellow paper~\cite[Appendix J]{wood2018ethereum} to get more
 details on how these data structures are computed.
 
@@ -113,9 +115,9 @@ new block's timestamp, corrected with some bounds to avoid sudden decreases or
 increases in this value. The claims to use the GHOST rule are motivated by the
 fact that the headers of stale blocks (up to six blocks before, the
 \emph{ommers}) can be included in the blockchain and rewarded, but they do
-neither contribute to the difficulty of the blocks nor are verified to be
-valid~\cite{bib:securityAndScalabilityPoW}. Thus, at the state of the art
-this rule resembles the bitcoin one.
+neither contribute to the difficulty of the blocks nor the transactions are
+verified to be valid~\cite{bib:securityAndScalabilityPoW}. Thus, at the state
+of the art this rule resembles the bitcoin one.
 
 
 
