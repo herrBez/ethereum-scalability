@@ -98,14 +98,8 @@ the next valid block. The more miners join the network (or improve the
 existents), thus incrementing the global hash rate, the more difficult a state
 transition become. In \autoref{sec:max-troughput}, we measure the maximal
 transaction throughput in a private blockchain\footnote{See~\autoref{sec:tests}
-for a detailed tests description.}. Incrementing the number of miners in the
-network does not increment the transaction throughput, indeed it is almost
-negatively affected. This decreasing in performance can be due to a variety of
-factors like network overhead, ``unluckiness'' of the miners which affects the
-mining difficulty, or perturbation in the performance of the nodes, but it is
-not relevant for the purpose of the test. Another significant test we present is
-described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a
-gas limit high enough to not restrict the number of transactions which can be
+for a detailed tests description.}. Our tests show that incrementing the number of miners in the network does not increment the transaction throughput, once the difficulty stabilizes. We notice however, that the results between different runs may vary. The turbulences in performance can be due to a variety of factors like network overhead, ``unluckiness'' of the miners which affects 
+the mining difficulty, or perturbation in the performance of the nodes. Another significant test we present is described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a gas limit high enough to not restrict the number of transactions which can be
 included in a block. The results show a little increment in the transaction
 throughput with regards to the previous test, but again the number of miners
 does not affect the overall performance. Hence, duplicating the miners in the
@@ -113,9 +107,8 @@ network does not increment the transaction throughput making the scaling on the
 x-axis absent in the current implementation. When we are talking about
 duplicating, we are not assuming the nodes are running the same implementation.
 Indeed, there are multiple implementations (e.g.,
-geth\footnote{\url{https://github.com/ethereum/go-ethereum}},
-parity\footnote{\url{https://github.com/paritytech/parity}}, etc.), that adhere
-to the same protocols, therefore they are functionally equivalent.
+\texttt{geth},
+\texttt{parity}\footnote{\url{https://github.com/paritytech/parity}}, etc.), that adhere to the same protocols, therefore they are functionally equivalent.
 
 In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
 thus making it difficult to scale on the x-axis. Moreover, the implementation of
