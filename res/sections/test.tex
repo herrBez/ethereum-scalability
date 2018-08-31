@@ -168,10 +168,10 @@ miner machine executes only one \texttt{geth} instance in miner mode, while the
 client machines execute two instances in client mode. For our tests we used the
 Scaleway platform\footnote{\url{https://www.scaleway.com/}}. We rent $17$ (one
 master and $16$ slaves) START1-S servers, which are provided with $2$ X86 64 bit
-Cores and $2$ GB of RAM and an internal bandwidth of $1$ Gbit/s, so that the
-network would not be a bottleneck. Each server runs Ubuntu 16.04 LTS with
-\texttt{geth} version 1.8.11-stable. During the tests, the master acts also as
-bootstrap node. We described the role of bootstrap nodes
+Cores and $2$ GB of RAM, a 50 GB SSD and an internal bandwidth of $1$ Gbit/s, so
+that the network would not be a bottleneck. Each server runs Ubuntu 16.04 LTS
+with \texttt{geth} version 1.8.11-stable. During the tests, the master acts also
+as bootstrap node. We described the role of bootstrap nodes
 in~\autoref{sec:network-layer}.
 
 The two tests we conducted differs only for the gas limit in the genesis block,
