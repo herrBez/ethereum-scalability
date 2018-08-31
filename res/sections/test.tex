@@ -182,16 +182,16 @@ processed as described in \autoref{sec:background}.
 \subsubsection{Results}
 
 In this section we report interesting results obtained from the two tests we
-conducted. We focused especially on the transaction throughput of the system but
-we also report data about the storage needed to run the single systems.
+conducted.
 
 \paragraph{Maximal throughput - Low Gas Limit}
 \label{sec:max-troughput}
-For this test we used a gas limit of $3141592$, which corresponds to circa $150
-\cdot 21000$. The results are reported in~\autoref{tab:max-troughput}. We notice
-that in this case we could not exceed the $10$ transactions per second and that
-the number of transaction in each block do not exceed $135$, although there
-would be enough space to add other transactions.
+For this test we used a gas limit of $3141592$, which corresponds to
+approximately $150 \cdot 21000$. The results are reported
+in~\autoref{tab:max-troughput}. We notice that in this case we could not exceed
+the $10$ transactions per second and that the number of transaction in each
+block do not exceed $135$, although there would be enough space to add other
+transactions.
 
 \begin{table}[h!]
   \centering
@@ -212,9 +212,9 @@ would be enough space to add other transactions.
 \label{sec:max-throughput-high-gaslimit}
 For this test we use a very large gas limit $10500000$ which corresponds to $500
 \cdot 21000$. To give a term of reference, we can consider that currently
-(August 2018) the gas limit for the main Ethereum network is circa $8$ million,
-that corresponds roughly to $381 \cdot 21000$. The results are summarized
-in~\autoref{tab:max-troughput-high-gaslimit}. In this case with two
+(August 2018) the gas limit for the main Ethereum network is approximately $8$
+million, that corresponds roughly to $381 \cdot 21000$. The results are
+summarized in~\autoref{tab:max-troughput-high-gaslimit}. In this case with two
 configuration we could exceed the $15$ transactions per second.
 
 \begin{table}[h!]
