@@ -1,8 +1,5 @@
-\author{Mirko Bez, Giacomo Fornari}
-\title{Ethereum Architecture and Scalability}
-
 \newcommand*{\captionsource}[2]{%
-  \caption{#1}{\small\textbf{Source:} #2}%
+\caption{#1}{\small\textbf{Source:} #2}%
 }
 
 \newcommand*{\devpp}{\DJ\textXi Vp2p}
@@ -10,20 +7,20 @@
 
 % ref: https://tex.stackexchange.com/questions/186946/changing-the-autoref-name-for-chapter
 \addto\extrasenglish{%
-  \renewcommand{\subsectionautorefname}{Section}
-  \renewcommand{\subsubsectionautorefname}{Section}
+\renewcommand{\subsectionautorefname}{Section}
+\renewcommand{\subsubsectionautorefname}{Section}
 }
 
 \lstset{
-	captionpos=b
+captionpos=b
 }
 
 % adapted from https://tex.stackexchange.com/questions/89574/language-option-supported-in-listings
 \lstdefinelanguage{Solidity}{
 	keywords={typeof, new, true, false, catch, function, return, null, catch,
-		switch, var, if, in, while, do, else, case, break, uint8, public,
-		private, internal, external, view, 	returns, emit, require, pragma,
-		solidity, contract, address, event,	modifier, constructor},
+	switch, var, if, in, while, do, else, case, break, uint8, public,
+	private, internal, external, view, 	returns, emit, require, pragma,
+	solidity, contract, address, event,	modifier, constructor},
 	keywordstyle=\color{blue}\bfseries,
 	ndkeywords={class, export, boolean, throw, implements, import, this},
 	ndkeywordstyle=\color{darkgray}\bfseries,
