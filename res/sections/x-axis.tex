@@ -12,16 +12,19 @@ operational costs.
 
 \subsubsection{An example: Web server replication}
 In order to better understand the concept, we bring an example of a common
-architecture which scales on this axis. Suppose we are running our own
-e-commerce startup of wine. The business is going great and suddenly we have to
-face the explosive growth of HTTP requests to the server. Since we have an early
-stage startup, so far we had only a single server running on a single machine,
-but we know that, if everything goes as hoped, we cannot scale-up for a long
-time. So, we decide to take the Web server codebase and deploy an identical copy
-of it. nginx\footnote{\url{http://nginx.org/}} is an HTTP and reverse proxy
-server, a mail proxy server, and a generic TCP/UDP proxy server. Among the HTTP
-server features, it serves as load balancer which is what we are looking for.
-The load balancing methods supported by nginx are:
+architecture which scales on this axis. Let's consider a small e-commerce
+business that runs its website on a single server on top of a single machine.
+This scenario is depicted in~\autoref{fig:webserver}. This website is becoming
+increasingly popular and suddenly it has to face the explosive growth of HTTP
+requests. If this trend continues, the website cannot scale-up for a long time.
+
+After a technical advice, the owner of the business decides to take the Web
+server codebase and deploy an identical copy of it. To make the website working
+on two different servers, she decides to use a load balancer and in particular
+\texttt{nginx}\footnote{\url{http://nginx.org/}}, an HTTP and reverse proxy
+server, mail proxy server and a generic TCP/UDP proxy server. Among the HTTP
+server features, it serves as load balancer. The load balancing methods
+supported by \texttt{nginx} are:
 
 \begin{itemize}
   \item round-robin, the requests are distributed in round-robin
@@ -31,15 +34,15 @@ The load balancing methods supported by nginx are:
   address
 \end{itemize}
 
-The two Web servers now work in parallel and access the same database and,
-thanks to our ability to write \emph{stateless} servers, we can choose any of
-the load balancing methods offered by nginx. The statelessness is an important
-property in this scenario, it avoids dependency between requests, that is the
-server can process a request without needing to access the information of
-another one. In the example, if we would not have written a stateless server
-(i.e. stateful), one request arrived at one of the two servers could be the ones
-on which another request being processing on the other server depends on, hence
-without permitting to successfully fulfill the latter.
+The two Web servers now work in parallel and access the same database and, if
+they are \emph{stateless}, the owner can choose any of the load balancing
+methods offered by the load balancer. The statelessness is an important property
+in this scenario, it avoids dependency between requests, that is the server can
+process a request without needing to access the information of another one. In
+the example, if the servers would not have been stateless (i.e. stateful), one
+request arrived at one of the two servers could be the ones on which another
+request being processing on the other server depends on, hence without
+permitting to successfully fulfill the latter.
 
 \begin{figure}
   \centering
@@ -66,21 +69,21 @@ importance of it for scaling on the x-axis. We said that, in other words, an
 application that uses state chooses the next action to be performed evaluating
 the current execution condition \cite{bib:art-of-scalability}. This definition
 holds for the protocols as well. A common example of stateless protocol is HTTP,
-since it does not need to know anything about a previous request having all the
-information needed to fulfill the current request. On the contrary, an example
-of stateful application is a possible implementation of user session (which can
-be done also with a stateless approach), in which a user is authorized to
-request some resources only after an authentication request. In this setting,
-the result of the authentication could be stored in the server making it
-stateful, i.e. some requests are dependent on the authentication request.
-Referring at \autoref{fig:webserver-nginx}, in the stateful implementation, the
-user sessions could be stored at Web server level. In our example, the only load
-balancing method which supports session persistence is \emph{ip-hash} thanks to
-its ability to always redirect requests from a client to the same server except
-when this server is unavailable or when the client's IP address changes. Indeed,
-with \emph{round-robin} and \emph{least-connected} each request is potentially
-distributed to a different server making it necessary to write stateless
-servers.
+since the receiver does not need to know anything about a previous request
+having all the information needed to fulfill the current one. On the contrary,
+an example of stateful application is a possible implementation of user session
+(which can be done also with a stateless approach), in which a user is
+authorized to request some resources only after an authentication request. In
+this setting, the result of the authentication could be stored in the server
+making it stateful, i.e. some requests are dependent on the authentication
+request. Referring at \autoref{fig:webserver-nginx}, in the stateful
+implementation, the user sessions could be stored at Web server level. In our
+example, the only load balancing method which supports session persistence is
+\emph{ip-hash} thanks to its ability to always redirect requests from a client
+to the same server except when this server is unavailable or when the client's
+IP address changes. Indeed, with \emph{round-robin} and \emph{least-connected}
+each request is potentially distributed to a different server making it
+necessary to write stateless servers.
 % add comparison between this state and the Ethereum state
 
 It should be clear now the role of the \emph{state} scaling on the x-axis. Once
@@ -98,24 +101,25 @@ the next valid block. The more miners join the network (or improve the
 existents), thus incrementing the global hash rate, the more difficult a state
 transition become. In \autoref{sec:max-troughput}, we measure the maximal
 transaction throughput in a private blockchain\footnote{See~\autoref{sec:tests}
-for a detailed tests description.}. Incrementing the number of miners in the
-network does not increment the transaction throughput, indeed it is almost
-negatively affected. This decreasing in performance can be due to a variety of
-factors like network overhead, ``unluckiness'' of the miners which affects the
-mining difficulty, or perturbation in the performance of the nodes, but it is
-not relevant for the purpose of the test. Another significant test we present is
-described in \autoref{sec:max-throughput-high-gaslimit}. In this test we set a
-gas limit high enough to not restrict the number of transactions which can be
-included in a block. The results show a little increment in the transaction
-throughput with regards to the previous test, but again the number of miners
-does not affect the overall performance. Hence, duplicating the miners in the
-network does not increment the transaction throughput making the scaling on the
-x-axis absent in the current implementation. When we are talking about
+for a detailed tests description.}. Our tests show that incrementing the number
+of miners in the network does not increment the transaction throughput, once the
+difficulty stabilizes. We notice that the results between different runs may
+vary probably as a consequence of the short running time of our tests (10
+minutes), which limit the chance to reach a stable point. The turbulences in
+performance can be due to a variety of factors like network overhead,
+``unluckiness'' of the miners which affects the mining difficulty, or
+perturbation in the performance of the nodes. Another significant test we
+present is described in \autoref{sec:max-throughput-high-gaslimit}. In this test
+we set a gas limit high enough to not restrict the number of transactions which
+can be included in a block. The results show a little increment in the
+transaction throughput with regards to the previous test, but again the number
+of miners does not affect the overall performance. Hence, duplicating the miners
+in the network does not increment the transaction throughput making the scaling
+on the x-axis absent in the current implementation. When we are talking about
 duplicating, we are not assuming the nodes are running the same implementation.
-Indeed, there are multiple implementations (e.g.,
-geth\footnote{\url{https://github.com/ethereum/go-ethereum}},
-parity\footnote{\url{https://github.com/paritytech/parity}}, etc.), that adhere
-to the same protocols, therefore they are functionally equivalent.
+Indeed, there are multiple implementations (e.g., \texttt{geth},
+\texttt{parity}\footnote{\url{https://github.com/paritytech/parity}}, etc.),
+that adhere to the same protocols, therefore they are functionally equivalent.
 
 In \autoref{sec:background}, we already pointed out that Ethereum is stateful,
 thus making it difficult to scale on the x-axis. Moreover, the implementation of

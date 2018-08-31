@@ -13,43 +13,44 @@ definition, is a mapping between account addresses and account states.
 
 \autoref{fig:world-state} represents it. The block header contains 15 fields,
 among which the \verb+stateRoot+, the \verb+transactionsRoot+ and the
-\verb+receiptsRoot+. All these three fields are a hash\footnote{Here we intend
-the Keccak 256-bit.} of the root of a Merkle Patricia tree data structure:
+\verb+receiptsRoot+. All these three fields are a hash of the root of a Merkle
+Patricia tree data structure:
 
 \begin{itemize}
-  \item the \verb+stateRoot+ represents the state tree, after all transactions
-  are executed and finalisations applied (for a complete specification of the
-  fields, refer to \cite{wood2018ethereum}), storing the mapping between account
-  state and account address
-  \item the \verb+transactionsRoot+ represents the list of the transactions included in
-  the block
+  \item the \verb+stateRoot+ represents the state tree, after that all the
+  transactions are executed and the finalisations are applied (for a complete
+  specification of the fields, refer to \cite{wood2018ethereum}), storing the
+  mapping between account state and account address
+  \item the \verb+transactionsRoot+ represents the list of the transactions
+  included in the block
   \item the \verb+receiptsRoot+ represents the receipts list of the transactions
   included in the block, which shows the \emph{effect} of each transaction. In
-  \cite{merklingethereum}, Vitalik Buterin\footnote{The Ethereum's founder.}
-  writes that with the receipt information, someone can answer queries like
-  ``Tell me all instances of an event of type X (e.g. a crowdfunding contract
-  reaching its goal) emitted by this address in the past 30 days''.
+  \cite{merklingethereum}, the Ethereum's founder Vitalik Buterin writes that
+  with the receipt information someone can answer queries like ``Tell me all
+  instances of an event of type X (e.g. a crowdfunding contract reaching its
+  goal) emitted by this address in the past 30 days''.
 \end{itemize}
 
 Some other block header fields are described in \autoref{sec:tests}. For a
-complete fields list and description, we refer to~\cite{wood2018ethereum}.
+complete fields list and description, we refer to the Ethereum protocol
+specification~\cite{wood2018ethereum}.
 
-\paragraph{Merkle Patricia tree} A Merkle Patricia tree is a data structure
-which derives from a radix tree reducing the space complexity
-\cite{patriciatree}. It has a single root, each node is the hash of its children
-and the leaves are the actual data, that is, for the case of the
-\verb+stateRoot+, the accounts states, which in turn include the
-\verb+storageRoot+, a hash of another Merkle Patricia tree representing the
+\paragraph{Merkle Patricia tree}
+A Merkle Patricia tree is a data structure which derives from a radix tree
+reducing the space complexity \cite{patriciatree}. It has a single root, each
+node is the hash of its children and the leaves are the actual data, that is,
+for the case of the \verb+stateRoot+, the accounts states, which in turn include
+the \verb+storageRoot+, a hash of another Merkle Patricia tree representing the
 storage contents of the account state.
 
-Since each node is the hash of its children, if any data in the tree change,
+Since each node is the hash of its children, if any data in the tree changes,
 recursively and correspondingly all the ancestors nodes have to change from the
-changed node to the root node. This property allows us to uniquely identify a
-tree having just the root node. This is worth to notice because it allows the
-nodes of the network to verify that big data-structures (like the World State)
+changed node to the root node. This property allows to uniquely identify a tree
+having just the root node. This is worth to notice because it allows the nodes
+of the network to verify that big data structures (like the World State)
 correspond to the one contained in the blocks' header by simply comparing a
 $256$-bit long hash. Moreover, this feature can be exploited to create the light
-nodes, as described in~\autoref{sec:node-types}.
+nodes as described in~\autoref{sec:node-types}.
 
 
 \subsubsection{Accounts}
@@ -61,18 +62,18 @@ user to interact with the Ethereum blockchain via transactions.
 There are two types of accounts:
 
 \begin{itemize}
-  \item the \textbf{non-contract account} (referred to as \emph{account} or
-  Externally Owned Account, EOA)
-  \item the \textbf{contract account} (referred to as \emph{contract}), which
-  has EVM Code associated with it and is controlled by its contract code
+  \item \textbf{Externally Owned Account} (EOA) (also referred to as simply
+  \emph{account} or \emph{non-contract} account)
+  \item \textbf{contract account} (also referred to as \emph{contract}), which
+  has EVM code associated with it and is controlled by its contract code.
 \end{itemize}
 
-A \emph{non-contract account} has no EVM Code associated with it and is
-controlled by a private key. This type of account can send a message to another
-non-contract account, that is a value transfer, or to a contract account in
-order to trigger the execution of code. The state of an account is its balance.
+An \emph{EOA} has no EVM code associated with it and is controlled by a private
+key. This type of account can send a message to another EOA, that is a value
+transfer, or to a contract account in order to trigger the execution of code.
+The state of an account is essentially its balance.
 
-A \emph{contract account} has EVM Code associated with it and is controlled by
+A \emph{contract account} has EVM code associated with it and is controlled by
 it. This type of account cannot send messages or transactions on its own, but
 only as a response to a trigger. The state of a contract is its balance and its
 contract storage. A contract code is executed by the EVM, can manipulate its own
@@ -82,15 +83,15 @@ other contracts.
 Both the types of account have an associated \emph{nonce}. In the case of an
 externally owned account this value corresponds to the number of transactions
 sent by the account while in the case of a contract account it corresponds to
-the number of contract creations performed by the account. Obviously, this value
-is always positive and can only be increased.
+the number of contract creations performed by the contract. Obviously, this 
+value is always positive and can only be increased.
 
-When creating a transaction, the externally owned account should specify its
-nonce. This guarantees that the order of transactions of a single account are
-processed in the order specified by the sender. Without this expedient something
-unforeseen can happen, for example, the balance of the account can get under a
-certain threshold and so other transactions cannot be performed. Since contracts
-cannot perform transactions but can still create other contracts once invoked,
-the nonce is used to guarantee that each different created account have a
-different contract address. Indeed, the contract address is obtained as function
-of the address of the creator and its nonce~\cite{wood2018ethereum}.
+When creating a transaction, the EOA should specify its nonce. This guarantees
+that the order of transactions of a single account are processed in the order
+specified by the sender. Without this expedient something unforeseen can happen,
+for example, the balance of the account can get under a certain threshold and so
+other transactions cannot be performed. Since contracts cannot perform
+transactions but can still create other contracts once invoked, the nonce is
+used to guarantee that each different created account have a different contract
+address. Indeed, the contract address is obtained as function of the address of
+the creator and its nonce~\cite{wood2018ethereum}.

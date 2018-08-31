@@ -1,75 +1,72 @@
 \section{Solidity}
 \label{sec:solidity}
-Solidity~\cite{bib:solidity-docs} is the most popular
-high-level language used in the Ethereum ecosystem.
-It is a high-level statically typed language that is compiled to EVM bytecode.
-It takes inspiration from various languages, such as JavaScript, Python and C++.
+Solidity~\cite{bib:solidity-docs} is the most popular high-level language used
+in the Ethereum ecosystem. It is a high-level statically typed language that is
+compiled to EVM bytecode. It takes inspiration from various languages, such as
+JavaScript, Python and C++.
 
 In addition to the usual mathematical and logical operations, Solidity has
 several peculiar variables and functions that resides on the global scope and
-allow the programs to access the data shown in \autoref{fig:evm}.
-One of this specially crafted global variables is the \texttt{msg} variable,
-that allows the programs to access the message call data,
-such as the code invoker's address (\texttt{msg.sender}) and the amount of
-money sent along with the invocation (\texttt{msg.value}).
+allow the programs to access the data shown in \autoref{fig:evm}. One of this
+specially crafted global variables is the \texttt{msg} variable, that allows the
+programs to access the message call data, such as the code invoker's address
+(\texttt{msg.sender}) and the amount of money sent along with the invocation
+(\texttt{msg.value}).
 
 In order to provide an intuitive insight about Solidity, we provide a little
 example in \autoref{listing:example}, that shows some key features of Solidity.
 
-\begin{figure}[!h]
-\lstinputlisting[language=Solidity, caption={Solidity
-	Example}, label=listing:example]{./res/code/example.sol}
+\begin{figure}[!h] \lstinputlisting[language=Solidity, caption={An example of a
+contract written in Solidity}, label=listing:example]{./res/code/example.sol}
 \end{figure}
 
 As it is easy to see, the contracts are the building blocks of the language and
 resemble objects. Indeed, in Solidity one contract can also inherit from other
-contracts.
-The fields of the contract are stored in the contract's storage. In the example
-there are two persistent variables \verb|x| and \verb|owner|. While the former
-is marked as public the latter is marked as private. Thus, the compiler
-creates a getter \verb|x()| for variable \verb|x| but not for variable
-\verb|owner|. It should be noticed that the \verb|owner| variable can still
-be read from outside the EVM\footnote{It is part of the contract's storage,
-which in turn is part of the world state that is replicated in each node.},
-but it cannot be read from other contracts that run on the EVM.
+contracts. The fields of the contract are stored in the contract's storage. In
+the example there are two persistent variables \verb|x| and \verb|owner|. While
+the former is marked as public the latter is marked as private. Thus, the
+compiler creates a getter \verb|x()| for variable \verb|x| but not for variable
+\verb|owner|. It should be noticed that the \verb|owner| variable can still be
+read from outside the EVM\footnote{It is part of the contract's storage, which
+in turn is part of the world state that is replicated in each node.}, but it
+cannot be read from other contracts that run on the EVM.
 
 
-After the definition of the field variables we can see the \textbf{constructor}
+After the definition of the field variables we can see the \texttt{constructor}
 method. It is run only once upon creation and returns the code of the contract
-as we described in~\autoref{sec:contract-creation}. If it is not defined
-an empty constructor is assumed.
+as we described in~\autoref{sec:contract-creation}. If it is not defined, an
+empty constructor is assumed.
 
-The \textbf{events} are a high-level interface for the EVM's logging
-facilities. Events are emitted by smart contracts to notify external
-applications, that can listen to them to perform some application-specific
-operations. Logs are visible from the outside because they are stored
-in the blockchain as part of the receipt of the transaction which emitted them.
+The \emph{events} are a high-level interface for the EVM's logging facilities.
+Events are emitted by smart contracts to notify external applications, that can
+listen to them to perform some application-specific operations. Logs are visible
+from the outside because they are stored in the blockchain as part of the
+receipt of the transaction which emitted them.
 
-After the definition of the events, the \textbf{modifier} \verb|onlyOwner| is
-defined. A modifier is a piece of code that is executed before or after the 
-call of a function decorated with it. They can be used to implement final
-state machines~\cite{bib:solidity-docs} and pre- and post-conditions checks for 
+After the definition of the events, the \emph{modifier} \verb|onlyOwner| is
+defined. A modifier is a piece of code that is executed before or after the call
+of a function decorated with it. They can be used to implement final state
+machines~\cite{bib:solidity-docs} and pre and post-conditions checks for
 functions.
 
-The \textbf{functions} are an abstraction of the language. They can be invoked
+The \emph{functions} are an abstraction of the language. They can be invoked
 either \texttt{internally}, that is inside the same call stack activation record
 with a \texttt{JUMP} or \texttt{JUMPI} instruction or \texttt{externally}, that
 is by creating a new message call. In the former case the machine state is the
 same of the invoker, while in the latter the code is executed in a new machine
 state, that is, by creating a new activation record on the call stack, as
-discussed in \autoref{sec:evm}. The first 4 bytes of the keccak256 hash of the
-signature of external function (function name and parameter types) is used as
-unique identifier (\textbf{selector}) of a function. When an actor wants to
-invoke a function externally it should provide the function's selector in the
-message data and follow the ABI format~\cite{bib:solidity-docs}. Essentially,
-the Solidity compiler puts at the start of the compiled code a switch-statement
-that checks if the first four bytes of the message call data match a known
-function's selector. If it is the case the program jumps to the definition of
-the matched function otherwise a so-called fallback function is invoked. The
-programmer may specify the fallback function by writing an unnamed function
-that does not take parameters. Since the signature depends on the number and
-the type of arguments, function overloading is easily implemented by using the
-new obtained selector.
+discussed in \autoref{sec:evm}. The first 4 bytes of the hash of the signature
+of external function (function name and parameter types) is used as unique
+identifier (\emph{selector}) of a function. When an actor wants to invoke a
+function externally it should provide the function's selector in the message
+data and follow the ABI format~\cite{bib:solidity-docs}. Essentially, the
+Solidity compiler puts at the start of the compiled code a switch-statement that
+checks if the first four bytes of the message call data match a known function's
+selector. If it is the case, the program jumps to the definition of the matched
+function otherwise a so-called fallback function is invoked. The programmer may
+specify the fallback function by writing an unnamed function that does not take
+parameters. Since the signature depends on the number and the type of arguments,
+function overloading is easily implemented by using the new obtained selector.
 
 Moreover, we distinguish also between \texttt{public} and \texttt{private}
 functions. The formers can be called either externally or internally, while the
@@ -77,17 +74,13 @@ latters can be called only internally and are not visible to the contracts that
 are below in the inheritance hierarchy.
 
 In addition to the visibility, the function header may contain a state
-mutability flag: we distinguish between \texttt{pure}, \texttt{view} and 
+mutability flag: we distinguish between \texttt{pure}, \texttt{view} and
 \texttt{payable}. The first indicates that the function will not access the
-state, the second promises to access the state in a read-only fashion while the 
-latter indicates that the function is capable of receiving money.
-Pure and view functions can be invoked also from outside the EVM, i.e. without
-a transaction and without paying fees. After all, the function reads only the
-local state without the intervention of the other peers.
-Obviously, if these types of functions are called with a transaction or during
-the execution of another contract, the normal gas consumption applies, because
-all the full nodes should execute the code.
-
-
-
-
+state, the second promises to access the state in a read-only fashion, while the
+latter indicates that the function is capable of receiving money. \texttt{pure}
+and \texttt{view} functions can be invoked also from outside the EVM, i.e.
+without a transaction and without paying fees. After all, these functions read
+only the local state without the intervention of the other peers. Obviously, if
+these types of functions are called with a transaction or during the execution
+of another contract, the normal gas consumption applies, because all the full
+nodes should execute the code.

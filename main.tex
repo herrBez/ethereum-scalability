@@ -3,10 +3,12 @@
 
 
 \begin{document}
-\maketitle
+\input{config/titlepage}
 \newpage
 \tableofcontents
 \newpage
+
+\bstctlcite{IEEEexample:BSTcontrol}
 
 \input{./res/sections/introduction.tex}
 
@@ -57,8 +59,9 @@
 \input{./res/sections/conclusions.tex}
 \newpage
 \appendix
-\input{./res/sections/solidity.tex}
 \input{./res/sections/node-types.tex}
+\input{./res/sections/solidity.tex}
+
 
 \newpage
 %\bibliographystyle{unsrt}
