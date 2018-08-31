@@ -65,15 +65,15 @@ There are two types of accounts:
   \item \textbf{Externally Owned Account} (EOA) (also referred to as simply
   \emph{account} or \emph{non-contract} account)
   \item \textbf{contract account} (also referred to as \emph{contract}), which
-  has EVM Code associated with it and is controlled by its contract code.
+  has EVM code associated with it and is controlled by its contract code.
 \end{itemize}
 
-An \emph{EOA} has no EVM Code associated with it and is controlled by a private
+An \emph{EOA} has no EVM code associated with it and is controlled by a private
 key. This type of account can send a message to another EOA, that is a value
 transfer, or to a contract account in order to trigger the execution of code.
 The state of an account is essentially its balance.
 
-A \emph{contract account} has EVM Code associated with it and is controlled by
+A \emph{contract account} has EVM code associated with it and is controlled by
 it. This type of account cannot send messages or transactions on its own, but
 only as a response to a trigger. The state of a contract is its balance and its
 contract storage. A contract code is executed by the EVM, can manipulate its own
@@ -83,8 +83,8 @@ other contracts.
 Both the types of account have an associated \emph{nonce}. In the case of an
 externally owned account this value corresponds to the number of transactions
 sent by the account while in the case of a contract account it corresponds to
-the number of contract creations performed by the account. Obviously, this value
-is always positive and can only be increased.
+the number of contract creations performed by the contract. Obviously, this 
+value is always positive and can only be increased.
 
 When creating a transaction, the EOA should specify its nonce. This guarantees
 that the order of transactions of a single account are processed in the order
