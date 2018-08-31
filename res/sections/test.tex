@@ -30,7 +30,7 @@ to run commands on the remote machines. Similarly to~\cite{blockbench}, we
 distinguish between the roles \emph{miner} and \emph{client}. The nodes of the
 former type are accountable to generate new blocks while the nodes of the latter
 type create and propagate transactions and both verify the blocks\footnote{To
-reduce the number of test variables we consider only full nodes. For a list of 
+reduce the number of test variables we consider only full nodes. For a list of
 node types we refer to~\autoref{sec:node-types}.}. We can assign
 multiple roles to a single machine. In this case we run \emph{one distinct geth
 instance} for each different role. The coordinator copies the right genesis
@@ -44,12 +44,11 @@ In each run of test we distinguish at least two phases:
 
 \paragraph{Setup phase}
 The setup consists in iterating on the test machines twice:
-\begin{itemize}
-  \item in the first iteration the required ethash data structures are
-  generated,
-  \item in the second one a genesis file is used to create the genesis block
+\begin{enumerate}
+  \item the required ethash data structures are generated,
+  \item the genesis file is used to create the genesis block
   and initialize the ethereum  world state.
-\end{itemize}
+\end{enumerate}
 
 
 \subparagraph{Ethash data structures}
@@ -153,14 +152,14 @@ relative brief simulation the initial value is fundamental.
 
 \paragraph{Test Phase}
 After the setup phase, the real tests begin by starting the execution of the
-geth instances on the different machines. The clients emit transactions that
-cause simple transfers of values that do not require the intervention of the
-EVM, with a predefined release time ($50$ ms), while the miners starts
-collecting transactions and creating blocks. The tests are stopped after a
-configurable time ($10$ minutes). For each configuration the tests are repeated
-a configurable number of times ($5$) because the probabilistic nature of the
-Proof-of-Work algorithm and the interaction of many systems do not guarantee
-deterministic results.
+\texttt{geth} instances on the different machines. The clients emit
+transactions that cause simple transfers of values that do not require the
+intervention of the EVM, with a predefined release time ($50$ ms), while the
+miners starts collecting transactions and creating blocks. The tests are
+stopped after a configurable time ($10$ minutes). For each configuration the
+tests are repeated a configurable number of times ($5$) because the
+probabilistic nature of the Proof-of-Work algorithm and the interaction of many
+systems do not guarantee deterministic results.
 
 
 \paragraph{Concrete Parameters}
@@ -174,7 +173,8 @@ and $16$ slaves) START1-S servers, which dispose of $2$ X86 64 bit Cores and
 $2$ GB of RAM and an internal bandwidth of $1$ Gbit/s, so that the network
 would not be a bottleneck. Each server runs Ubuntu 16.04 and has installed,
 \texttt{geth} version 1.8.11-stable. During the tests the master acts also as
-bootstrap node. We described its role in \autoref{sec:network-layer}.
+bootstrap node. We described the role of bootstrap nodes
+in~\autoref{sec:network-layer}.
 
 The two tests we conducted differs only for the gas limit in the genesis block,
 we wanted to confirm that this value influence the number of transaction
@@ -190,7 +190,10 @@ but we also report data about the storage needed to run the single systems.
 \paragraph{Maximal throughput - Low Gas Limit}
 \label{sec:max-troughput}
 For this test we used a gas limit of $3141592$, which corresponds to circa
-$150 \cdot 21000$.
+$150 \cdot 21000$. The results are reported in~\autoref{tab:max-troughput}.
+We notice that in this case we could not exceed the $10$ transactions per
+second and that the number of transaction in each block do not exceed $135$,
+although there would be enough space to add other transactions.
 
 \begin{table}[h]
   \centering
@@ -210,9 +213,11 @@ $150 \cdot 21000$.
 \paragraph{Maximal throughput - High gas limit}
 \label{sec:max-throughput-high-gaslimit}
 For this test we use a very large gas limit $10500000$ which corresponds to
-$500 \cdot 21000$\footnote{To give a term of reference, we can consider that
-currently (August 2018) the gas limit for the main Etherum network is circa $8$
-Milion, that corresponds roughly to $381 \cdot 21000$.}.
+$500 \cdot 21000$. To give a term of reference, we can consider that
+currently (August 2018) the gas limit for the main Ethereum network is circa $8$
+million, that corresponds roughly to $381 \cdot 21000$. The results are
+summarized in~\autoref{tab:max-troughput-high-gaslimit}. In this case with two
+configuration we could exceed the $15$ transactions per second.
 
 \begin{table}[h]
   \centering
