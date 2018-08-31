@@ -24,12 +24,14 @@ execution environment.
 
 The relation between transactions, messages and contract creation is represented
 in~\autoref{fig:messages-transactions}. We notice that messages and contract
-creation have the same structure and both contain an unlimited size byte array. 
+creation have the same structure and both contain an unlimited size byte array.
 The interpretation of this value depends on the type of transaction: if the
 value is interpreted as \verb+data+, it represents the input for the message
 call, else if it is interpreted as \verb|init|, it represents a piece of EVM
 code used to initialize the storage of the smart contract and to return the EVM
-code that will persist on the world state.
+code that will persist on the world state. We can distinguish the two types
+of transaction depending on the receiver's address: if it is empty, it is a
+contract creation, otherwise it is a message call.
 
 
 \autoref{fig:messages-to-from-contract} shows the message call with regard to a
