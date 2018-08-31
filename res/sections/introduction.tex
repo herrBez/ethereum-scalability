@@ -2,20 +2,19 @@
 
 The purpose of this report is to investigate the architecture and the
 scalability of Ethereum~\cite{wood2018ethereum}. Ethereum is based on the
-Blockchain technology. Despite the first appearance of blockchain in the actual
-form is due to Satoshi Nakamoto's groundbreaking paper, ``Bitcoin: A
-peer-to-peer electronic cash system'' (2008)~\cite{bib:bitcoin}, this
-technology has become one of the most active research fields in ICT only in the
-last couple of years.
+Blockchain technology. Despite the first appearance of the blockchain in the
+actual form is due to Satoshi Nakamoto's groundbreaking paper, ``Bitcoin: A
+peer-to-peer electronic cash system'' (2008)~\cite{bib:bitcoin}, this technology
+has become one of the most active research fields in ICT only in the last couple
+of years.
 
-
-The aim of the blockchain technology is to provide a total order of the
-transactions in a distributed ledger without relying on a trusted third party,
-e.g. a bank~\cite{bib:the-quest}. Not relying on a trusted central authority may
-lead to practical issues like transaction repudiation and the infamous
+The aim of the Blockchain technology is to provide a total order of the
+transactions in a distributed ledger without relying on a trusted third party
+(e.g. a bank~\cite{bib:the-quest}). Not relying on a trusted central authority
+may lead to practical issues like transaction repudiation and the infamous
 \textbf{double-spending problem}. The former is self-explanatory and can be
 solved by digital signatures, while the latter consists in using the same
-digital token to pay multiple entities and found its first practical
+digital token to pay multiple entities. It found its first practical
 decentralized solution with the appearance of
 Bitcoin~\cite{ethereumwp}\footnote{We refer to~\cite{ethereumwp} for a complete
 survey about the history and ancestors of Bitcoin.}.
@@ -58,16 +57,16 @@ solution to the puzzle, so the other peers of the network can accept \emph{only}
 valid blocks. They can verify the correctness of the transactions (e.g. the
 balance of the addresses is always positive), because they have a local copy of
 the state, and the correctness of the nonce by computing a single hash. It is
-worth notice that multiple parties try to create new blocks concurrently,
+worth noticing that multiple parties try to create new blocks concurrently,
 therefore it is possible that multiple versions of the blockchain co-exist.
 Indeed, a mechanism to select the canonical blockchain is needed. In the case of
-bitcoin it is simply the longest chain, because it corresponds to the one with
+Bitcoin it is simply the longest chain, because it corresponds to the one with
 more work invested on it. The co-existence of multiple blockchain can be very
 useful in case of a network partition, indeed, once the partition is over, the
 peers can agree on the blockchain. The drawback of this system is that there is
 no consensus finality~\cite{bib:the-quest}, thus it is necessary to wait a
 certain number of blocks (confirmation blocks) to be sure that the transactions
-are really confirmed. The number of confirmation blocks in bitcoin is six, which
+are really confirmed. The number of confirmation blocks in Bitcoin is six which
 correspond to approximately one hour~\cite{bib:masteringbitcoin}.
 
 Although this description of Bitcoin abstracts from various details, it is
@@ -75,13 +74,13 @@ sufficient to show how the double spending problem is solved. The idea is to let
 each peer of the network know the current state and the transactions that are
 already spent. Moreover, after the confirmation time the blockchain can be
 considered immutable and tamper-proof, because to rewrite the sufficiently old
-transaction history an enormous amount of work should be done. The immutability
+transaction history, an enormous amount of work should be done. The immutability
 is an interesting property that can be used to emit certificates about the
 ownership of an asset such as a digital artwork or an intellectual property.
 
 \paragraph{Permissioned vs Permissionless Blockchain}
 Apart Bitcoin, a lot of cryptocurrencies, also known as
-\emph{altcoins}\footnote{The contraction of "alternative coins".}, came out.
+\emph{altcoins}\footnote{The contraction of "alternative coins".} came out.
 They have different peculiarities, but the general idea is the same as Bitcoin.
 In the literature~\cite{bib:the-quest}, it is common to distinct between
 permissionless and permissioned blockchains. The former are blockchains in which
@@ -93,12 +92,12 @@ permissioned blockchain is Hyperledger.
 \paragraph{Overview}
 In the remainder of the paper we will discuss exclusively Ethereum. Ethereum can
 be viewed as a generalization of Bitcoin. While in Bitcoin the execution
-environment (i.e., the script language) is stateless and is used only to express
+environment (i.e. the script language) is stateless and is used only to express
 conditions to spend the money, e.g. demonstrate the possession of a given
-private key, in Ethereum the execution environment (i.e., the EVM) is stateful
-and it is Turing Complete. To avoid the misuse of the network resources, each
-opcode is associated with an amount of gas, so the termination of the
-computations is always guaranteed.
+private key, in Ethereum the execution environment (i.e. the EVM) is stateful
+and Turing Complete. To avoid the misuse of the network resources, each opcode
+is associated with an amount of gas, so the termination of the computations is
+always guaranteed.
 
 This paper is organized in two main chapters. The first chapter describes the
 architecture of Ethereum in a top-down fashion by individuating and describing
