@@ -46,9 +46,9 @@ operations. Logs are visible from the outside because they are stored
 in the blockchain as part of the receipt of the transaction which emitted them.
 
 After the definition of the events, the \textbf{modifier} \verb|onlyOwner| is
-defined. A modifier is a piece of code that is executed before or after the 
+defined. A modifier is a piece of code that is executed before or after the
 call of a function decorated with it. They can be used to implement final
-state machines~\cite{bib:solidity-docs} and pre- and post-conditions checks for 
+state machines~\cite{bib:solidity-docs} and pre- and post-conditions checks for
 functions.
 
 The \textbf{functions} are an abstraction of the language. They can be invoked
@@ -57,19 +57,18 @@ with a \texttt{JUMP} or \texttt{JUMPI} instruction or \texttt{externally}, that
 is by creating a new message call. In the former case the machine state is the
 same of the invoker, while in the latter the code is executed in a new machine
 state, that is, by creating a new activation record on the call stack, as
-discussed in \autoref{sec:evm}. The first 4 bytes of the keccak256 hash of the
-signature of external function (function name and parameter types) is used as
-unique identifier (\textbf{selector}) of a function. When an actor wants to
-invoke a function externally it should provide the function's selector in the
-message data and follow the ABI format~\cite{bib:solidity-docs}. Essentially,
-the Solidity compiler puts at the start of the compiled code a switch-statement
-that checks if the first four bytes of the message call data match a known
-function's selector. If it is the case the program jumps to the definition of
-the matched function otherwise a so-called fallback function is invoked. The
-programmer may specify the fallback function by writing an unnamed function
-that does not take parameters. Since the signature depends on the number and
-the type of arguments, function overloading is easily implemented by using the
-new obtained selector.
+discussed in \autoref{sec:evm}. The first 4 bytes of the hash of the signature
+of external function (function name and parameter types) is used as unique
+identifier (\textbf{selector}) of a function. When an actor wants to invoke a
+function externally it should provide the function's selector in the message
+data and follow the ABI format~\cite{bib:solidity-docs}. Essentially, the
+Solidity compiler puts at the start of the compiled code a switch-statement that
+checks if the first four bytes of the message call data match a known function's
+selector. If it is the case the program jumps to the definition of the matched
+function otherwise a so-called fallback function is invoked. The programmer may
+specify the fallback function by writing an unnamed function that does not take
+parameters. Since the signature depends on the number and the type of arguments,
+function overloading is easily implemented by using the new obtained selector.
 
 Moreover, we distinguish also between \texttt{public} and \texttt{private}
 functions. The formers can be called either externally or internally, while the
@@ -77,9 +76,9 @@ latters can be called only internally and are not visible to the contracts that
 are below in the inheritance hierarchy.
 
 In addition to the visibility, the function header may contain a state
-mutability flag: we distinguish between \texttt{pure}, \texttt{view} and 
+mutability flag: we distinguish between \texttt{pure}, \texttt{view} and
 \texttt{payable}. The first indicates that the function will not access the
-state, the second promises to access the state in a read-only fashion while the 
+state, the second promises to access the state in a read-only fashion while the
 latter indicates that the function is capable of receiving money.
 Pure and view functions can be invoked also from outside the EVM, i.e. without
 a transaction and without paying fees. After all, the function reads only the

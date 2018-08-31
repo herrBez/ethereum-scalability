@@ -13,22 +13,22 @@ definition, is a mapping between account addresses and account states.
 
 \autoref{fig:world-state} represents it. The block header contains 15 fields,
 among which the \verb+stateRoot+, the \verb+transactionsRoot+ and the
-\verb+receiptsRoot+. All these three fields are a hash\footnote{Here we intend
-the Keccak 256-bit.} of the root of a Merkle Patricia tree data structure:
+\verb+receiptsRoot+. All these three fields are a hash of the root of a Merkle
+Patricia tree data structure:
 
 \begin{itemize}
   \item the \verb+stateRoot+ represents the state tree, after all transactions
   are executed and finalisations applied (for a complete specification of the
   fields, refer to \cite{wood2018ethereum}), storing the mapping between account
   state and account address
-  \item the \verb+transactionsRoot+ represents the list of the transactions included in
-  the block
+  \item the \verb+transactionsRoot+ represents the list of the transactions
+  included in the block
   \item the \verb+receiptsRoot+ represents the receipts list of the transactions
   included in the block, which shows the \emph{effect} of each transaction. In
-  \cite{merklingethereum}, the Ethereum's founder, Vitalik Buterin,
-  writes that with the receipt information, someone can answer queries like
-  ``Tell me all instances of an event of type X (e.g. a crowdfunding contract
-  reaching its goal) emitted by this address in the past 30 days''.
+  \cite{merklingethereum}, the Ethereum's founder, Vitalik Buterin, writes that
+  with the receipt information, someone can answer queries like ``Tell me all
+  instances of an event of type X (e.g. a crowdfunding contract reaching its
+  goal) emitted by this address in the past 30 days''.
 \end{itemize}
 
 Some other block header fields are described in \autoref{sec:tests}. For a
