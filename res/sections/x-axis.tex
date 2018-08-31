@@ -12,16 +12,17 @@ operational costs.
 
 \subsubsection{An example: Web server replication}
 In order to better understand the concept, we bring an example of a common
-architecture which scales on this axis. Suppose we are running our own
-e-commerce startup of wine. The business is going great and suddenly we have to
-face the explosive growth of HTTP requests to the server. Since we have an early
-stage startup, so far we had only a single server running on a single machine,
-but we know that, if everything goes as hoped, we cannot scale-up for a long
-time. So, we decide to take the Web server codebase and deploy an identical copy
-of it. nginx\footnote{\url{http://nginx.org/}} is an HTTP and reverse proxy
-server, a mail proxy server, and a generic TCP/UDP proxy server. Among the HTTP
-server features, it serves as load balancer which is what we are looking for.
-The load balancing methods supported by nginx are:
+architecture which scales on this axis. Let's consider a small e-commerce
+business that runs its website on a single server on top of a single machine.
+This website is becoming increasingly popular and suddenly, it has to face the
+explosive growth of HTTP requests. If this trend continues, the website cannot
+scale-up for along time.
+
+After a technical advice, the owner of the business decides to take Web server 
+codebase and deploy an identical copy of it. To make the website work on two
+different servers, she decides to use a load balancer and in particular
+\texttt{nginx}\footnote{\url{http://nginx.org/}}. The load balancing methods 
+supported by \texttt{nginx} are:
 
 \begin{itemize}
   \item round-robin, the requests are distributed in round-robin
@@ -32,14 +33,15 @@ The load balancing methods supported by nginx are:
 \end{itemize}
 
 The two Web servers now work in parallel and access the same database and,
-thanks to our ability to write \emph{stateless} servers, we can choose any of
-the load balancing methods offered by nginx. The statelessness is an important
+if they are \emph{stateless}, the owner can choose any of the load 
+balancing methods offered by the load balancer. Statelessness is an important
 property in this scenario, it avoids dependency between requests, that is the
 server can process a request without needing to access the information of
-another one. In the example, if we would not have written a stateless server
-(i.e. stateful), one request arrived at one of the two servers could be the ones
+another one. In the example, if the servers would not have been stateless (i.e.
+stateful), one request arrived at one of the two servers could be the ones
 on which another request being processing on the other server depends on, hence
 without permitting to successfully fulfill the latter.
+
 
 \begin{figure}
   \centering
