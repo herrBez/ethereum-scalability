@@ -38,15 +38,15 @@ The basic idea of this algorithm consists in:
 \paragraph{Validation}
 The \emph{validation criterion} used to determine whether a block is valid or
 not consists in:
-\begin{enumerate}
+\begin{itemize}
     \item checking that the blocks and transactions are well-formed,
-    \item re-performing all the transactions,
-    \item re-executing \emph{all} the EVM computations to verify whether the
+    \item checking that the block header is valid
+    \item re-performing all the transactions to verify whether the
     transaction receipts and the state root contained in the propagated block
     (\autoref{fig:world-state}) are valid, i.e., corresponds to the values
-    computed locally,
-    \item checking that the nonce in the block is valid.
-\end{enumerate}
+    computed locally. This includes also re-executing \emph{all} the EVM 
+    computations.
+\end{itemize}
 
 \paragraph{Proof of Work}
 Ethereum uses an improved version of the
