@@ -142,15 +142,15 @@ $100$ blocks are pretty stable.
   \end{center}
 \end{table}
 
-
 The \textbf{gas limit} in the genesis block determines the gas limit of the
 first block. The gas limit of the subsequent blocks can be determined freely by
 the miners but must be contained in a range obtained by summing and subtracting
 to the gas limit a portion of itself~\cite{wood2018ethereum}. Thus, in a
 relative brief simulation the initial value is fundamental.
 
+
 \paragraph{Test Phase}
-After the setup phase, the real tests begin by starting the execution of the
+After the setup phase, the real test begins by starting the execution of the
 \texttt{geth} instances on the different machines. The clients emit transactions
 that cause simple transfers of values that do not require the intervention of
 the EVM, with a predefined release time ($50$ ms), while the miners starts
