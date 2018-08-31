@@ -20,6 +20,7 @@ connection since they are either on different chains or are not able to
 communicate with each other.
 
 \subparagraph{Version 62 - Model Syncing}
+\label{sec:normal-sync}
 To spread the presence of one or more blocks to peers that are not aware of
 them, the \texttt{NewBlockHashes} message type is used. Moreover, the
 \texttt{Transactions} message type spreads transactions to peers who are not
@@ -41,6 +42,7 @@ bodies (i.e. the transactions and the uncles) of the required blocks. Finally,
 the \texttt{NewBlock} message spreads a single new block.
 
 \subparagraph{Version 63 - Fast synchronization}
+\label{sec:fast-sync}
 From version v1.3.1 of
 \texttt{geth}\footnote{\url{https://github.com/ethereum/go-ethereum/releases/tag/v1.3.1}},
 it is possible to perform a fast synchronization. This synchronization type does
