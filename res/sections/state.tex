@@ -83,8 +83,8 @@ other contracts.
 Both the types of account have an associated \emph{nonce}. In the case of an
 externally owned account this value corresponds to the number of transactions
 sent by the account while in the case of a contract account it corresponds to
-the number of contract creations performed by the account. Obviously, this value
-is always positive and can only be increased.
+the number of contract creations performed by the contract. Obviously, this 
+value is always positive and can only be increased.
 
 When creating a transaction, the EOA should specify its nonce. This guarantees
 that the order of transactions of a single account are processed in the order
