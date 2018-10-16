@@ -1,8 +1,8 @@
-\subsection{X-Axis: Horizontal Duplication}
+\subsection{X-Axis: Horizontal Replication}
 \label{sec:x-axis}
 
 The x-axis of the cube of the scalability is concerned with the horizontal
-duplication and cloning of services and data with absolutely no bias, running
+replication and cloning of services and data with absolutely no bias, running
 each identical copy of the system on a different server. Usually, the work is
 distributed by a load balancer.
 
@@ -19,7 +19,7 @@ increasingly popular and suddenly it has to face the explosive growth of HTTP
 requests. If this trend continues, the website cannot scale-up for a long time.
 
 After a technical advice, the owner of the business decides to take the Web
-server codebase and deploy an identical copy of it. To make the website working
+server codebase and deploy an identical copy of it. To make the website work
 on two different servers, she decides to use a load balancer and in particular
 \texttt{nginx}\footnote{\url{http://nginx.org/}}, an HTTP and reverse proxy
 server, mail proxy server and a generic TCP/UDP proxy server. Among the HTTP
@@ -42,7 +42,7 @@ process a request without needing to access the information of another one. In
 the example, if the servers would not have been stateless (i.e. stateful), one
 request arrived at one of the two servers could be the ones on which another
 request being processing on the other server depends on, hence without
-permitting to successfully fulfill the latter.
+allowing to successfully fulfill the latter.
 
 \begin{figure}
   \centering
@@ -59,7 +59,8 @@ permitting to successfully fulfill the latter.
     \caption{}
     \label{fig:webserver-nginx}
   \end{subfigure}
-  \caption{Web servers without (\protect\subref{fig:webserver}) and with (\protect\subref{fig:webserver-nginx}) load balancer.}
+  \caption{Web servers without (\protect\subref{fig:webserver}) and
+  with (\protect\subref{fig:webserver-nginx}) load balancer.}
   \label{fig:webserver-scale-x}
 \end{figure}
 
@@ -87,7 +88,7 @@ necessary to write stateless servers.
 % add comparison between this state and the Ethereum state
 
 It should be clear now the role of the \emph{state} scaling on the x-axis. Once
-we scale by cloning, we duplicate the data along with the service. If the state
+we scale by cloning, we replicate the data along with the service. If the state
 changes, these changes should be reflected on the server which accesses that
 same part of the state. This can be not a drawback at first, but it may become
 an issue increasing the data size.
@@ -97,26 +98,26 @@ an issue increasing the data size.
 
 In~\autoref{sec:consensus:algorithm}, we introduced the Ethereum consensus
 algorithm and the PoW algorithm which is run by the miners in order to create
-the next valid block. The more miners join the network (or improve the
-existents), thus incrementing the global hash rate, the more difficult a state
-transition become. In \autoref{sec:max-troughput}, we measure the maximal
-transaction throughput in a private blockchain\footnote{See~\autoref{sec:tests}
-for a detailed tests description.}. Our tests show that incrementing the number
-of miners in the network does not increment the transaction throughput, once the
+the next valid block. Incrementing the global hash rate (by increasing or
+improving the miners in the network), the state transitions become more
+difficult. In \autoref{sec:max-troughput}, we measure the maximal transaction
+throughput in a private blockchain\footnote{See~\autoref{sec:tests} for a
+detailed tests description.}. Our tests show that incrementing the number of
+miners in the network does not increment the transaction throughput, once the
 difficulty stabilizes. We notice that the results between different runs may
 vary probably as a consequence of the short running time of our tests (10
-minutes), which limit the chance to reach a stable point. The turbulences in
+minutes), which limits the chance to reach a stable point. The turbulences in
 performance can be due to a variety of factors like network overhead,
-``unluckiness'' of the miners which affects the mining difficulty, or
+``unluck'' of the miners which affects the mining difficulty, or
 perturbation in the performance of the nodes. Another significant test we
 present is described in \autoref{sec:max-throughput-high-gaslimit}. In this test
 we set a gas limit high enough to not restrict the number of transactions which
 can be included in a block. The results show a little increment in the
-transaction throughput with regards to the previous test, but again the number
-of miners does not affect the overall performance. Hence, duplicating the miners
+transaction throughput with regard to the previous test, but again the number
+of miners does not affect the overall performance. Hence, replicating the miners
 in the network does not increment the transaction throughput making the scaling
 on the x-axis absent in the current implementation. When we are talking about
-duplicating, we are not assuming the nodes are running the same implementation.
+replicating, we are not assuming the nodes are running the same implementation.
 Indeed, there are multiple implementations (e.g., \texttt{geth},
 \texttt{parity}\footnote{\url{https://github.com/paritytech/parity}}, etc.),
 that adhere to the same protocols, therefore they are functionally equivalent.
@@ -126,10 +127,10 @@ thus making it difficult to scale on the x-axis. Moreover, the implementation of
 the consensus layer requires that everyone validates each block propagated in
 the network executing all the transactions and the EVM computations which is in
 contrast with the concept of load distribution of the x-axis. Thus, the system
-is limited by the performance of the single computer duplicated in the network.
-Because of these issues, it is very difficult to individuate measures to scale
-on this axis without loosing other fundamental characteristics, like
-decentralization and trustlessness. Without these latter features, we would have
-a traditional system with a central authority on which we could implement some
-well know scaling solutions such as load balance among the different servers or
-simply scale up.
+is limited by the performance of the single computer replicated in the network.
+Because of these issues, it is very difficult to identify measures to scale on
+this axis without loosing other fundamental characteristics, like
+decentralization and trustlessness (the lack of need of trusting other parties).
+Without the latter features, we would have a traditional system with a central
+authority on which we could implement some well know scaling solutions such as
+load balance among the different servers or simply scale up.
