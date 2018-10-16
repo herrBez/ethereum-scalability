@@ -7,7 +7,8 @@ definition, is a mapping between account addresses and account states.
 \begin{figure}[h]
   \centering
   \includegraphics[width=\textwidth]{./res/img/world-state.pdf}
-  \captionsource{Representation of the World State.}{Adapted from \url{https://ethereum.stackexchange.com/a/757}}
+  \captionsource{Representation of the World State.}
+  {Adapted from \url{https://ethereum.stackexchange.com/a/757}}
 \label{fig:world-state}
 \end{figure}
 
@@ -46,11 +47,11 @@ storage contents of the account state.
 Since each node is the hash of its children, if any data in the tree changes,
 recursively and correspondingly all the ancestors nodes have to change from the
 changed node to the root node. This property allows to uniquely identify a tree
-having just the root node. This is worth to notice because it allows the nodes
-of the network to verify that big data structures (like the World State)
-correspond to the one contained in the blocks' header by simply comparing a
-$256$-bit long hash. Moreover, this feature can be exploited to create the light
-nodes as described in~\autoref{sec:node-types}.
+having just the root node, enabling the nodes of the network to verify that big
+data structures (like the World State) correspond to the one contained in the
+blocks' header by simply comparing a $256$-bit long hash. Moreover, this feature
+can be exploited to create the light nodes as described
+in~\autoref{sec:node-types}.
 
 
 \subsubsection{Accounts}
@@ -80,11 +81,11 @@ contract storage. A contract code is executed by the EVM, can manipulate its own
 persistent storage and can send internal transactions (i.e. message calls) to
 other contracts.
 
-Both the types of account have an associated \emph{nonce}. In the case of an
+Both types of account have an associated \emph{nonce}. In the case of an
 externally owned account this value corresponds to the number of transactions
-sent by the account while in the case of a contract account it corresponds to
-the number of contract creations performed by the contract. Obviously, this 
-value is always positive and can only be increased.
+sent by the account, while in the case of a contract account it corresponds to
+the number of contract creations performed by the contract. Obviously, this
+value is always non-negative and can only be increased.
 
 When creating a transaction, the EOA should specify its nonce. This guarantees
 that the order of transactions of a single account are processed in the order
@@ -92,6 +93,6 @@ specified by the sender. Without this expedient something unforeseen can happen,
 for example, the balance of the account can get under a certain threshold and so
 other transactions cannot be performed. Since contracts cannot perform
 transactions but can still create other contracts once invoked, the nonce is
-used to guarantee that each different created account have a different contract
-address. Indeed, the contract address is obtained as function of the address of
-the creator and its nonce~\cite{wood2018ethereum}.
+used to guarantee that each created account has a unique address. Indeed, the
+contract address is obtained as function of the address of the creator and its
+nonce~\cite{wood2018ethereum}.
