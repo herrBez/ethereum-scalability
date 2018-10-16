@@ -5,13 +5,17 @@ The transaction execution is the mechanism through which the world state is
 updated. It represents a transition from one valid state to another valid state.
 
 A transaction specifies a \emph{receiver} and the \emph{value} that must be
-transferred from the sender to the receiver. Moreover, to avoid the abuse of the
+transferred from the sender to the receiver. Moreover, to avoid abuse of
 resources (CPU and storage) of the full nodes forming the network and to ensure
 that all executions terminate, the concept of \emph{gas} is introduced. In this
-execution model each action that must be performed by the members of the network
-has an associated cost expressed in gas. In particular, each EVM byte-code
-instruction, increase in the storage space by a contract and the transaction
-itself have a fixed associated cost. A transaction specifies its \emph{gas
+execution model, each action that must be performed by the members of the network
+has an associated cost expressed in gas. In particular,
+\begin{enumerate*}[label=(\arabic*)]
+	\item each EVM byte-code instruction,
+	\item the increase in the storage space by a contract and
+	\item the transaction itself,
+\end{enumerate*}
+have a fixed associated cost. A transaction specifies its \emph{gas
 price} and its \emph{gas limit}. The former is the price of a unit of gas and is
 bound to a particular execution. The higher this price the higher the
 possibility that the miner will include this transaction in the blockchain.

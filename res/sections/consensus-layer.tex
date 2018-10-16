@@ -3,16 +3,16 @@
 
 The ultimate aim of the blockchain technology is to provide a \textbf{total
 order to transactions} in a distributed ledger~\cite{bib:the-quest} without
-relying on a trusted third party. This permits to solve the double spending
+relying on a trusted third party. This allows to solve the double spending
 problem~\cite{bib:bitcoin}. Moreover, in Ethereum the order of transactions can
 also affect the execution of smart contracts by altering the content of their
 storage.
 
-In order to describe how the nodes reaches the consensus, we briefly describe
-the algorithm to agree on the transaction order
-(\autoref{sec:consensus:algorithm}) and thereafter we describe the common state
-transition procedure that describe how to move to a new valid state given a
-transaction (\autoref{sec:tx-execution}), that can be either a contract creation
+In order to describe how the nodes reach the consensus, we briefly describe the
+algorithm to agree on the transaction order (\autoref{sec:consensus:algorithm})
+and thereafter we describe the common state transition procedure that describes
+how to move to a new valid state given a transaction
+(\autoref{sec:tx-execution}), which can be either a contract creation
 (\autoref{sec:contract-creation}) or a message call
 (\autoref{sec:message-call}).
 
@@ -20,7 +20,7 @@ transaction (\autoref{sec:tx-execution}), that can be either a contract creation
 \subsubsection{Consensus Algorithm}
 \label{sec:consensus:algorithm}
 
-Finding an agreement on the order of transaction (i.e. the actual blockchain)
+Finding an agreement on the order of transactions (i.e. the actual blockchain)
 and the world status is crucial, thus multiple consensus algorithms were
 proposed~\cite{bib:the-quest}. Ethereum follows an idea very close to the
 consensus algorithm of Bitcoin, which is also known in the literature as
@@ -29,7 +29,7 @@ consensus algorithm of Bitcoin, which is also known in the literature as
 The basic idea of this algorithm consists in:
 % enumerate* means in-line enumeration
 \begin{enumerate*}[label=(\arabic*)]
-  \item accepting only valid blocks with regards to some validation criterion,
+  \item accepting only valid blocks according to some validation criterion,
   \item create new valid blocks by using a proof-of-work algorithm,
   \item relying on a selection rule to choose between two different valid forks
   depending on the amount of work performed in each fork.
@@ -43,35 +43,39 @@ not consists in:
   \item checking that the block header is valid
   \item re-performing all the transactions to verify whether the transaction
   receipts and the state root contained in the propagated block
-  (\autoref{fig:world-state}) are valid, i.e., corresponds to the values
-  computed locally. This includes also re-executing \emph{all} the EVM
-  computations.
+  (\autoref{fig:world-state}) are valid, i.e., correspond to the values computed
+  locally. This includes also re-executing \emph{all} of the EVM computations.
 \end{itemize}
 
 \paragraph{Proof of Work}
+\label{sec:pow}
 Ethereum uses an improved version of the Dagger-Hashimoto
 algorithm~\cite{bib:dagger-hashimoto}, known as Ethash~\cite[Appendix
-J]{wood2018ethereum} as PoW algorithm. The rationale to use of this memory
+J]{wood2018ethereum} as PoW algorithm. The rationale to the use of this memory
 intensive algorithm is its ASIC-resistance. ASIC are specialized hardware used
-massively in the Bitcoin ecosystem. This kind of hardware is a risk for
-centralization, because to begin mining new blocks and maintaining the
+massively in the Bitcoin ecosystem. This kind of hardware is a threat for the
+decentralization, because to begin mining new blocks and maintaining the
 infrastructure a big initial investment is needed and only few entities and
-definitely not small private parties can afford this cost.
+definitely not small private parties can afford this cost. Thus, they could
+influence the shared state by accepting or declining transactions with arbitrary
+rules which are compliant with the Ethereum protocol gaining a competitive
+advantage.
 
-Essentially, to create a valid block the miner should find a mixHash and a nonce
-(\autoref{fig:world-state}) for the block. The PoW algorithm takes as input the
-block header without nonce, the candidate nonce and a big dataset (initially $1$
-GiB) known as \textbf{DAG}, and returns the mixHash and a number $n$. The puzzle
-is resolved if $n$ is smaller than $2^{256}$ divided by the difficulty of the
-block. Clearly, the higher the difficulty the higher the number of tries to find
-a suitable nonce and, consequently, the consumption of resources.
+Essentially, to create a valid block, the miner should find a mixHash and a
+nonce (\autoref{fig:world-state}) for the block. The PoW algorithm takes as
+input the block header without nonce, the candidate nonce and a big dataset
+(initially $1$ GiB) known as \textbf{DAG}, and returns the mixHash and a number
+$n$. The puzzle is resolved if $n$ is smaller than $2^{256}$ divided by the
+difficulty of the block. Clearly, the higher the difficulty the higher the
+number of tries to find a suitable nonce and, consequently, the consumption of
+resources.
 
-The DAG can be pre-computed and is fixed for each epoch, i.e., $30000$ blocks,
-that corresponds roughly to a number of hours in the range between
+The DAG can be pre-computed and is fixed for each epoch (i.e., $30000$ blocks),
+which corresponds roughly to a number of hours in the range between
 $100$~\cite{bib:ethereum-wiki-mining} and $141$~\cite{bib:solidity-docs}. To
 verify that the mixHash and the nonce are valid only a cache for the DAG is
 needed. This data-structure is required also to generate the DAG itself. At each
-epoch the DAG and the cache change and their size increase of $8$ mebibytes and
+epoch, the DAG and the cache change and their size increase of $8$ mebibytes and
 $128$ kibibytes, respectively. We refer to the yellow paper~\cite[Appendix
 J]{wood2018ethereum} to get more details on how these data structures are
 computed.
@@ -82,10 +86,11 @@ computed.
 The \emph{selection rule} is required to avoid the infamous double spending
 problem. Indeed, in Bitcoin (and as well in Ethereum) the assumption is that the
 majority of computing power belongs to good players who will follow the rules.
-Therefore, in order to prevent bad agents to rewrite the transactions history
-with a high probability~\cite{bib:bitcoin}, the issuer of new blocks should
+Therefore, in order to prevent with a high probability bad agents from rewriting
+the transactions history~\cite{bib:bitcoin}, the issuer of new blocks should
 prove that she invested resources in its creation by solving a computational
-heavy task. This mechanism is known as \textbf{Proof-of-Work} (PoW).
+heavy task. This mechanism is known as \textbf{Proof-of-Work}
+(see~\autoref{sec:pow}).
 
 
 
@@ -93,7 +98,7 @@ In Bitcoin the selection rule consists in accepting the longest chain that
 corresponds roughly to the one with more work invested on it. The Ethereum
 community \emph{claims} that Ethereum implements a simplified version of the
 Greedy Heaviest-Observed Sub-Tree (GHOST) selection
-rule~\cite{wood2018ethereum}: briefly, the stale blocks contributes to the
+rule~\cite{wood2018ethereum}: briefly, the stale blocks contribute to the
 difficulty of a fork. The aim is to allow an increase in the transaction
 throughput (by decreasing the block issue interval) while preserving the same
 security guarantees of the original Bitcoin consensus protocol. As noted

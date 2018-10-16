@@ -22,7 +22,7 @@ Firstly, the 160-bit identifier for the contract account is determined as
 function of the sender's address and its nonce. The value specified in the
 contract creation is transferred from the sender to the brand new contract
 account. Afterward, the \emph{init} code (\autoref{fig:messages-transactions})
-is executed on the Ethereum Virtual Machine. This  piece of code initiate the
+is executed on the Ethereum Virtual Machine. This  piece of code initializes the
 storage of the contract account and returns the \emph{body}, i.e. the contract
 code that will persist on the account state. If during the execution an
 out-of-gas exception occurs, the state is reverted to the initial state as if
