@@ -1,12 +1,11 @@
 \section{Introduction}
 
-The purpose of this report is to investigate the architecture and the
-scalability of Ethereum~\cite{wood2018ethereum}. Ethereum is based on the
-Blockchain technology. Despite the first appearance of the blockchain in the
-actual form is due to Satoshi Nakamoto's groundbreaking paper, ``Bitcoin: A
-peer-to-peer electronic cash system'' (2008)~\cite{bib:bitcoin}, this technology
-has become one of the most active research fields in ICT only in the last couple
-of years.
+The aim of this report is to investigate the architecture and the scalability of
+Ethereum~\cite{wood2018ethereum}. Ethereum is based on the Blockchain
+technology. Despite the first appearance of the blockchain in the actual form is
+due to Satoshi Nakamoto's groundbreaking paper, ``Bitcoin: A peer-to-peer
+electronic cash system'' (2008)~\cite{bib:bitcoin}, this technology has become
+one of the most active research fields in ICT only in the last couple of years.
 
 The aim of the Blockchain technology is to provide a total order of the
 transactions in a distributed ledger without relying on a trusted third party
@@ -35,56 +34,56 @@ mechanism through which this total order is provided and maintained is the
 blockchain, which is literally a chain of blocks. Each block of the chain
 contains an ordered list of transactions and is connected to the previous block
 by inserting the hash of the previous block in its header. Each node of the
-network has the faculty to create transactions and have to sign them to show
-that it owns the private key corresponding to a given address. The transactions
-are spread in the network through gossip protocols. Once a node receives a new
-transaction, it verifies that the transaction is well-formed. If it is the case,
-the node sends the transactions to the other known peers. Eventually, the
-transactions are received by a member of the network who groups some
-transactions in a block and tries to find a nonce such that the hash of the
-block is smaller than a given value. Since this task is computationally
-expensive, if the node finds this value, it adds at the beginning of the
-transaction list a transaction in which it assigns to a beneficiary address an
-amount of newly minted coins, according to the protocol's rule\footnote{This
-value was initially $50$ bitcoins. This reward halves every $210000$ blocks.
-Currently it is 12.5 bitcoins. Around year $2140$ no coins would be
-minted~\cite{bib:masteringbitcoin}.}. In addition to this reward, it receives
-also fees from the senders of the included transactions. The members of the
-network who try to create new blocks are called miners, because their action
-resembles the extraction of precious metals. The miners are incentivized to
-create valid blocks, that is, containing valid transactions and the correct
-solution to the puzzle, so the other peers of the network can accept \emph{only}
-valid blocks. They can verify the correctness of the transactions (e.g. the
-balance of the addresses is always positive), because they have a local copy of
-the state, and the correctness of the nonce by computing a single hash. It is
-worth noticing that multiple parties try to create new blocks concurrently,
-therefore it is possible that multiple versions of the blockchain co-exist.
-Indeed, a mechanism to select the canonical blockchain is needed. In the case of
-Bitcoin it is simply the longest chain, because it corresponds to the one with
-more work invested on it. The co-existence of multiple blockchain can be very
-useful in case of a network partition, indeed, once the partition is over, the
-peers can agree on the blockchain. The drawback of this system is that there is
-no consensus finality~\cite{bib:the-quest}, thus it is necessary to wait a
-certain number of blocks (confirmation blocks) to be sure that the transactions
-are really confirmed. The number of confirmation blocks in Bitcoin is six which
-correspond to approximately one hour~\cite{bib:masteringbitcoin}.
+network can create transactions and have to sign them to show that it owns the
+private key corresponding to a given address. The transactions are spread in the
+network through gossip protocols. Once a node receives a new transaction, it
+verifies that the transaction is well-formed. If it is the case, the node sends
+the transactions to the other known peers. Eventually, the transactions are
+received by a member of the network who groups some transactions in a block and
+tries to find a nonce such that the hash of the block is smaller than a given
+value. Since this task is computationally expensive, if the node finds this
+value, it adds at the beginning of the transaction list a transaction in which
+it assigns to a beneficiary address an amount of newly minted coins, according
+to the protocol's rule\footnote{This value was initially $50$ bitcoins. This
+reward halves every $210000$ blocks. Currently it is 12.5 bitcoins. Around year
+$2140$ no coins would be minted~\cite{bib:masteringbitcoin}.}. In addition to
+this reward, it receives also fees from the senders of the included
+transactions. The members of the network who try to create new blocks are called
+miners, because their action resembles the mining of precious metals. The miners
+are incentivized to create valid blocks, that is, containing valid transactions
+and the correct solution to the puzzle, hence the other peers of the network can
+accept \emph{only} valid blocks. They can verify the correctness of the
+transactions (e.g. the balance of the addresses is always positive), because
+they have a local copy of the state, and the correctness of the nonce by
+computing a single hash. It is worth noting that multiple parties try to create
+new blocks concurrently, therefore it is possible that multiple versions of the
+blockchain co-exist. Indeed, a mechanism to select the canonical blockchain is
+needed. In the case of Bitcoin it is simply the longest chain, because it
+corresponds to the one with more work invested on it. The co-existence of
+multiple blockchain can be very useful in case of a network partition, indeed,
+once the partition is over, the peers can agree on the blockchain. The drawback
+of this system is that there is no consensus finality~\cite{bib:the-quest}, thus
+it is necessary to generate a certain number of blocks (confirmation blocks) to
+be sure that the transactions are really confirmed. The number of confirmation
+blocks in Bitcoin is six which correspond to approximately one
+hour~\cite{bib:masteringbitcoin}.
 
 Although this description of Bitcoin abstracts from various details, it is
 sufficient to show how the double spending problem is solved. The idea is to let
 each peer of the network know the current state and the transactions that are
-already spent. Moreover, after the confirmation time the blockchain can be
+already processed. Moreover, after the confirmation time the blockchain can be
 considered immutable and tamper-proof, because to rewrite the sufficiently old
 transaction history, an enormous amount of work should be done. The immutability
 is an interesting property that can be used to emit certificates about the
 ownership of an asset such as a digital artwork or an intellectual property.
 
 \paragraph{Permissioned vs Permissionless Blockchain}
-Apart Bitcoin, a lot of cryptocurrencies, also known as
-\emph{altcoins}\footnote{The contraction of "alternative coins".} came out.
-They have different peculiarities, but the general idea is the same as Bitcoin.
-In the literature~\cite{bib:the-quest}, it is common to distinct between
+Apart from Bitcoin, a lot of cryptocurrencies, also known as
+\emph{altcoins}\footnote{The contraction of "alternative coins".} emerged. They
+have different peculiarities, but the general idea is the same as Bitcoin. In
+the literature~\cite{bib:the-quest}, it is common to distinguish between
 permissionless and permissioned blockchains. The former are blockchains in which
-everyone can participate in, while the latter require authentication and are
+everyone can participate, while the latter require authentication and are
 commonly used by banks or consortium of companies. Prominent examples of
 permissionless blockchains are Bitcoin and Ethereum, while a representative
 permissioned blockchain is Hyperledger.
@@ -92,17 +91,17 @@ permissioned blockchain is Hyperledger.
 \paragraph{Overview}
 In the remainder of the paper we will discuss exclusively Ethereum. Ethereum can
 be viewed as a generalization of Bitcoin. While in Bitcoin the execution
-environment (i.e. the script language) is stateless and is used only to express
-conditions to spend the money, e.g. demonstrate the possession of a given
-private key, in Ethereum the execution environment (i.e. the EVM) is stateful
-and Turing Complete. To avoid the misuse of the network resources, each opcode
-is associated with an amount of gas, so the termination of the computations is
-always guaranteed.
+environment (i.e. Script, the Bitcoin scripting system) is stateless and is used
+only to express conditions to spend the money, e.g. demonstrate the possession
+of a given private key, in Ethereum the execution environment (i.e. the EVM) is
+stateful and Turing Complete. To avoid the misuse of the network resources, each
+opcode is associated with an amount of gas, so the termination of the
+computations is always guaranteed.
 
-This paper is organized in two main chapters. The first chapter describes the
-architecture of Ethereum in a top-down fashion by individuating and describing
-the layers in which it can be split. The second chapter analyzes the scalability
-of the system, both theoretically, with the analysis of the literature
+This paper is organized in two main parts. The first part describes the
+architecture of Ethereum in a top-down fashion by identifying and describing the
+layers in which it can be split. The second part analyzes the scalability of the
+system, both theoretically, with the analysis of the literature
 (\autoref{sec:background}) and the description of the cube of the
 scalability~\cite{bib:art-of-scalability} applied to Ethereum
 (\autoref{sec:scale-cube}) and practically, by creating a private Ethereum
