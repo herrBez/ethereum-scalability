@@ -3,10 +3,10 @@
 
 The Ethereum Wire Protocol (\emph{eth})~\cite{bib:ethereumwireprotocol} is an
 application level subprotocol of the RLPx transport protocol. It is used to
-spread the information about the blockchain and for the synchronization.
+spread the information about the blockchain and for synchronization.
 
 Currently, there are several versions of this protocol. Throughout this section
-we will consider only the versions $62$ and $63$ (which are compatible) that are
+we will consider only versions $62$ and $63$ (which are compatible) that are
 currently supported by \texttt{geth} (v1.8.11).
 
 The first message that should be exchanged between two peers is the
@@ -43,16 +43,17 @@ the \texttt{NewBlock} message spreads a single new block.
 
 \subparagraph{Version 63 - Fast synchronization}
 \label{sec:fast-sync}
-From version v1.3.1 of
+Since version v1.3.1 of
 \texttt{geth}\footnote{\url{https://github.com/ethereum/go-ethereum/releases/tag/v1.3.1}},
 it is possible to perform a fast synchronization. This synchronization type does
-not require that a node performs \emph{all} the computations happened during the
-history (i.e. the whole EVM instructions~\autoref{sec:evm} ). Indeed, the
+not require that a node performs \emph{all} the computations executed during the
+history (i.e. the whole EVM instructions, see \autoref{sec:evm}). Indeed, the
 synchronizer downloads along the blockchain the transaction receipts which
 encapsulate useful information about the execution result of the transactions.
 This allows the synchronizer to deal only with the verification of the
-proof-of-work \autoref{sec:consensus:algorithm}. At least in \texttt{geth}, this
-synchronization is possible only by the first synchronization for security
+proof-of-work (see \autoref{sec:consensus:algorithm}). At least in
+\texttt{geth}, this synchronization is possible only by the first
+synchronization for security
 reasons\footnote{\url{https://github.com/ethereum/go-ethereum/pull/1889}}. After
 the synchronizer reaches a \emph{pivot point} (i.e. last block minus $1024$), it
 retrieves the whole current state from the other peers and subsequently
