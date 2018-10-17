@@ -1,11 +1,8 @@
-# ethereum-scalability
+# Architecture and scalability of Ethereum
  [![Build Status](https://travis-ci.com/herrBez/ethereum-scalability.svg?token=ZPdxDTY2TYyMx3jypkpu&branch=develop)](https://travis-ci.com/herrBez/ethereum-scalability)
 
-Report about the architecture and the scalability of ethereum for the
-Sistemi Concorrenti e Distribuiti (Concurrent and Distributed System) master course
-at the University of Padua.
-
-
+Report about the architecture and the scalability of Ethereum for the Concurrent
+and Distributed Systems master course at the University of Padua.
 
 ## Download and compile
 ```sh
@@ -14,18 +11,17 @@ cd ethereum-scalability
 make
 ```
 
-To compile the project you need a recent version of LaTex and the packages listed in the
-[travis file](.travis.yml).
-
+To compile the project you need a recent version of LaTex and the packages
+listed in the [travis file](.travis.yml).
 
 ## Test
-To reproduce the results report in the document, we made our benchmark public. The code and the instructions to use the repository are reported [here](https://github.com/gfornari/ethereum-test/tree/benchmark)
+To reproduce the results reported in the document, we made our benchmark system
+public. The code and the instructions to use it can be found in the
+[ethereum-test](https://github.com/gfornari/ethereum-test) repository.
 
 ## Contributing
-
-Any contribution is welcome
-
+Any contribution is welcome.
 
 ## Authors
-* **Mirko Bez** - *Initial Work* - [herrBez](https://github.com/herrBez)
-* **Giacomo Fornari** - *Initial Work* - [gfornari](https://github.com/gfornari)
+* **Mirko Bez** - [herrBez](https://github.com/herrBez)
+* **Giacomo Fornari** - [gfornari](https://github.com/gfornari)
