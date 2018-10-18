@@ -36,3 +36,24 @@ the z-axis of the cube (see \autoref{sec:z-axis}) with proposals like Plasma and
 sharding. Sharding is a scaling strategy already seen in the database systems,
 that is, systems which have to manage persistent data. Maybe, this affinity
 between Ethereum and the database systems leads the z-axis of the Scale Cube.
+
+The result of our research maps directly to the scalability
+trilemma~\cite{bib:sharding-faq}, which states that we cannot have at the same
+time scalability, decentralization and security. Assuming full security, we need
+to find a trade-off between scalability and decentralization. The current
+implementation of the Ethereum system provides security and decentralization and
+gives up scalability.
+
+Proposals like Proof-of-Stake (see~\autoref{sec:pos}) increase the transaction
+throughput but it does not depend on the number of nodes in the system, hence,
+we cannot view PoS as an improvement from the scalability point of view.
+However, PoS increments the decentralization because validators do not require
+powerful hardware.
+
+Plasma does not change the protocol but provide a way to perform operations
+off-chain
+
+Sharding provides data partition allowing parallel processing transactions in
+different shards, thus increasing the scalability of the system with respect to
+the number of shards. However, the introduction of super nodes reduces the
+decentralization of the system overall (see ~\autoref{sec:sharding-ethereum}).
