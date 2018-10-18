@@ -11,6 +11,7 @@ but the data sets have to be replicated in their entirety which increases
 operational costs.
 
 \subsubsection{An example: Web server replication}
+\label{sec:x-axis-example}
 In order to better understand the concept, we bring an example of a common
 architecture which scales on this axis. Let's consider a small e-commerce
 business that runs its website on a single server on top of a single machine.
@@ -69,29 +70,33 @@ Let's clarify the concept of \emph{state} in order to better understand the
 importance of it for scaling on the x-axis. We said that, in other words, an
 application that uses state chooses the next action to be performed evaluating
 the current execution condition \cite{bib:art-of-scalability}. This definition
-holds for the protocols as well. A common example of stateless protocol is HTTP,
-since the receiver does not need to know anything about a previous request
-having all the information needed to fulfill the current one. On the contrary,
-an example of stateful application is a possible implementation of user session
-(which can be done also with a stateless approach), in which a user is
-authorized to request some resources only after an authentication request. In
-this setting, the result of the authentication could be stored in the server
-making it stateful, i.e. some requests are dependent on the authentication
-request. Referring at \autoref{fig:webserver-nginx}, in the stateful
-implementation, the user sessions could be stored at Web server level. In our
-example, the only load balancing method which supports session persistence is
-\emph{ip-hash} thanks to its ability to always redirect requests from a client
-to the same server except when this server is unavailable or when the client's
-IP address changes. Indeed, with \emph{round-robin} and \emph{least-connected}
-each request is potentially distributed to a different server making it
-necessary to write stateless servers.
-% add comparison between this state and the Ethereum state
+holds for the protocols as well.
+
+A common example of stateless protocol is HTTP. Indeed, the receiver does not
+need to know anything about a previous request having all the information needed
+to fulfill the current one.
+
+On the contrary, an example of stateful application is a possible implementation
+of authenticated user session\footnote{This can also be implemented with a
+stateless approach from the Web server point of view.}, in which a user is
+authorized to request some resources only after authentication. In this setting,
+referring at \autoref{fig:webserver-nginx}, the user sessions could be stored at
+Web server level. In our previous example of the Web server replication (see
+\autoref{sec:x-axis-example}), the only load balancing method which supports
+session persistence is \emph{ip-hash} thanks to its ability to always redirect
+requests from a client to the same server except when this server is unavailable
+or when the client's IP address changes. Indeed, with \emph{round-robin} and
+\emph{least-connected} each request is potentially distributed to a different
+server making it necessary to write stateless servers.
 
 It should be clear now the role of the \emph{state} scaling on the x-axis. Once
-we scale by cloning, we replicate the data along with the service. If the state
-changes, these changes should be reflected on the server which accesses that
-same part of the state. This can be not a drawback at first, but it may become
-an issue increasing the data size.
+we scale by replicating, we replicate the data as well along with the service.
+If the state changes, these changes should be reflected on the server which
+accesses that same part of the state. This can be not a drawback at first, but
+it may become an issue increasing the data size due to the need of communication
+between the replicated servers to maintain consistency between their local states.
+
+
 
 \subsubsection{Ethereum current state and proposals}
 \label{sec:x-axis-ethereum}
