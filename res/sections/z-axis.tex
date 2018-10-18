@@ -158,12 +158,12 @@ community.
 
 To imagine a z-axis split, we can identify different proposals, among which
 Plasma~\cite{poon2017plasma} and Sharding~\cite{bib:mauve, bib:sharding-faq}.
-The Plasma proposal is categorized as an \emph{off-chain} solution because it
-executes some transactions outside of the main chain, that is the root chain
-(Ethereum in our case) referred by each child chain. On the contrary,
-\emph{on-chain} solutions (e.g., Sharding) execute every transaction on the main
-chain.
-
+The Plasma proposal is categorized as \emph{off-chain} solution because it
+executes some transactions outside of the main chain (see \autoref{sec:plasma}).
+On the contrary, the Sharding proposal is categorized as \emph{on-chain} since
+every transaction is executed inside the Ethereum network, without meaning that
+every node has to process every transaction, but rather the ones in its own
+shard (see \autoref{sec:sharding-ethereum}).
 
 Typically, in order to apply an off-chain solution, one or more smart
 contracts are sufficient (for example, Vitalik proposed a specification for a
@@ -173,6 +173,7 @@ an on-chain solution requires hard-fork, because it requires a radical change in
 the Ethereum protocol.
 
 \subsubsection{Plasma}
+\label{sec:plasma}
 
 \begin{figure}[t]
     \begin{center}
@@ -229,7 +230,7 @@ among which the list of transactions and the address of the proposer. Once per
 \emph{cross-links} (e.g. the hash of the collations) to the accepted shard
 collations are inserted. The collations are accepted or refused by a committee
 of \emph{attesters}. To become an attester or a proposer the members of the
-network should deposit an amount of ether. After this operation, they can be
+network should deposit an amount of Ether. After this operation, they can be
 randomly assigned to different shards. This is done in order to grant a certain
 level of decentralization and security.
 
