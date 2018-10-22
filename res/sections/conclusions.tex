@@ -1,7 +1,7 @@
 \section{Conclusions}
 \label{sec:conclusions}
 The Blockchain technology provides a way to find a total order of transactions
-in a distributed system without relying on a trusted third party. This permits
+in a distributed system without relying on a trusted third party. This allows
 to have an exact copy of the state in each node of the network, because each
 node starts from the same state and changes the state according to the
 transactions, whose execution is deterministic. The main advantage of this
@@ -15,9 +15,10 @@ because it supports a general-purpose execution environment, the EVM.
 In the first part of this work we proposed a decomposition of the Ethereum's
 architecture in logical layers. The five stacked layers abstract from the
 implementation details and offer a conceptual organization useful to compare
-different blockchain proposals, although permitting flexibility as the case of
-the EVM which is a cross layer. Moreover, this decomposition allows a
-component-oriented development which helps reasoning on the system.
+different blockchain proposals, although enabling flexibility as the case of the
+EVM which is a vertical layer (see \autoref{sec:architecture}. Moreover, this
+decomposition allows component-oriented development, which helps reasoning on the
+system overall.
 
 The focus of the second part is the analysis of the scalability of Ethereum. To
 do so, we analyzed the existing literature (\autoref{sec:background}) and
@@ -31,7 +32,38 @@ that the current version of Ethereum is not developed in any direction of the
 cube by analyzing the current specification. Thereafter, we categorize the
 scalability improvement proposals based on the axes they will affect. From this
 analysis, it is clear that the most efforts of the community are concentrated on
-the z-axis of the cube~\autoref{sec:z-axis} with proposals like Plasma and
+the z-axis of the cube (see \autoref{sec:z-axis}) with proposals like Plasma and
 sharding. Sharding is a scaling strategy already seen in the database systems,
-that is, systems which have to manage persistent data. Maybe, this common duty
+that is, systems which have to manage persistent data. Maybe, this affinity
 between Ethereum and the database systems leads the z-axis of the Scale Cube.
+
+The result of our research maps directly to the scalability
+trilemma~\cite{bib:sharding-faq}, which states that we cannot have at the same
+time scalability, decentralization and security. Assuming full security, we need
+to find a trade-off between scalability and decentralization. The current
+implementation of the Ethereum system provides security and decentralization and
+gives up scalability.
+
+Proposals like Proof-of-Stake (see~\autoref{sec:pos}) increase the transaction
+throughput but, since the performance improvement does not depend on the number
+of nodes in the system, we cannot view PoS as an improvement from the
+scalability point of view. However, PoS increments the decentralization because
+allows nodes with commodity and not specialized hardware to be validators.
+
+Sharding and Plasma provide data partition allowing parallel processing of
+transactions in different shards or child chains, thus increasing the
+scalability of the system with respect to the number of shards or child chains.
+However, the decentralization decreases in both proposals, since in Plasma there
+are not nodes having the blocks of the entire network, and in Sharding due to
+the introduction of super nodes (see~\autoref{sec:sharding-ethereum}).
+
+A technology like blockchain cannot loosen the security, which represents from
+the very beginning one of the main desired properties in this type of systems.
+Another interesting property promoted by the blockchain is decentralization.
+This property is more difficult to understand in terms of advantages which
+provides and costs to be borne in order to sustain it. Albeit the expectation
+around this technology was and is to adapt and implement any application, the
+scalability was a clear issue but postponed. Now, the challenge is to increase
+the performance of the system overall without loosing security, hence finding
+the best trade-off between decentralization and scalability, possibly creating
+different solutions for different applications.

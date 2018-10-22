@@ -1,7 +1,7 @@
 \subsection{Background}
 \label{sec:background}
 
-In this Section, we point out the usual concerns about the permissionless
+In this Section, we describe the usual concerns about the permissionless
 blockchain system, in particular Bitcoin, and the related works regarding
 Ethereum.
 
@@ -20,7 +20,7 @@ ledger~\cite{bib:blockchain-challenges-opportunites-survey,wood2018ethereum}.
 The maximum limited transaction throughput is due on the one hand to the $1$ MB
 \emph{maximal block size} and on the other hand to the $10$ minutes \emph{block
 interval}~\cite{bib:ghost, bib:scaling-croman}. Increasing the former would
-certainly augment the transaction throughput and decrease the transaction fees,
+certainly increase the transaction throughput and decrease the transaction fees,
 but it would also slow down the propagation time, thus increasing the
 possibility of forks. Decreasing the latter would increase the transaction
 throughput and increase also the possibility of forks. The increase in the
@@ -29,9 +29,9 @@ address these bottlenecks multiple solutions were proposed. The Blockchain
 systems Bitcoin Cash and Litecoin try to augment the maximal transaction
 throughput by modifying the Bitcoin client to have a maximum block size of $8$
 MB and to have a block interval of $2.5$ minutes respectively. The
-GHOST~\cite{bib:ghost} protocol consider also the stale blocks to permit to
+GHOST~\cite{bib:ghost} protocol considers also the stale blocks to allow to
 diminish the block interval while preserving the same security guarantees of the
-original proof of work as we already described in
+original proof of work as we already discussed in
 \autoref{sec:consensus:algorithm}.
 
 In addition to these considerations, a number of confirmation blocks are needed
@@ -42,13 +42,13 @@ known as \textbf{lack of Consensus Finality}~\cite{bib:the-quest} and is due to
 the probabilistic nature of the PoW consensus algorithm. Currently, in Bitcoin
 the number of confirmation blocks is set to $6$~\cite{bib:masteringbitcoin}.
 This means that after the insertion of a transaction in a block at least an hour
-must be waited to be sure that it would be confirmed.
+must be waited to be sure that it is confirmed.
 
 Another concern with this technology is the need to store an increasingly large
 amount of data to keep the desired security guarantees. Currently, the minimum
 requirement to run a Bitcoin full-node, that is a node that verifies all the
 transactions, is $145$
-GB\footnote{https://bitcoin.org/en/bitcoin-core/features/requirements}.
+GB\footnote{\url{https://bitcoin.org/en/bitcoin-core/features/requirements}}.
 
 Other major concerns are related to the \emph{cost} of the system, especially
 the cost per confirmed transaction~\cite{bib:scaling-croman} which is due to the

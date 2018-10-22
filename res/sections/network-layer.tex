@@ -15,7 +15,7 @@ remainder of this Section, we firstly describe Kademlia and afterward the
 Ethereum variant.
 
 
-\subsubsection{Kademlia protocol}
+\subsubsection{The Kademlia protocol}
 The Kademlia protocol is an UDP based distributed hash table (DHT) system based
 on the XOR-metric for distance \cite{bib:kademlia}, that is the distance between
 two keys $x$ and $y$ is given by $x \otimes y$. The nodes have a unique $m$-bit
@@ -34,23 +34,13 @@ the term \emph{k-bucket}.
 
 \begin{algorithm}[t]
     \begin{algorithmic}
-        \State $distance$ $\gets$ $S_{ID}$ $\otimes$ $R_{ID}$
-        \State $bucket$ $\gets$ bucket containing nodes at the given distance
-        \If {$S_{ID} \in bucket$}
-        \State move $S_{ID}$ to the end of $bucket$
-        \Else
-        \If {$bucket$ not full}
-        \State insert $S_{ID}$ at the end of the list
-        \Else
-        \State $H \gets head(bucket)$
-        \State ping $H$
-        \If {$H$ replies}
-        \State move $H$ to the end of the list and discard $S$
-        \Else
-        \State evict $H$ and put $S_{ID}$ at the end of the list
-        \EndIf
-        \EndIf
-        \EndIf
+        \State $distance$ $\gets$ $S_{ID}$ $\otimes$ $R_{ID}$ \State $bucket$
+        $\gets$ bucket containing nodes at the given distance \If {$S_{ID} \in
+        bucket$} \State move $S_{ID}$ to the end of $bucket$ \Else \If {$bucket$
+        not full} \State insert $S_{ID}$ at the end of the list \Else \State $H
+        \gets head(bucket)$ \State ping $H$ \If {$H$ replies} \State move $H$ to
+        the end of the list and discard $S$ \Else \State evict $H$ and put
+        $S_{ID}$ at the end of the list \EndIf \EndIf \EndIf
     \end{algorithmic}
     \caption{Pseudocode algorithm to update a bucket upon receiving a message
     from a node. The sender and the receiver are denoted by the letters $S$ and
@@ -58,14 +48,14 @@ the term \emph{k-bucket}.
     \label{alg:kademlia:update}
 \end{algorithm}
 
-Each bucket is maintained sorted: at the head we find the least recently seen
-node and at the tail the most recently one. When a node receives a message from
-a sender, it uses the Algorithm \autoref{alg:kademlia:update} to update the
-contact table. One important feature of this algorithm is that, when the node
-discovers a new node, the latter is added only if one of the already known peers
-at the same distance is no more on-line. The rationale for this choice is due to
-the observation that the more a node has been on-line, the more likely it is
-that it remains up another hour~\cite{bib:kademlia}.
+Each bucket is kept sorted: at the head we find the least recently seen node and
+at the tail the most recently one. When a node receives a message from a sender,
+it uses Algorithm \autoref{alg:kademlia:update} to update the contact table. One
+important feature of this algorithm is that, when the node discovers a new node,
+the latter is added only if one of the already known peers at the same distance
+is no more on-line. The rationale for this choice is due to the observation that
+the more a node has been on-line, the more likely it is that it remains up
+another hour~\cite{bib:kademlia}.
 
 The basic operation of this system is the \emph{key lookup}. It is implemented
 by asking recursively for closer and closer nodes. A node selects the $\alpha$
@@ -73,8 +63,8 @@ peers closest to the searched key. This operation is efficient because it
 restricts the selection to the peers contained in the bucket in which the node
 would have inserted the searched key\footnote{It is possible that the $k$-bucket
 has less than $\alpha$ entries, in this case the node search also in other
-buckets.}. Afterward, the node sends \emph{asynchronous} requests to these
-peers, that should reply with the contact information of the $k$ closest nodes
+buckets.}. Afterwards, the node sends \emph{asynchronous} requests to these
+peers, which should reply with the contact information of the $k$ closest nodes
 it knows. From the replied values the node takes only the closest $\alpha$ ones.
 The algorithm performs this step recursively. If in one of the phases no new
 closer nodes are discovered, the node retries with the $k$ closest discovered
@@ -97,9 +87,9 @@ DHT, the Kademlia protocol relies on only four RPC functions:
 
 \paragraph{Difference between RLPx node discovery and Kademlia}
 \label{sec:rlpx-discovery}
-The RLPx node discovery protocol is used only for discovery, so \verb|STORE| and
-\verb|FIND_VALUE| RPC functions are not needed. Each node is assigned to a $512$
-bit long ID and the XOR distance is calculated on the hash\footnote{With
+The RLPx node discovery protocol is used only for discovery, so the \verb|STORE|
+and \verb|FIND_VALUE| RPC functions are not needed. Each node is assigned to a
+$512$ bit long ID and the XOR distance is calculated on the hash\footnote{With
 ``hash'' we always intend the Keccak-256 hash.} of the IDs. Therefore,
 \emph{conceptually} each node stores $256$ $k$-buckets\footnote{We provide only
 a general overview of the algorithm. For implementation optimizations we refer
@@ -140,9 +130,9 @@ In order to join the network for the first time, a new node should generate a
 new public-private key pair\footnote{The public key is the ID and the private
 key is used to sign the packets.} and know the contact of at least one
 participant. In Ethereum, this task is accomplished by hard-coding the contact
-information of some \textit{bootstrap nodes} in the client's code. The aim of
-these nodes is to provide new nodes with contact information to other regular
-nodes that are already participating in the network.
+information of some \textit{bootstrap nodes} in the client's code, whose aim is
+to provide new nodes with contact information to other regular nodes that are
+already participating in the network.
 
 RLPx uses its own URL scheme, the \emph{enode}. In this scheme, the ID of the
 node encoded in hexadecimal format, the IP-Address and the TCP Port of the node

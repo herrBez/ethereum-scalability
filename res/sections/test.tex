@@ -1,19 +1,18 @@
 \subsection{Tests}
 \label{sec:tests}
 
-To measure the scalability of Ethereum, we executed some tests to study the
-maximal throughput and the size of the blockchain with different configurations.
-To study the scalability of a permission-less blockchain system such as
-Ethereum, one should either rely on
+We executed some tests to study the maximal throughput and the size of the
+blockchain with different configurations. To analyze the scalability of a
+permission-less blockchain system such as Ethereum, one should either rely on
 simulation~\cite{bib:securityAndScalabilityPoW} or run tests using thousand of
-nodes~\cite{bib:securityAndScalabilityPoW, bib:algorand}. We do not have neither
-a simulation of an Ethereum system nor so many resources. Therefore, we took
+nodes~\cite{bib:securityAndScalabilityPoW, bib:algorand}. We have neither a
+simulation of an Ethereum system nor so many resources. Therefore, we took
 inspiration from Blockbench~\cite{blockbench}, which compares the performance
 and scalability of Hyperledger\footnote{\url{https://www.hyperledger.org/}} and
-Ethereum in a \emph{private} (\emph{permissioned}) scenario, that is, when we
-consider a limited number of authenticated nodes.
+Ethereum in a \emph{private} (\emph{permissioned}) scenario, that is,
+considering a limited number of authenticated nodes.
 
-We tried to use the public available Blockbench
+We tried to use the publicly available Blockbench
 repository\footnote{\url{https://github.com/ooibc88/blockbench}} but we did not
 manage to configure it due to a lot of hard-coded configuration variables and
 the lack of a well-written documentation. Thus, we wrote our own test and
@@ -88,13 +87,16 @@ private Ethereum network it is sufficient to use a new genesis file in which
 some parameters are changed. Therefore, in our genesis file we use an arbitrary
 network id and nonce, so that packets of different networks are simply dropped.
 
-Apart from the arbitrary values, that is the id and the nonce, and the data that
-perhaps are required by the system which do not have influence on the
-transaction throughput, the values of some parameters require some
-justification.
+The only parameters which affect the transaction throughput are the timestamp,
+the difficulty and the gas limit. In the following paragraphs, we provide an in
+depth description of these parameters and a justification for the values we used
+in the tests.
 
-The \textbf{timestamp} of the genesis file, that corresponds to the one of the
-genesis block, influences the difficulty of the first blocks, and transitively
+%The values of some parameters require some
+%justification.
+
+The \textbf{timestamp} of the genesis file, which corresponds to the one of the
+genesis block, affects the difficulty of the first blocks, and transitively
 of all the blocks. Since, for time constraints, we want to run each test for few
 minutes, we want to avoid sudden decreases in the difficulty due to a too old
 timestamp. Therefore, to prevent these unwanted changes in the difficulty value,
@@ -146,13 +148,13 @@ The \textbf{gas limit} in the genesis block determines the gas limit of the
 first block. The gas limit of the subsequent blocks can be determined freely by
 the miners but must be contained in a range obtained by summing and subtracting
 to the gas limit a portion of itself~\cite{wood2018ethereum}. Thus, in a
-relative brief simulation the initial value is fundamental.
+relatively brief simulation the initial value is fundamental.
 
 
 \paragraph{Test Phase}
 After the setup phase, the real test begins by starting the execution of the
 \texttt{geth} instances on the different machines. The clients emit transactions
-that cause simple transfers of values that do not require the intervention of
+that cause simple transfers of values that do not require the execution of
 the EVM, with a predefined release time ($50$ ms), while the miners starts
 collecting transactions and creating blocks. The tests are stopped after a
 configurable time ($10$ minutes). For each configuration the tests are repeated
@@ -162,7 +164,7 @@ deterministic results.
 
 
 \paragraph{Concrete Parameters}
-We measure the throughput with different number of miners ($1$, $2$, $4$ and
+We measure the throughput with different numbers of miners ($1$, $2$, $4$ and
 $8$), fixing the number of clients at $16$ with two different gas limits. The
 miner machine executes only one \texttt{geth} instance in miner mode, while the
 client machines execute two instances in client mode. For our tests we used the
@@ -187,9 +189,10 @@ conducted.
 \paragraph{Maximal throughput - Low Gas Limit}
 \label{sec:max-troughput}
 For this test we used a gas limit of $3141592$, which corresponds to
-approximately $150 \cdot 21000$. The results are reported
+approximately $150 \cdot 21000$ gas units\footnote{$21000$ gas units is the cost
+for a transaction without EVM computations.}. The results are reported
 in~\autoref{tab:max-troughput}. We notice that in this case we could not exceed
-the $10$ transactions per second and that the number of transaction in each
+$10$ transactions per second and that the number of transactions in each
 block do not exceed $135$, although there would be enough space to add other
 transactions.
 
@@ -210,12 +213,12 @@ transactions.
 
 \paragraph{Maximal throughput - High gas limit}
 \label{sec:max-throughput-high-gaslimit}
-For this test we use a very large gas limit $10500000$ which corresponds to $500
-\cdot 21000$. To give a term of reference, we can consider that currently
+For this test we used a very large gas limit $10500000$ which corresponds to $500
+\cdot 21000$. For reference, currently
 (August 2018) the gas limit for the main Ethereum network is approximately $8$
-million, that corresponds roughly to $381 \cdot 21000$. The results are
+million, which corresponds roughly to $381 \cdot 21000$ gas units. The results are
 summarized in~\autoref{tab:max-troughput-high-gaslimit}. In this case with two
-configuration we could exceed the $15$ transactions per second.
+configurations, we could exceed $15$ transactions per second.
 
 \begin{table}[h!]
   \centering

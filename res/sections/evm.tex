@@ -1,11 +1,11 @@
 \subsubsection{Ethereum Virtual Machine}
 \label{sec:evm}
-The EVM is an abstract computing machine that enables the nodes of the Ethereum
-network to execute smart-contract codes.
+The EVM is a virtual machine that enables the nodes of the Ethereum network to
+execute smart-contract codes.
 
 \autoref{fig:evm} shows the components of the Ethereum Virtual Machine. The
-dashed lines represents the fact that there exists an EVM instruction that
-allows the transfer of data from one component to another.
+dashed lines represent the fact that there exists an EVM instruction that allows
+the transfer of data from one component to another.
 \begin{figure}
 	\begin{center}
 		\includegraphics[width=0.7\textwidth]
@@ -19,7 +19,7 @@ the stack item size are both $256$--bit\footnote{The motivation for this choice
 is to facilitate the Keccak-256 hash scheme and elliptic curve computation that
 are pervasive in Ethereum.}, and the stack capacity is $1024$. The EVM memory
 consists of a simple byte array and exists only during the execution. The size
-of this array is allocated using an on-demand logic. The storage is a key value
+of this array is allocated using an on-demand logic. The storage is a key-value
 hash table (stored as a merkle tree) that is persistent and is part of the state
 of the contract account. The program is stored on the blockchain and therefore
 cannot be modified\footnote{There exist techniques based on the strategy pattern
@@ -36,12 +36,15 @@ has happened. We provide more details about events in \autoref{sec:dapp} and
 we refer to the official specification~\cite[Appendix H]{wood2018ethereum}.
 
 Unlike the Bitcoin's \emph{Script} language~\cite{bib:masteringbitcoin} the
-Ethereum Virtual Machine can express and supports the execution of loops. To
-avoid the abuse of the resources (CPU and storage) of the full nodes forming the
-network, Ethereum introduces the concept of \emph{gas}~\cite{wood2018ethereum},
-which was described in~\autoref{sec:tx-execution}. In this execution model each
-instruction and each increase in the size of the memory or storage are bound to
-a cost expressed in gas.
+Ethereum Virtual Machine can express and support the execution of loops. This
+feature implies that the Ethereum execution environment is Turing complete
+enabling the implementation of arbitrary business logic. To avoid the abuse of
+the resources (CPU and storage) of the full nodes (see \autoref{sec:node-types})
+forming the network, Ethereum introduces the concept of
+\emph{gas}~\cite{wood2018ethereum}, which was described
+in~\autoref{sec:tx-execution}. In this execution model each instruction and each
+increase in the size of the memory or storage are bound to a cost expressed in
+gas.
 
 %~ The price of a gas unit ~ is known as \textbf{gas price} and is bound to a
 %particular execution. ~ Indeed this price is specified in the transaction or in
